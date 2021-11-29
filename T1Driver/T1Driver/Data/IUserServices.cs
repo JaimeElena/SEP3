@@ -1,4 +1,5 @@
-﻿using T1Driver.Models;
+﻿using System;
+using T1Driver.Models;
 
 namespace T1Driver.Data
 {
@@ -8,5 +9,9 @@ namespace T1Driver.Data
         void Register(string username, string password);
         Driver Login(string username, string password);
         void Logout();
+        Driver GetDriver(string username);
+
+        Driver EditDriver(int id, string username, string password, string firstName, string lastName,
+            DateTime birthday, string sex);
     }
 }

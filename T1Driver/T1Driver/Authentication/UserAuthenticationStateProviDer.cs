@@ -68,8 +68,14 @@ namespace T1Driver.Authentication
                 Task.FromResult(new AuthenticationState(new ClaimsPrincipal(identity))));
         }
 
+        public Driver GetUser()
+        {
+            return cachedUser;
+        }
+
         public void Logout()
         {
+            client.Logout();
             cachedUser = null;
             var driver = new ClaimsPrincipal(new ClaimsIdentity());
             jsRuntime.InvokeVoidAsync("sessionStorage.setItem", "currentUser", "");
@@ -82,5 +88,6 @@ namespace T1Driver.Authentication
             ClaimsIdentity identity = new ClaimsIdentity(claims, "apiauth_type");
             return identity;
         }
+        
     }
 }

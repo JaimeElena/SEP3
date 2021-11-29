@@ -78,5 +78,30 @@ namespace T1Driver.Services
             socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             Console.WriteLine("Logout");
         }
+
+        public Driver GetDriver(string username)
+        {
+            Request request = new Request()
+            {
+                Type = "get",
+                Body = new Driver() {username = username}
+            };
+            string backString = RequestReply(request);
+            Driver driver = JsonSerializer.Deserialize<Driver>(backString);
+            return driver;
+        }
+
+        public Driver EditDriver(int id, string username, string password, string firstName, string lastName,
+            DateTime birthday, string sex)
+        {
+            Request request = new Request()
+            {
+                Type = "edit",
+                Body = new Driver() {id = id, username = username, password = password, firstName = firstName, lastName = lastName, birthday = birthday, sex = sex}
+            };
+            string backString = RequestReply(request);
+            Driver driver = JsonSerializer.Deserialize<Driver>(backString);
+            return driver;
+        }
     }
 }

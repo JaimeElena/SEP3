@@ -123,13 +123,14 @@ using T1Driver.Authentication;
        
     private Driver CurrentUser;
 
+    public int id;
     private string message;
     private string username;
     private string password;
 
     IUserServices client = new UserServices();
 
-    public async Task PerformLogin()
+    private void PerformLogin()
     {
         message = "";
         try
@@ -147,7 +148,7 @@ using T1Driver.Authentication;
         }        
     }
     
-    public async Task PerformLogout()
+    private void PerformLogout()
     {
         message = "";
         username = "";
@@ -156,6 +157,8 @@ using T1Driver.Authentication;
         {
             ((UserAuthenticationStateProvider) AuthenticationStateProvider).Logout();
             message = "Logout succeed!";
+            Thread.Sleep(3000);
+            NavigationManager.NavigateTo("/");
         }
         catch (Exception e)
         {
@@ -163,7 +166,7 @@ using T1Driver.Authentication;
         }
     }
     
-    public async Task PerformRegister()
+    private void PerformRegister()
     {
         client.Connect();
         Thread.Sleep(100);
