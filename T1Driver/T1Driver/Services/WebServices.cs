@@ -38,16 +38,16 @@ namespace T1Driver.Services
             return reply;
         }
 
-        public string Register(string username, string password)
+        public string Register(string username, string password,int id)
         {
             Request request = new Request()
             {
                 Type = "register",
-                Body = new Driver() {password = password, username = username}
+                Body = new User() {password = password, username = username, id = id}
             };
 
             string backString = RequestReply(request);
-            Console.WriteLine(username + password);
+            Console.WriteLine(username + password+id);
 
             return backString;
         }
@@ -57,7 +57,7 @@ namespace T1Driver.Services
             Request request = new Request()
             {
                 Type = "login",
-                Body = new Driver() {password = password, username = username}
+                Body = new User() {password = password, username = username}
             };
 
             string backString = RequestReply(request);

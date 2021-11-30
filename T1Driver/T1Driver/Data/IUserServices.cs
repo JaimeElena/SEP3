@@ -6,7 +6,7 @@ namespace T1Driver.Data
     public interface IUserServices
     {
         void Connect();
-        void Register(string username, string password);
+        void Register(string username, string password, int id);
         Driver Login(string username, string password);
         void Logout();
         Driver GetDriver(string username);

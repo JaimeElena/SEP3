@@ -11,9 +11,9 @@ namespace T1Driver.Data
             ClientController.getInstance().Connect();
         }
 
-        public void Register(string username, string password)
+        public void Register(string username, string password, int id)
         {
-            ClientController.getInstance().Register(username,password);
+            ClientController.getInstance().Register(username,password,id);
         }
 
         public Driver Login(string username, string password)

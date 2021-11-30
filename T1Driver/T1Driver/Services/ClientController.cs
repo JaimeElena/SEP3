@@ -28,14 +28,14 @@ namespace T1Driver.Services
             WebInstance.Connect();
         }
 
-        public void Register(string username, string password)
+        public void Register(string username, string password, int id)
         {
             Driver driver = new Driver()
             {
                 username = username,
                 password = password
             };
-            WebInstance.Register(username, password);
+            WebInstance.Register(username, password, id);
         }
 
         public Driver Login(string username, string password)
