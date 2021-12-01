@@ -12,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Uber2.Data;
+using Uber2.Persistence;
 
 namespace Uber2
 {
@@ -28,6 +29,7 @@ namespace Uber2
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddDbContext<UberDBContext>();
             services.AddScoped<ICustomersService, SqliteCustomerService>();
             services.AddScoped<IDriversService, SqliteDriverService>();
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "Uber2", Version = "v1"}); });
