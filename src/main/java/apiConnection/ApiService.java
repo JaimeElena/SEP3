@@ -13,7 +13,7 @@ import java.net.http.HttpResponse;
 
 public class ApiService implements IApiService
 {
-    public static final String API_URL = "https://localhost:5001/Costumer";
+    public static final String API_URL = "https://localhost:5001/Costumer";//"https://localhost:5003/Customers"
     Gson gson = new Gson();
 
     @Override
