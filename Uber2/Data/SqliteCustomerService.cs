@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
@@ -58,6 +59,22 @@ namespace Uber2.Data
             {
                 throw new Exception($"Did not find customer with id{customer.id}");
             }
+        }
+
+        public async Task Login(string username, string password)
+        {
+            var existingCustomer = uberContext.Drivers.SingleOrDefault(x => x.username == username);
+            if (existingCustomer != null)
+            {
+                if (existingCustomer.password==password)
+                {
+                    existingCustomer.isLogged.Equals(true);
+                }
+
+                existingCustomer.isLogged.Equals(false);
+            }
+
+            existingCustomer.isLogged.Equals(false);
         }
     }
 }

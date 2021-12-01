@@ -29,6 +29,9 @@ namespace Uber2.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<bool>("isLogged")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("password")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -54,6 +57,9 @@ namespace Uber2.Migrations
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("isLogged")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("password")

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
@@ -55,5 +56,21 @@ namespace Uber2.Data
                 throw new Exception($"Did not find driver with id{driver.id}");
             }
         }
+
+        public async Task Login(string username, string password)
+        {
+            var existingDriver = uberContext.Drivers.SingleOrDefault(x => x.username == username);
+            if (existingDriver != null)
+            {
+                if (existingDriver.password==password)
+                {
+                    existingDriver.isLogged.Equals(true);
+                }
+
+                existingDriver.isLogged.Equals(false);
+            }
+
+            existingDriver.isLogged.Equals(false);
+        }
+        }
     }
-}
