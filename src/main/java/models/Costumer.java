@@ -5,23 +5,23 @@ import java.sql.Date;
 public class Costumer
 {
     private int id;
-    private String name;
+    private String username;
     private String password;
     private Date birthday;
     private String firstName;
     private String secondName;
 
-    public Costumer(int id, String name, String password)
+    public Costumer(int id, String username, String password)
     {
         this.id = id;
-        this.name = name;
+        this.username = username;
         this.password = password;
     }
 
     public Costumer( String username, String password)
     {
 
-        this.name = username;
+        this.username = username;
         this.password = password;
     }
 
@@ -32,7 +32,7 @@ public class Costumer
 
     public void setUsername(String username)
     {
-        this.name = username;
+        this.username = username;
     }
 
     public void setPassword(String password)
@@ -62,7 +62,7 @@ public class Costumer
 
     public String getUsername()
     {
-        return name;
+        return username;
     }
 
     public String getPassword()
@@ -87,6 +87,6 @@ public class Costumer
 
     public String toString()
     {
-        return "Id: " + id + "Username: " + name;
+        return "Id: " + id + "Username: " + username;
     }
 }
