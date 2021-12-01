@@ -40,8 +40,8 @@ namespace T1Driver.Services
 
         public Driver Login(string username, string password)
         {
-            
-            Driver driver = JsonSerializer.Deserialize<Driver>(WebInstance.Login(username, password));
+
+            Driver driver = WebInstance.Login(username, password);
             return driver;
         }
 

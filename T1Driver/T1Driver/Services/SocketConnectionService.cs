@@ -52,7 +52,7 @@ namespace T1Driver.Services
             return backString;
         }
 
-        public string Login(string username, string password)
+        public Driver Login(string username, string password)
         {
             Request request = new Request()
             {
@@ -63,7 +63,8 @@ namespace T1Driver.Services
             string backString = RequestReply(request);
             Console.WriteLine(username + password);
 
-            return backString;
+            Driver driver = JsonSerializer.Deserialize<Driver>(backString);
+            return driver;
         }
 
         public void Logout()

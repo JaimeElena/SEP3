@@ -8,7 +8,7 @@ namespace T1Driver.Services
         void Connect();
         string RequestReply(Request request);
         string Register(string username, string password, int id);
-        string Login(string username, string password);
+        Driver Login(string username, string password);
         void Logout();
         Driver GetDriver(string username);
 
