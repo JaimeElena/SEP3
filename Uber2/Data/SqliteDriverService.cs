@@ -72,5 +72,18 @@ namespace Uber2.Data
 
             existingDriver.isLogged.Equals(false);
         }
+
+        public async Task<Driver> SearchDriver(string username)
+        {
+            var list = uberContext.Drivers;
+            foreach (var driver in list)
+            {
+                if (driver.username == username)
+                {
+                    return driver;   
+                }
+            }
+            return null;
         }
+    }
     }

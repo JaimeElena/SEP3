@@ -12,5 +12,8 @@ namespace Uber2.Data
         Task<Customer>   UpdateCustomerAsync(Customer customer);
 
         Task Login(string username, string password);
+
+        Task<Customer> SearchCustomer(string username);
+        
     }
 }

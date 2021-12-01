@@ -12,5 +12,7 @@ namespace Uber2.Data
         Task<Driver>   UpdateDriverAsync(Driver driver);
 
         Task Login(string username, string password);
+        
+        Task<Driver> SearchDriver(string username);
     }
 }

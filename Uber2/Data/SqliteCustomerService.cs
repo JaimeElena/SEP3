@@ -63,7 +63,7 @@ namespace Uber2.Data
 
         public async Task Login(string username, string password)
         {
-            var existingCustomer = uberContext.Drivers.SingleOrDefault(x => x.username == username);
+            var existingCustomer = uberContext.Customers.SingleOrDefault(x => x.username == username);
             if (existingCustomer != null)
             {
                 if (existingCustomer.password==password)
@@ -75,6 +75,19 @@ namespace Uber2.Data
             }
 
             existingCustomer.isLogged.Equals(false);
+        }
+
+        public async Task<Customer> SearchCustomer(string username)
+        {
+            var list = uberContext.Customers;
+            foreach (var customer in list)
+            {
+                if (customer.username == username)
+                {
+                    return customer;   
+                }
+            }
+            return null;
         }
     }
 }
