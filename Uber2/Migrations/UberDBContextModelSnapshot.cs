@@ -22,11 +22,9 @@ namespace Uber2.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("birthday")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("firstname")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("isLogged")
@@ -37,11 +35,9 @@ namespace Uber2.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("secondname")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("sex")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("username")
