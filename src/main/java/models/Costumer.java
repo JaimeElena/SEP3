@@ -1,15 +1,15 @@
 package models;
 
-import java.sql.Date;
-
 public class Costumer
 {
     private int id;
     private String username;
     private String password;
-    private Date birthday;
+    private String birthday;
     private String firstName;
     private String secondName;
+    private String sex;
+    private boolean isLogged;
 
     public Costumer(int id, String username, String password)
     {
@@ -18,11 +18,15 @@ public class Costumer
         this.password = password;
     }
 
-    public Costumer( String username, String password)
+    public Costumer(String username, String password, String birthday, String firstName, String secondName, String sex, boolean isLogged)
     {
-
         this.username = username;
         this.password = password;
+        this.birthday = birthday;
+        this.firstName = firstName;
+        this.secondName = secondName;
+        this.sex = sex;
+        this.isLogged = isLogged;
     }
 
     public void setId(int id)
@@ -40,7 +44,7 @@ public class Costumer
         this.password = password;
     }
 
-    public void setBirthday(Date birthday)
+    public void setBirthday(String birthday)
     {
         this.birthday = birthday;
     }
@@ -70,7 +74,7 @@ public class Costumer
         return password;
     }
 
-    public Date getBirthday()
+    public String getBirthday()
     {
         return birthday;
     }
