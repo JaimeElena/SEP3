@@ -44,11 +44,11 @@ public class ApiService implements IApiService
     @Override
     public String Login(Costumer costumer) throws IOException, InterruptedException
     {
-        String jsonChangeAttribute = "{\"isLogged\": [\"true\"]";
+        String costumerJson = gson.toJson(costumer);
 
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(API_URL))
-                .method("PATCH", HttpRequest.BodyPublishers.ofString(jsonChangeAttribute))
+                .uri(URI.create(API_URL+"/Login"))
+                .POST(HttpRequest.BodyPublishers.ofString(costumerJson))
                 .header("Content-Type", "application/json")
                 .build();
         HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
@@ -71,5 +71,11 @@ public class ApiService implements IApiService
 
         System.out.println(jsonArray.toString());
         return jsonArray;
+    }
+
+    @Override
+    public Costumer GetCostumerByUsername(String username) throws IOException, InterruptedException
+    {
+        return null;
     }
 }

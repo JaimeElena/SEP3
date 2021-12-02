@@ -68,6 +68,14 @@ public class ClientThread extends Thread
                     out.write("Success".getBytes());
                     json = "";
                 }
+                else if(request.getType().equals("edit"))
+                {
+                    String username = request.getBody().toString();
+                    Costumer costumer = apiService.GetCostumerByUsername(username);
+                    String costumerJson = gson.toJson(costumer);
+                    out.write(costumerJson.getBytes());
+                    json = "";
+                }
             }
         }
         catch (Exception e)
