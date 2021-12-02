@@ -61,7 +61,7 @@ namespace Uber2.Controllers
             }
             try
             {
-                Customer added = await customersService.AddCustomerAsync(customer);
+                Customer added = await customersService.RegisterCustomerAsync(customer);
                 return Created($"/{added.id}",added);
             } catch (Exception e) {
                 Console.WriteLine(e);

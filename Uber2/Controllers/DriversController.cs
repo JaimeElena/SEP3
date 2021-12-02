@@ -61,7 +61,7 @@ namespace Uber2.Controllers
             }
             try
             {
-                Driver added = await driverService.AddDriverAsync(driver);
+                Driver added = await driverService.RegisterDriverAsync(driver);
                 return Created($"/{added.id}",added);
             } catch (Exception e) {
                 Console.WriteLine(e);

@@ -23,7 +23,7 @@ namespace Uber2.Data
             return await uberContext.Drivers.ToListAsync();
         }
 
-        public async Task<Driver> AddDriverAsync(Driver driver)
+        public async Task<Driver> RegisterDriverAsync(Driver driver)
         {
             EntityEntry<Driver> driverAdd = await uberContext.Drivers.AddAsync(driver);
             await uberContext.SaveChangesAsync();

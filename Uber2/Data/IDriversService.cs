@@ -7,7 +7,7 @@ namespace Uber2.Data
     public interface IDriversService
     {
         Task<IList<Driver>> GetDriversAsync();
-        Task<Driver>   AddDriverAsync(Driver driver);
+        Task<Driver>   RegisterDriverAsync(Driver driver);
         Task   RemoveDriverAsync(int driverId);
         Task<Driver>   UpdateDriverAsync(Driver driver);
 

@@ -23,7 +23,7 @@ namespace Uber2.Data
             return await uberContext.Customers.ToListAsync();
         }
 
-        public async Task<Customer> AddCustomerAsync(Customer customer)
+        public async Task<Customer> RegisterCustomerAsync(Customer customer)
         {
             EntityEntry<Customer> customerAdd = await uberContext.Customers.AddAsync(customer);
             await uberContext.SaveChangesAsync();
