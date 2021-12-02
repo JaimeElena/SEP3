@@ -1,0 +1,93 @@
+﻿@page "/login"
+@using UberT1Costumer.Models
+@using UberT1Costumer.Data
+@using System.Threading
+@using UberT1Costumer.Authentication
+
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject NavigationManager NavigationManager
+<AuthorizeView>
+    <NotAuthorized>
+        <h3>Login</h3>
+        <div id="logIn">
+            <div >Username </div> <input type="text" placeholder="username" @bind-value="username"/>
+            <div id="password"> Password </div> <input type="password" placeholder="password" @bind-value="password"/>
+            <div>
+                <button id="logButt" @onclick="PerformLogin"> Log in </button>
+                <button id="registerButt" @onclick="PerformRegister"> Sign Up</button>
+            </div>
+            <div style="color:red">@message</div>
+        </div>
+    </NotAuthorized>
+    <Authorized>
+        <h3>You are signed in!</h3>
+        <button id="logoutButt" @onclick="PerformLogout"> Log out</button>
+        </Authorized>
+</AuthorizeView>
+
+@code {
+    private Costumer CurrentUser;
+
+    private string message;
+    private string username;
+    private string password;
+
+    IUserServices client = new UserServices();
+
+    public async Task PerformLogin()
+    {
+        message = "";
+        try
+        {
+            client.Connect();
+            Thread.Sleep(100);
+            client.Login(username, password);
+            string backCode = "";
+
+            if(backCode.Equals("0"))
+            {
+                ((UserAuthenticationStateProvider)AuthenticationStateProvider).ValidateLogin(username, password);
+            }
+
+
+            message = "Login succeed!";
+
+        }
+        catch (Exception e)
+        {
+            message = "Username or password is incorrect!";
+            Console.WriteLine(e);
+        }
+    }
+
+    public async Task PerformLogout()
+    {
+        message = "";
+        username = "";
+        password = "";
+        try
+        {
+            ((UserAuthenticationStateProvider) AuthenticationStateProvider).Logout();
+            message = "Logout succeed!";
+        }
+        catch (Exception e)
+        {
+            message = e.Message;
+        }
+    }
+
+    public async Task PerformRegister()
+    {
+        client.Connect();
+        Thread.Sleep(100);
+        string response = client.Register(username, password);
+        if(response.Equals("200"))
+        {
+            Console.WriteLine("Register was successful");
+        }
+        else
+        {
+
+        }
+    }
+}
