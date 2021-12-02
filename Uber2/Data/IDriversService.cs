@@ -11,7 +11,7 @@ namespace Uber2.Data
         Task   RemoveDriverAsync(int driverId);
         Task<Driver>   EditDriverInfoAsync(Driver driver);
 
-        Task Login(string username, string password);
+        Task<Driver> Login(string username, string password);
         
         Task<Driver> SearchDriver(string username);
     }

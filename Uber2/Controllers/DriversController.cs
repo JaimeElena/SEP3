@@ -94,7 +94,7 @@ namespace Uber2.Controllers
                     Console.WriteLine("Tier 3 log in failed");
                     return BadRequest(new {message = "Username or password is incorrect"});
                 }
-                return Ok(new {message = "201"});
+                return Ok(driverService.SearchDriver(driver.username));
             }
             catch (Exception e)
             {
