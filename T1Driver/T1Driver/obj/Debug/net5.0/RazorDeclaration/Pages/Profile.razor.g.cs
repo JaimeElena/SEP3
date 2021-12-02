@@ -119,7 +119,7 @@ using System.Threading;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 57 "C:\Users\Lokkaze\Desktop\uni\SEP3\code\Tier1\T1Driver\T1Driver\Pages\Profile.razor"
+#line 92 "C:\Users\Lokkaze\Desktop\uni\SEP3\code\Tier1\T1Driver\T1Driver\Pages\Profile.razor"
        
     private Driver CurrentUser;
 
@@ -131,8 +131,9 @@ using System.Threading;
     private string lastName;
     private DateTime birthday;
     private string sex;
-    
-    
+
+    private bool show = true;
+    private bool showEdit;
 
     IUserServices client = new UserServices();
     
@@ -189,6 +190,26 @@ using System.Threading;
         {
             message = e.Message;
         }
+    }
+
+    private void Show()
+    {
+        show = true;
+    }
+
+    private void Hidden()
+    {
+        show = false;
+    }
+
+    private void ShowEdit()
+    {
+        showEdit = true;
+    }
+
+    private void CancelEdit()
+    {
+        showEdit = false;
     }
 
 #line default

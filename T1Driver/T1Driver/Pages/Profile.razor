@@ -15,41 +15,76 @@
                 @{
                     Initialize();
                 }
-                <EditForm Model="CurrentUser" OnValidSubmit="SaveEdit">
-                    <DataAnnotationsValidator/>
-                    <ValidationSummary/>
-                    <div class="form-group">
-                        Username:<br/>
-                        <InputTextArea @bind-Value="CurrentUser.username"/>
-                    </div>
-                    <div class="form-group">
-                        Password:<br/>
-                        <InputTextArea @bind-Value="CurrentUser.password"/>
-                    </div>
-                    <div class="form-group">
-                        First Name:<br/>
-                        <InputTextArea @bind-Value="CurrentUser.firstName"/>
-                    </div>
-                    <div class="form-group">
-                        Last Name:<br/>
-                        <InputTextArea @bind-Value="CurrentUser.lastName"/>
-                    </div>
-                    <div class="form-group">
-                        Birthday:<br/>
-                        <InputDate @bind-Value="CurrentUser.birthday" @bind-Value:format="dd/MM/yyyy"/>
-                    </div>
-                    <div class="form-group"> Gender:
-                        <select class="form-control selectpicker" @onchange="arg => ChangeGender(arg)">
-                            <option>Male</option>
-                            <option>Female</option>
-                        </select>
-                    </div>
-                    <p class="actions">
-                        <button class="btn btn-outline-dark" type="submit">Save</button>
-                    </p>
-                    <button class="btn btn-outline-dark" @onclick="Initialize">Reset</button>
-                    <button class="btn btn-outline-dark" @onclick="PerformLogout">Logout</button>
-                </EditForm>
+                @{
+                    if (show)
+                    {
+                        <div class="form-group">
+                            Username:<br/>
+                            <label @bind="CurrentUser.username"></label>
+                        </div>
+                        <div class="form-group">
+                            Password:<br/>
+                            <label @bind="CurrentUser.password"></label>
+                        </div>
+                        <div class="form-group">
+                            First name:<br/>
+                            <label @bind="CurrentUser.firstName"></label>
+                        </div>
+                        <div class="form-group">
+                            Last name:<br/>
+                            <label @bind="CurrentUser.lastName"></label>
+                        </div>
+                        <div class="form-group">
+                            Birthday:<br/>
+                            <label @bind="CurrentUser.birthday"></label>
+                        </div>
+                        <div class="form-group">
+                            Gender:<br/>
+                            <label @bind="CurrentUser.sex"></label>
+                        </div>
+                        <button class="btn btn-outline-dark" @onclick="@(() => {Hidden();ShowEdit();})">Edit</button>
+                    }
+                }
+
+                @{
+                    if (showEdit)
+                    {
+                        <EditForm Model="CurrentUser" OnValidSubmit="SaveEdit">
+                            <DataAnnotationsValidator/>
+                            <ValidationSummary/>
+                            <div class="form-group">
+                                Username:<br/>
+                                <InputTextArea @bind-Value="CurrentUser.username"/>
+                            </div>
+                            <div class="form-group">
+                                Password:<br/>
+                                <InputTextArea @bind-Value="CurrentUser.password"/>
+                            </div>
+                            <div class="form-group">
+                                First Name:<br/>
+                                <InputTextArea @bind-Value="CurrentUser.firstName"/>
+                            </div>
+                            <div class="form-group">
+                                Last Name:<br/>
+                                <InputTextArea @bind-Value="CurrentUser.lastName"/>
+                            </div>
+                            <div class="form-group">
+                                Birthday:<br/>
+                                <InputDate @bind-Value="CurrentUser.birthday" @bind-Value:format="dd/MM/yyyy"/>
+                            </div>
+                            <div class="form-group"> Gender:
+                                <select class="form-control selectpicker" @onchange="arg => ChangeGender(arg)">
+                                    <option>Male</option>
+                                    <option>Female</option>
+                                </select>
+                            </div>
+                            <p class="actions">
+                                <button class="btn btn-outline-dark" type="submit">Save</button>
+                            </p>
+                            <button class="btn btn-outline-dark" @onclick="@(() => {Initialize();CancelEdit();})">Cancel</button>
+                        </EditForm>
+                    }
+                }
             </Authorized>
         </ChildContent>
 </AuthorizeView>
@@ -65,8 +100,9 @@
     private string lastName;
     private DateTime birthday;
     private string sex;
-    
-    
+
+    private bool show = true;
+    private bool showEdit;
 
     IUserServices client = new UserServices();
     
@@ -123,5 +159,25 @@
         {
             message = e.Message;
         }
+    }
+
+    private void Show()
+    {
+        show = true;
+    }
+
+    private void Hidden()
+    {
+        show = false;
+    }
+
+    private void ShowEdit()
+    {
+        showEdit = true;
+    }
+
+    private void CancelEdit()
+    {
+        showEdit = false;
     }
 }
