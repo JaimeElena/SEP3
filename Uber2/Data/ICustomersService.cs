@@ -11,7 +11,7 @@ namespace Uber2.Data
         Task   RemoveCustomerAsync(int customerId);
         Task<Customer>   EditCustomerInfoAsync(Customer customer);
 
-        Task Login(string username, string password);
+        Task<Customer> Login(string username, string password);
 
         Task<Customer> SearchCustomer(string username);
         

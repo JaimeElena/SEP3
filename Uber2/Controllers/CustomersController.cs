@@ -84,23 +84,36 @@ namespace Uber2.Controllers
         }
 
         [HttpPost("Login")]
-        public async Task<ActionResult> LoginCustomer([FromBody] Customer customer)
+        public async Task<ActionResult<Customer>> LoginCustomer([FromBody] Customer customer)
         {
             try
             {
                 var result = customersService.Login(customer.username, customer.password);
+                
                 if (result.Equals(false))
                 {
                     Console.WriteLine("Tier 3 log in failed");
                     return BadRequest(new {message = "Username or password is incorrect"});
                 }
-                return Ok(new {message = "201"});
+                return Ok(customersService.SearchCustomer(customer.username));
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
                 return StatusCode(500, e.Message);
             }
+        }
+
+        [HttpGet("GetCustomerInfo/{username}")]
+        public async Task<ActionResult> GetCustomerInfo(string username)
+        {
+            Task<Customer> customer = customersService.SearchCustomer(username);
+            if (customer != null)
+            {
+                return Ok(customer);
+            }
+            Console.WriteLine(username);
+            return BadRequest("username not found");
         }
     }
 }

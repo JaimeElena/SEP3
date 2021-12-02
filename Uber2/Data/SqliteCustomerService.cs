@@ -61,7 +61,7 @@ namespace Uber2.Data
             }
         }
 
-        public async Task Login(string username, string password)
+        public async Task<Customer> Login(string username, string password)
         {
             var existingCustomer = uberContext.Customers.SingleOrDefault(x => x.username == username);
             if (existingCustomer != null)
@@ -76,6 +76,8 @@ namespace Uber2.Data
             {
                 existingCustomer.isLogged = false;
             }
+
+            return existingCustomer;
         }
 
         public async Task<Customer> SearchCustomer(string username)
