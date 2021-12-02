@@ -9,7 +9,7 @@ namespace Uber2.Data
         Task<IList<Customer>> GetCustomersAsync();
         Task<Customer>   RegisterCustomerAsync(Customer customer);
         Task   RemoveCustomerAsync(int customerId);
-        Task<Customer>   UpdateCustomerAsync(Customer customer);
+        Task<Customer>   EditCustomerInfoAsync(Customer customer);
 
         Task Login(string username, string password);
 

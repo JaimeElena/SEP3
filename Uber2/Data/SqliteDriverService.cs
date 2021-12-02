@@ -40,7 +40,7 @@ namespace Uber2.Data
             }
         }
 
-        public async Task<Driver> UpdateDriverAsync(Driver driver)
+        public async Task<Driver> EditDriverInfoAsync(Driver driver)
         {
             try
             {

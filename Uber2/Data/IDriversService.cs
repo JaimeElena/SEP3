@@ -9,7 +9,7 @@ namespace Uber2.Data
         Task<IList<Driver>> GetDriversAsync();
         Task<Driver>   RegisterDriverAsync(Driver driver);
         Task   RemoveDriverAsync(int driverId);
-        Task<Driver>   UpdateDriverAsync(Driver driver);
+        Task<Driver>   EditDriverInfoAsync(Driver driver);
 
         Task Login(string username, string password);
         

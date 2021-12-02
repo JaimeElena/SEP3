@@ -40,7 +40,7 @@ namespace Uber2.Data
             }
         }
 
-        public async Task<Customer> UpdateCustomerAsync(Customer customer)
+        public async Task<Customer> EditCustomerInfoAsync(Customer customer)
         {
             try
             {
