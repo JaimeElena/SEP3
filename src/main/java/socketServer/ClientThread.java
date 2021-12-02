@@ -57,7 +57,8 @@ public class ClientThread extends Thread
                 {
                     Costumer costumer = gson.fromJson(request.getBody().toString(), Costumer.class);
                     System.out.println(costumer.toString());
-                    out.write("Success".getBytes());
+                    String apiResponse = apiService.Register(costumer);
+                    out.write(apiResponse.getBytes());
                     json = "";
                 }
                 else if(request.getType().equals("edit"))

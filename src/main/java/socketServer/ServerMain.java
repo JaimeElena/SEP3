@@ -12,7 +12,7 @@ public class ServerMain
     {
         try
         {
-            serverSocket = new ServerSocket(5000);
+            serverSocket = new ServerSocket(5201);
             System.out.println("Server started...");
         }
         catch (IOException e)
