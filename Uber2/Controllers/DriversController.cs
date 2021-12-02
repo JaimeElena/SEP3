@@ -82,5 +82,25 @@ namespace Uber2.Controllers
                 return StatusCode(500, e.Message);
             }
         }
+        
+        [HttpPost("Login")]
+        public async Task<ActionResult> LoginDriver([FromBody] Driver driver)
+        {
+            try
+            {
+                var result = driverService.Login(driver.username, driver.password);
+                if (result.Equals(false))
+                {
+                    Console.WriteLine("Tier 3 log in failed");
+                    return BadRequest(new {message = "Username or password is incorrect"});
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return StatusCode(500, e.Message);
+            }
+            return Ok(new {message = "Driver Login success"});
+        }
     }
 }

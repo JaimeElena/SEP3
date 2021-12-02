@@ -91,7 +91,7 @@ namespace Uber2.Controllers
                 var result = customersService.Login(customer.username, customer.password);
                 if (result.Equals(false))
                 {
-                    Console.WriteLine("tier 3 log in failed");
+                    Console.WriteLine("Tier 3 log in failed");
                     return BadRequest(new {message = "Username or password is incorrect"});
                 }
             }
@@ -100,7 +100,7 @@ namespace Uber2.Controllers
                 Console.WriteLine(e);
                 return StatusCode(500, e.Message);
             }
-            return Ok(new {message = "Login success"});
+            return Ok(new {message = "Customer Login success"});
         }
     }
 }
