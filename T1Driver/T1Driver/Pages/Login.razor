@@ -72,11 +72,18 @@
             message = e.Message;
         }
     }
-    
+
     private void PerformRegister()
     {
-        client.Connect();
-        Thread.Sleep(100);
-        client.Register(username, password, id);
+        if (username == ""|| password == "")
+        {
+            message = "You should fill up username and password!";
+        }
+        else
+        {
+            client.Connect();
+            Thread.Sleep(100);
+            client.Register(username, password, id);
+        }
     }
 }
