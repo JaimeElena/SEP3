@@ -94,13 +94,13 @@ namespace Uber2.Controllers
                     Console.WriteLine("Tier 3 log in failed");
                     return BadRequest(new {message = "Username or password is incorrect"});
                 }
+                return Ok(new {message = "Customer Login success"});
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
                 return StatusCode(500, e.Message);
             }
-            return Ok(new {message = "Customer Login success"});
         }
     }
 }

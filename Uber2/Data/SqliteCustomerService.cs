@@ -68,13 +68,14 @@ namespace Uber2.Data
             {
                 if (existingCustomer.password==password)
                 {
-                    existingCustomer.isLogged.Equals(true);
+                    existingCustomer.isLogged = true;
+                    await uberContext.SaveChangesAsync();
                 }
-
-                existingCustomer.isLogged.Equals(false);
             }
-
-            existingCustomer.isLogged.Equals(false);
+            else
+            {
+                existingCustomer.isLogged = false;
+            }
         }
 
         public async Task<Customer> SearchCustomer(string username)

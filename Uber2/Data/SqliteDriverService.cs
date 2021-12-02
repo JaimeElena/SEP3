@@ -64,13 +64,14 @@ namespace Uber2.Data
             {
                 if (existingDriver.password==password)
                 {
-                    existingDriver.isLogged.Equals(true);
+                    existingDriver.isLogged = true;
+                    await uberContext.SaveChangesAsync();
                 }
-
-                existingDriver.isLogged.Equals(false);
             }
-
-            existingDriver.isLogged.Equals(false);
+            else
+            {
+                existingDriver.isLogged = false;
+            }
         }
 
         public async Task<Driver> SearchDriver(string username)
