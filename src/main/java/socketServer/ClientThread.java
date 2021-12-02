@@ -61,9 +61,12 @@ public class ClientThread extends Thread
                     out.write(apiResponse.getBytes());
                     json = "";
                 }
-                else if(request.getType().equals("edit"))
+                else if(request.getType().equals("login"))
                 {
-
+                    Costumer costumer = gson.fromJson(request.getBody().toString(), Costumer.class);
+                    System.out.println(costumer.toString());
+                    out.write("Success".getBytes());
+                    json = "";
                 }
             }
         }

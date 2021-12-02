@@ -11,9 +11,8 @@ public class Costumer
     private String sex;
     private boolean isLogged;
 
-    public Costumer(int id, String username, String password)
+    public Costumer(String username, String password)
     {
-        this.id = id;
         this.username = username;
         this.password = password;
     }
