@@ -1,10 +1,13 @@
-﻿namespace Uber2.Models
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+
+namespace Uber2.Models
 {
     public class Order
     {
-        public int order_id { get; set; }
-        public long from { get; set; }
-        public long to { get; set; }
-        public string orderdate { get; set; }
+        [Key]public int id { get; set; }
+        public Location from { get; set; }
+        public Location to { get; set; }
+        public DateTime orderdate { get; set; }
     }
 }

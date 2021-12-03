@@ -9,5 +9,9 @@ namespace Uber2.Data
         Task<IList<Order>> GetOrdersAsync();
         
         Task<Order> SearchOrder(int id);
+
+        Task<Location> GetFromLocation();
+
+        Task<Location> GetToLocation();
     }
 }

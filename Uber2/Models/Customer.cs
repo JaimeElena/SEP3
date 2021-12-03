@@ -5,7 +5,6 @@ namespace Uber2.Models
 {
     public class Customer:User
     {
-        
         public string birthday { get; set; }
         
         public string firstname{ get; set; }

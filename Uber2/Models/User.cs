@@ -8,9 +8,10 @@ namespace Uber2.Models
         [Key] public int id { get; set; }
         
         [Required] public string username { get; set; }
+        
         [Required] public string password { get; set; }
         
+        
          [Required,DefaultValue(false)]public bool isLogged { get; set; }
-
     }
 }
