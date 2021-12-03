@@ -69,17 +69,43 @@ namespace UberT1Costumer.Services
             return backString;
         }
 
-        public void Logout()
+        public void Logout(Costumer costumer)
         {
             Request request = new Request()
             {
-                Type = "logout"
+                Type = "logout",
+                Body = costumer
             };
 
             string backString = RequestReply(request);
             socket.Close();
-            socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             Console.WriteLine("Logout");
         }
+        
+        public Costumer GetCostumer(string username)
+        {
+            Request request = new Request()
+            {
+                Type = "get",
+                Body = new Costumer() {username = username}
+            };
+            string backString = RequestReply(request);
+            Costumer costumer = JsonSerializer.Deserialize<Costumer>(backString);
+            return costumer;
+        }
+
+        public Costumer EditCostumer(int id, string username, string password, string firstName, string secondName,
+            string birthday, string sex)
+        {
+            Request request = new Request()
+            {
+                Type = "edit",
+                Body = new Costumer() {id = id, username = username, password = password, firstName = firstName, secondName = secondName, birthday = birthday, sex = sex}
+            };
+            string backString = RequestReply(request);
+            Costumer costumer = JsonSerializer.Deserialize<Costumer>(backString);
+            return costumer;
+        }
+        
     }
 }

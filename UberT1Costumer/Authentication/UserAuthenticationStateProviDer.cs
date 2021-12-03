@@ -55,6 +55,7 @@ namespace UberT1Costumer.Authentication
             ClaimsIdentity identity = new ClaimsIdentity();
             try
             {
+                client.Connect();
                 Costumer costumer = client.Login(username, password);
                 identity = SetupClaimsForUser(costumer);
                 string serialisedData = JsonSerializer.Serialize(costumer);
@@ -63,20 +64,27 @@ namespace UberT1Costumer.Authentication
             }
             catch (Exception e)
             {
-                throw e;
+                Console.WriteLine(e.Message);
             }
 
             NotifyAuthenticationStateChanged(
                 Task.FromResult(new AuthenticationState(new ClaimsPrincipal(identity))));
         }
+        
+        public Costumer GetUser()
+        {
+            return cachedUser;
+        }
 
         public void Logout()
         {
+            client.Logout(cachedUser);
             cachedUser = null;
             var costumer = new ClaimsPrincipal(new ClaimsIdentity());
             jsRuntime.InvokeVoidAsync("sessionStorage.setItem", "currentUser", "");
             NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(costumer)));
         }
+        
             
         private ClaimsIdentity SetupClaimsForUser(Costumer user) {
             List<Claim> claims = new List<Claim>();

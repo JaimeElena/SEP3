@@ -1,0 +1,165 @@
+﻿@page "/Profile"
+@using UberT1Costumer.Models
+@using UberT1Costumer.Data
+@using UberT1Costumer.Authentication
+@using System.Threading
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject NavigationManager NavigationManager
+<h3>Profile</h3>
+<AuthorizeView>
+    <NotAuthorized>
+        <h3>You need to login before access!</h3>
+    </NotAuthorized>
+        <ChildContent Context="another_name">
+            <Authorized>
+                @{
+                    Initialize();
+                }
+                @{
+                    if (show)
+                    {
+                        <div class="form-group">
+                            Username:<br/>
+                            <label @bind="CurrentUser.username"></label>
+                        </div>
+                        <div class="form-group">
+                            Password:<br/>
+                            <label @bind="CurrentUser.password"></label>
+                        </div>
+                        <div class="form-group">
+                            First name:<br/>
+                            <label @bind="CurrentUser.firstName"></label>
+                        </div>
+                        <div class="form-group">
+                            Last name:<br/>
+                            <label @bind="CurrentUser.secondName"></label>
+                        </div>
+                        <div class="form-group">
+                            Birthday:<br/>
+                            <label @bind="CurrentUser.birthday"></label>
+                        </div>
+                        <div class="form-group">
+                            Gender:<br/>
+                            <label @bind="CurrentUser.sex"></label>
+                        </div>
+                        <button class="btn btn-outline-dark" @onclick="@(() => {Hidden();ShowEdit();})">Edit</button>
+                    }
+                }
+
+                @{
+                    if (showEdit)
+                    {
+                        <EditForm Model="CurrentUser" OnValidSubmit="SaveEdit">
+                            <DataAnnotationsValidator/>
+                            <ValidationSummary/>
+                            <div class="form-group">
+                                Username:<br/>
+                                <InputTextArea @bind-Value="CurrentUser.username"/>
+                            </div>
+                            <div class="form-group">
+                                Password:<br/>
+                                <InputTextArea @bind-Value="CurrentUser.password"/>
+                            </div>
+                            <div class="form-group">
+                                First Name:<br/>
+                                <InputTextArea @bind-Value="CurrentUser.firstName"/>
+                            </div>
+                            <div class="form-group">
+                                Last Name:<br/>
+                                <InputTextArea @bind-Value="CurrentUser.secondName"/>
+                            </div>
+                            <div class="form-group">
+                                Birthday:<br/>
+                                <InputDate @bind-Value="CurrentUser.birthday" @bind-Value:format="dd/MM/yyyy"/>
+                            </div>
+                            <div class="form-group"> Gender:
+                                <select class="form-control selectpicker" @onchange="arg => ChangeGender(arg)">
+                                    <option>Male</option>
+                                    <option>Female</option>
+                                </select>
+                            </div>
+                            <p class="actions">
+                                <button class="btn btn-outline-dark" type="submit">Save</button>
+                            </p>
+                            <button class="btn btn-outline-dark" @onclick="@(() => {Initialize();CancelEdit();})">Cancel</button>
+                        </EditForm>
+                    }
+                }
+            </Authorized>
+        </ChildContent>
+</AuthorizeView>
+
+@code {
+    private Costumer CurrentUser;
+
+    private string message;
+    private int id;
+    private string username;
+    private string password;
+    private string firstName;
+    private string secondName;
+    private string birthday;
+    private string sex;
+
+    private bool show = true;
+    private bool showEdit;
+
+    IUserServices client = new UserServices();
+
+    private void Initialize()
+    {
+        CurrentUser = ((UserAuthenticationStateProvider) AuthenticationStateProvider).GetUser();
+        id = CurrentUser.id;
+        username = CurrentUser.username;
+        password = CurrentUser.password;
+        firstName = CurrentUser.firstName;
+        secondName = CurrentUser.secondName;
+        birthday = CurrentUser.birthday;
+        sex = CurrentUser.sex;
+    }
+    
+    private void ChangeGender(ChangeEventArgs args)
+    {
+        CurrentUser.sex = null;
+        try
+        {
+            CurrentUser.sex = args.Value.ToString();
+        }
+        catch (Exception e){}
+        
+    }
+
+    private void SaveEdit()
+    {
+        try
+        {
+            client.EditCostumer(id, username, password, firstName, secondName, birthday, sex);
+            message = "Change saved!";
+            Thread.Sleep(1000);
+        }
+        catch (Exception e)
+        {
+            message = e.Message;
+        }
+    }
+
+    private void Show()
+    {
+        show = true;
+    }
+
+    private void Hidden()
+    {
+        show = false;
+    }
+
+    private void ShowEdit()
+    {
+        showEdit = true;
+    }
+
+    private void CancelEdit()
+    {
+        showEdit = false;
+    }
+}

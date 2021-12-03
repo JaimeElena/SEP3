@@ -39,19 +39,9 @@
         message = "";
         try
         {
-            client.Connect();
-            Thread.Sleep(100);
-            client.Login(username, password);
-            string backCode = "";
-
-            if(backCode.Equals("0"))
-            {
-                ((UserAuthenticationStateProvider)AuthenticationStateProvider).ValidateLogin(username, password);
-            }
-
-
+            ((UserAuthenticationStateProvider)AuthenticationStateProvider).ValidateLogin(username, password);
             message = "Login succeed!";
-
+            
         }
         catch (Exception e)
         {
@@ -69,6 +59,8 @@
         {
             ((UserAuthenticationStateProvider) AuthenticationStateProvider).Logout();
             message = "Logout succeed!";
+            Thread.Sleep(3000);
+            NavigationManager.NavigateTo("/");
         }
         catch (Exception e)
         {
@@ -78,16 +70,20 @@
 
     public async Task PerformRegister()
     {
-        client.Connect();
-        Thread.Sleep(100);
-        string response = client.Register(username, password);
-        if(response.Equals("200"))
+        if (username == ""|| password == "")
         {
-            Console.WriteLine("Register was successful");
+            message = "You should fill up username and password!";
         }
         else
         {
-
+            client.Connect();
+            Thread.Sleep(100);
+            string response = client.Register(username, password);
+            if(response.Equals("200"))
+            {
+                Console.WriteLine("Register was successful");
+            }
         }
+        
     }
 }
