@@ -26,8 +26,20 @@ namespace Uber2.Data
         public async Task<Customer> RegisterCustomerAsync(Customer customer)
         {
             EntityEntry<Customer> customerAdd = await uberContext.Customers.AddAsync(customer);
-            await uberContext.SaveChangesAsync();
-            return customerAdd.Entity;
+            var list = uberContext.Customers;
+            foreach (var check in list)
+            {
+                if (check.username == customer.username)
+                {
+                    Console.WriteLine("Username alreadly existed.");   
+                }
+                else
+                {
+                    await uberContext.SaveChangesAsync();
+                    return customerAdd.Entity;
+                }
+            }
+            return null;
         }
 
         public async Task RemoveCustomerAsync(int customerId)
