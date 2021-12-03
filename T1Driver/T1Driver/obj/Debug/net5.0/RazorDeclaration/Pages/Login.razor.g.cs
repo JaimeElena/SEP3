@@ -119,24 +119,21 @@ using T1Driver.Authentication;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 29 "C:\Users\Lokkaze\Desktop\uni\SEP3\code\Tier1\T1Driver\T1Driver\Pages\Login.razor"
+#line 28 "C:\Users\Lokkaze\Desktop\uni\SEP3\code\Tier1\T1Driver\T1Driver\Pages\Login.razor"
        
     private Driver CurrentUser;
 
-    public int id;
     private string message;
     private string username;
     private string password;
 
     IUserServices client = new UserServices();
     
-    private void PerformLogin()
+    private async Task PerformLogin()
     {
         message = "";
         try
         {
-            client.Connect();
-            Thread.Sleep(100);
             ((UserAuthenticationStateProvider) AuthenticationStateProvider).ValidateLogin(username, password);
             message = "Login succeed!";
 
@@ -148,7 +145,7 @@ using T1Driver.Authentication;
         }        
     }
     
-    private void PerformLogout()
+    private async Task PerformLogout()
     {
         message = "";
         username = "";
@@ -166,7 +163,7 @@ using T1Driver.Authentication;
         }
     }
 
-    private void PerformRegister()
+    private async Task PerformRegister()
     {
         if (username == ""|| password == "")
         {
@@ -176,7 +173,11 @@ using T1Driver.Authentication;
         {
             client.Connect();
             Thread.Sleep(100);
-            client.Register(username, password, id);
+            string response = client.Register(username, password);
+            if(response.Equals("200"))
+            {
+                Console.WriteLine("Register was successful");
+            }
         }
     }
 

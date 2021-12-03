@@ -128,32 +128,14 @@ using System.Threading;
     private string username;
     private string password;
     private string firstName;
-    private string lastName;
-    private DateTime birthday;
+    private string secondName;
+    private string birthday;
     private string sex;
 
     private bool show = true;
     private bool showEdit;
 
     IUserServices client = new UserServices();
-    
-    private void PerformLogout()
-    {
-        message = "Logout Succeed!";
-        username = "";
-        password = "";
-        try
-        {
-            ((UserAuthenticationStateProvider) AuthenticationStateProvider).Logout();
-            message = "Logout succeed!";
-            Thread.Sleep(3000);
-            NavigationManager.NavigateTo("/");
-        }
-        catch (Exception e)
-        {
-            message = e.Message;
-        }
-    }
 
     private void Initialize()
     {
@@ -162,7 +144,7 @@ using System.Threading;
         username = CurrentUser.username;
         password = CurrentUser.password;
         firstName = CurrentUser.firstName;
-        lastName = CurrentUser.lastName;
+        secondName = CurrentUser.secondName;
         birthday = CurrentUser.birthday;
         sex = CurrentUser.sex;
     }
@@ -182,7 +164,7 @@ using System.Threading;
     {
         try
         {
-            client.EditDriver(id, username, password, firstName, lastName, birthday, sex);
+            client.EditDriver(id, username, password, firstName, secondName, birthday, sex);
             message = "Change saved!";
             Thread.Sleep(1000);
         }
