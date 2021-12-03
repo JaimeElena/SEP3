@@ -12,4 +12,5 @@ public interface IApiService
     JsonArray GetAllCostumers() throws IOException, InterruptedException;
     Costumer GetCostumerByUsername(String username) throws IOException, InterruptedException;
     String EditCostumer(Costumer costumer) throws IOException, InterruptedException;
+    String Logout(Costumer costumer) throws IOException, InterruptedException;
 }

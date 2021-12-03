@@ -71,7 +71,12 @@ public class ClientThread extends Thread
                 }
                 else if(request.getType().equals("logout"))
                 {
-
+                    Costumer costumer = gson.fromJson(request.getBody().toString(), Costumer.class);
+                    Costumer costumerTemp = new Costumer(costumer.getUsername(), costumer.getPassword());
+                    System.out.println(costumer.toString());
+                    String apiResponse = apiService.Logout(costumerTemp);
+                    out.write(apiResponse.getBytes());
+                    json = "";
                 }
                 else if(request.getType().equals("edit"))
                 {

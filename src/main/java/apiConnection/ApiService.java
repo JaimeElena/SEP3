@@ -101,4 +101,22 @@ public class ApiService implements IApiService
 
         return String.valueOf(object.getJSONObject("result"));
     }
+
+    @Override
+    public String Logout(Costumer costumer) throws IOException, InterruptedException
+    {
+        String costumerJson = gson.toJson(costumer);
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(API_URL+"/Logout"))
+                .POST(HttpRequest.BodyPublishers.ofString(costumerJson))
+                .header("Content-Type", "application/json")
+                .build();
+        HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        System.out.println(response.body().toString());
+        JSONObject object = new JSONObject(response.body().toString());
+        System.out.println(object.getJSONObject("result"));
+
+        return String.valueOf(object.getJSONObject("result"));
+    }
 }
