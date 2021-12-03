@@ -20,27 +20,27 @@
                     {
                         <div class="form-group">
                             Username:<br/>
-                            <label @bind="CurrentUser.username"></label>
+                            <label>@username</label>
                         </div>
                         <div class="form-group">
                             Password:<br/>
-                            <label @bind="CurrentUser.password"></label>
+                            <label>@password</label>
                         </div>
                         <div class="form-group">
                             First name:<br/>
-                            <label @bind="CurrentUser.firstName"></label>
+                            <label>@firstName</label>
                         </div>
                         <div class="form-group">
                             Last name:<br/>
-                            <label @bind="CurrentUser.secondName"></label>
+                            <label>@secondName</label>
                         </div>
                         <div class="form-group">
                             Birthday:<br/>
-                            <label @bind="CurrentUser.birthday"></label>
+                            <label>@birthday</label>
                         </div>
                         <div class="form-group">
                             Gender:<br/>
-                            <label @bind="CurrentUser.sex"></label>
+                            <label>@sex</label>
                         </div>
                         <button class="btn btn-outline-dark" @onclick="@(() => {Hidden();ShowEdit();})">Edit</button>
                     }
@@ -81,7 +81,7 @@
                             <p class="actions">
                                 <button class="btn btn-outline-dark" type="submit">Save</button>
                             </p>
-                            <button class="btn btn-outline-dark" @onclick="@(() => {Initialize();CancelEdit();})">Cancel</button>
+                            <button class="btn btn-outline-dark" @onclick="@(() => {Initialize();CancelEdit();Show();})">Cancel</button>
                         </EditForm>
                     }
                 }
