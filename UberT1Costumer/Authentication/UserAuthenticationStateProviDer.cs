@@ -76,6 +76,12 @@ namespace UberT1Costumer.Authentication
             return cachedUser;
         }
 
+        public Costumer EditUser(int id, string username, string password, string firstName, string secondName, string birthday, string sex)
+        {
+            cachedUser = client.EditCostumer(id, username, password, firstName, secondName, birthday, sex);
+            return cachedUser;
+        }
+
         public void Logout()
         {
             client.Logout(cachedUser);

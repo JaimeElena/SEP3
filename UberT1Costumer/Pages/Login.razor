@@ -41,7 +41,7 @@
         {
             ((UserAuthenticationStateProvider)AuthenticationStateProvider).ValidateLogin(username, password);
             message = "Login succeed!";
-            Thread.Sleep(3000);
+            Thread.Sleep(1000);
             NavigationManager.NavigateTo("/profile");
 
         }
@@ -61,7 +61,7 @@
         {
             ((UserAuthenticationStateProvider) AuthenticationStateProvider).Logout();
             message = "Logout succeed!";
-            Thread.Sleep(3000);
+            Thread.Sleep(1000);
             NavigationManager.NavigateTo("/");
         }
         catch (Exception e)

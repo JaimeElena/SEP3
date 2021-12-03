@@ -133,7 +133,7 @@
     {
         try
         {
-            client.EditCostumer(id, username, password, firstName, secondName, birthday, sex);
+            CurrentUser = ((UserAuthenticationStateProvider) AuthenticationStateProvider).EditUser(id, username, password, firstName, secondName, birthday, sex);
             message = "Change saved!";
             Thread.Sleep(1000);
         }
