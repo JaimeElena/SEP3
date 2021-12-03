@@ -18,9 +18,13 @@ namespace UberT1Costumer
 {
     public class Startup
     {
+        IUserServices client = new UserServices();
+
         public Startup(IConfiguration configuration)
         {
+            client.Connect();
             Configuration = configuration;
+            Console.WriteLine("================");
         }
 
         public IConfiguration Configuration { get; }

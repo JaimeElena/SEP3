@@ -31,6 +31,11 @@ namespace UberT1Costumer.Services
             WebInstance.Connect();
         }
 
+        public void DisConnect()
+        {
+            
+        }
+
         public string Register(string username, string password)
         {
             Costumer costumer = new Costumer()
@@ -59,11 +64,10 @@ namespace UberT1Costumer.Services
             return costumer;
         }
 
-        public Costumer EditCostumer(int id, string username, string password, string firstName, string secondName,
-            string birthday, string sex)
+        public Costumer EditCostumer(Costumer costumer)
         {
-            Costumer costumer = WebInstance.EditCostumer(id, username, password, firstName, secondName, birthday, sex);
-            return costumer;
+            Costumer apiCostumer = WebInstance.EditCostumer(costumer);
+            return apiCostumer;
         }
     }
 }

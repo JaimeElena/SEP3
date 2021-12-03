@@ -30,10 +30,9 @@ namespace UberT1Costumer.Data
             return ClientController.getInstance().GetCostumer(username);
         }
 
-        public Costumer EditCostumer(int id, string username, string password, string firstName, string secondName,
-            string birthday, string sex)
+        public Costumer EditCostumer(Costumer costumer)
         {
-            return ClientController.getInstance().EditCostumer(id, username, password, firstName, secondName, birthday, sex);
+            return ClientController.getInstance().EditCostumer(costumer);
         }
     }
 }

@@ -55,7 +55,6 @@ namespace UberT1Costumer.Authentication
             ClaimsIdentity identity = new ClaimsIdentity();
             try
             {
-                client.Connect();
                 Costumer costumer = client.Login(username, password);
                 identity = SetupClaimsForUser(costumer);
                 string serialisedData = JsonSerializer.Serialize(costumer);
@@ -76,9 +75,9 @@ namespace UberT1Costumer.Authentication
             return cachedUser;
         }
 
-        public Costumer EditUser(int id, string username, string password, string firstName, string secondName, string birthday, string sex)
+        public Costumer EditUser(Costumer costumer)
         {
-            cachedUser = client.EditCostumer(id, username, password, firstName, secondName, birthday, sex);
+            cachedUser = client.EditCostumer(costumer);
             return cachedUser;
         }
 

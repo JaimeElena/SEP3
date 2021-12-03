@@ -62,11 +62,11 @@
                             </div>
                             <div class="form-group">
                                 First Name:<br/>
-                                <InputTextArea @bind-Value="CurrentUser.firstName"/>
+                                <InputTextArea @bind-Value="CurrentUser.firstname"/>
                             </div>
                             <div class="form-group">
                                 Last Name:<br/>
-                                <InputTextArea @bind-Value="CurrentUser.secondName"/>
+                                <InputTextArea @bind-Value="CurrentUser.secondname"/>
                             </div>
                             <div class="form-group">
                                 Birthday:<br/>
@@ -112,8 +112,8 @@
         id = CurrentUser.id;
         username = CurrentUser.username;
         password = CurrentUser.password;
-        firstName = CurrentUser.firstName;
-        secondName = CurrentUser.secondName;
+        firstName = CurrentUser.firstname;
+        secondName = CurrentUser.secondname;
         birthday = CurrentUser.birthday;
         sex = CurrentUser.sex;
     }
@@ -133,9 +133,13 @@
     {
         try
         {
-            CurrentUser = ((UserAuthenticationStateProvider) AuthenticationStateProvider).EditUser(id, username, password, firstName, secondName, birthday, sex);
+            CurrentUser = ((UserAuthenticationStateProvider) AuthenticationStateProvider).EditUser(CurrentUser);
             message = "Change saved!";
             Thread.Sleep(1000);
+            Initialize();
+            Thread.Sleep(1000);
+            CancelEdit();
+            Show();
         }
         catch (Exception e)
         {

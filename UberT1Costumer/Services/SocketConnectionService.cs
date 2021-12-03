@@ -78,7 +78,6 @@ namespace UberT1Costumer.Services
             };
 
             string backString = RequestReply(request);
-            socket.Close();
             Console.WriteLine("Logout");
         }
         
@@ -94,17 +93,18 @@ namespace UberT1Costumer.Services
             return costumer;
         }
 
-        public Costumer EditCostumer(int id, string username, string password, string firstName, string secondName,
-            string birthday, string sex)
+        public Costumer EditCostumer(Costumer costumer)
         {
             Request request = new Request()
             {
                 Type = "edit",
-                Body = new Costumer() {id = id, username = username, password = password, firstName = firstName, secondName = secondName, birthday = birthday, sex = sex}
+                Body = costumer
             };
             string backString = RequestReply(request);
-            Costumer costumer = JsonSerializer.Deserialize<Costumer>(backString);
-            return costumer;
+            Costumer apiCostumer = JsonSerializer.Deserialize<Costumer>(backString);
+            Console.WriteLine(costumer.firstname);
+            Console.WriteLine(apiCostumer.firstname);
+            return apiCostumer;
         }
         
     }
