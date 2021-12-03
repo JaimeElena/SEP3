@@ -51,7 +51,6 @@ namespace Uber2.Data
                 customerUpdate.firstname = customer.firstname;
                 customerUpdate.secondname = customer.secondname;
                 customerUpdate.sex = customer.sex;
-                customerUpdate.isLogged = customer.isLogged;
                 uberContext.Update(customerUpdate);
                 await uberContext.SaveChangesAsync();
                 return customerUpdate;
