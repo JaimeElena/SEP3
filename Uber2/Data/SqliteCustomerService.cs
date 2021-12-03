@@ -25,7 +25,6 @@ namespace Uber2.Data
 
         public async Task<Customer> RegisterCustomerAsync(Customer customer)
         {
-            EntityEntry<Customer> customerAdd = await uberContext.Customers.AddAsync(customer);
             var list = uberContext.Customers;
             foreach (var check in list)
             {
@@ -35,6 +34,7 @@ namespace Uber2.Data
                 }
                 else
                 {
+                    EntityEntry<Customer> customerAdd = await uberContext.Customers.AddAsync(customer);
                     await uberContext.SaveChangesAsync();
                     return customerAdd.Entity;
                 }
