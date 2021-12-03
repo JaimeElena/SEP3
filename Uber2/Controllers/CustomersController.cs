@@ -114,7 +114,12 @@ namespace Uber2.Controllers
                 {
                     Console.WriteLine("Tier 3 log out failed");
                 }
-                return Ok("202");
+                else
+                {
+                    return Ok("202");
+                }
+
+                return null;
             }
             catch (Exception e)
             {
