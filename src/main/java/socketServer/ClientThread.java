@@ -43,7 +43,6 @@ public class ClientThread extends Thread
             {
                 while((byteCount =  in.read(byteStream)) != 0)
                 {
-                    System.out.println("jere");
                     json = new String(byteStream, 0, byteCount);
                     break;
                 }
@@ -64,9 +63,15 @@ public class ClientThread extends Thread
                 else if(request.getType().equals("login"))
                 {
                     Costumer costumer = gson.fromJson(request.getBody().toString(), Costumer.class);
+                    Costumer costumerTemp = new Costumer(costumer.getUsername(), costumer.getPassword());
                     System.out.println(costumer.toString());
-                    out.write("Success".getBytes());
+                    String apiResponse = apiService.Login(costumerTemp);
+                    out.write(apiResponse.getBytes());
                     json = "";
+                }
+                else if(request.getType().equals("logout"))
+                {
+
                 }
                 else if(request.getType().equals("edit"))
                 {

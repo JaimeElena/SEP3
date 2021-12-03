@@ -19,6 +19,8 @@ public class App
     {
         IApiService apiService = new ApiService();
 
-        apiService.Register(new Costumer("Random", "1234", "22-00-07", "Random", "Dude", "Male", true));
+
+        Costumer temp = new Costumer(2,"Random", "1234", "22-07-00", "Randy", "Andom", "Male");
+        apiService.EditCostumer(temp);
     }
 }

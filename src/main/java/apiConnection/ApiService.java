@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
 import models.Costumer;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.URI;
@@ -13,7 +14,7 @@ import java.net.http.HttpResponse;
 
 public class ApiService implements IApiService
 {
-    public static final String API_URL = "https://localhost:5001/Costumer";//"https://localhost:5003/Customers"
+    public static final String API_URL = "https://localhost:5003/Customers";//"https://localhost:5003/Customers"
     Gson gson = new Gson();
     HttpClient client;
 
@@ -52,8 +53,10 @@ public class ApiService implements IApiService
                 .header("Content-Type", "application/json")
                 .build();
         HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        System.out.println(response.body().toString());
+        JSONObject object = new JSONObject(response.body().toString());
 
-        return String.valueOf(response.statusCode());
+        return String.valueOf(object.getJSONObject("result"));
     }
 
     @Override
@@ -77,5 +80,23 @@ public class ApiService implements IApiService
     public Costumer GetCostumerByUsername(String username) throws IOException, InterruptedException
     {
         return null;
+    }
+
+    @Override
+    public String EditCostumer(Costumer costumer) throws IOException, InterruptedException
+    {
+        String costumerJson = gson.toJson(costumer);
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(API_URL+"/"+ costumer.getId()))
+                .POST(HttpRequest.BodyPublishers.ofString(costumerJson))
+                .header("Content-Type", "application/json")
+                .build();
+
+        HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        System.out.println(response.body().toString());
+        JSONObject object = new JSONObject(response.body().toString());
+
+        return String.valueOf(object.getJSONObject("result"));
     }
 }

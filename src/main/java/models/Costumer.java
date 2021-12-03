@@ -28,6 +28,17 @@ public class Costumer
         this.isLogged = isLogged;
     }
 
+    public Costumer(int id,String username, String password, String birthday, String firstName, String secondName, String sex)
+    {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.birthday = birthday;
+        this.firstName = firstName;
+        this.secondName = secondName;
+        this.sex = sex;
+    }
+
     public void setId(int id)
     {
         this.id = id;
