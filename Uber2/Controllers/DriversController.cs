@@ -102,5 +102,25 @@ namespace Uber2.Controllers
                 return StatusCode(500, e.Message);
             }
         }
+        
+        [HttpPost("Logout")]
+        public async Task<ActionResult> LogoutDriver([FromBody] Driver driver)
+        {
+            try
+            {
+                var result = driverService.Logout(driver.username);
+                
+                if (result.Equals(false))
+                {
+                    Console.WriteLine("Tier 3 log out failed");
+                }
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return StatusCode(500, e.Message);
+            }
+        }
     }
 }

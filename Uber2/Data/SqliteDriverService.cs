@@ -76,6 +76,16 @@ namespace Uber2.Data
             return existingDriver;
         }
 
+        public async Task Logout(string username)
+        {
+            var existingDriver = uberContext.Drivers.SingleOrDefault(x => x.username == username);
+            if (existingDriver != null && existingDriver.isLogged.Equals(true))
+            {
+                existingDriver.isLogged = false;
+                await uberContext.SaveChangesAsync();
+            }
+        }
+
         public async Task<Driver> SearchDriver(string username)
         {
             var list = uberContext.Drivers;
