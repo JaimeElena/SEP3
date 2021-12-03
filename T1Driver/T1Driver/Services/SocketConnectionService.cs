@@ -8,7 +8,7 @@ using T1Driver.Models;
 
 namespace T1Driver.Services
 {
-    public class WebServices : IWebServices
+    public class SocketConnectionService : ISocketConnectionService
     {
         Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
@@ -38,45 +38,44 @@ namespace T1Driver.Services
             return reply;
         }
 
-        public string Register(string username, string password,int id)
+        public string Register(string username, string password)
         {
             Request request = new Request()
             {
                 Type = "register",
-                Body = new User() {password = password, username = username, id = id}
+                Body = new Driver() {password = password, username = username}
             };
 
             string backString = RequestReply(request);
-            Console.WriteLine(username + password+id);
+            Console.WriteLine(backString);
 
             return backString;
         }
 
-        public Driver Login(string username, string password)
+        public string Login(string username, string password)
         {
             Request request = new Request()
             {
                 Type = "login",
-                Body = new User() {password = password, username = username}
+                Body = new Driver() {password = password, username = username}
             };
 
             string backString = RequestReply(request);
             Console.WriteLine(username + password);
 
-            Driver driver = JsonSerializer.Deserialize<Driver>(backString);
-            return driver;
+            return backString;
         }
 
-        public void Logout()
+        public void Logout(Driver driver)
         {
             Request request = new Request()
             {
-                Type = "logout"
+                Type = "logout",
+                Body = driver
             };
 
             string backString = RequestReply(request);
             socket.Close();
-            socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             Console.WriteLine("Logout");
         }
 
@@ -92,13 +91,13 @@ namespace T1Driver.Services
             return driver;
         }
 
-        public Driver EditDriver(int id, string username, string password, string firstName, string lastName,
-            DateTime birthday, string sex)
+        public Driver EditDriver(int id, string username, string password, string firstName, string secondName,
+            string birthday, string sex)
         {
             Request request = new Request()
             {
                 Type = "edit",
-                Body = new Driver() {id = id, username = username, password = password, firstName = firstName, lastName = lastName, birthday = birthday, sex = sex}
+                Body = new Driver() {id = id, username = username, password = password, firstName = firstName, secondName = secondName, birthday = birthday, sex = sex}
             };
             string backString = RequestReply(request);
             Driver driver = JsonSerializer.Deserialize<Driver>(backString);

@@ -11,9 +11,9 @@ namespace T1Driver.Data
             ClientController.getInstance().Connect();
         }
 
-        public void Register(string username, string password, int id)
+        public string Register(string username, string password)
         {
-            ClientController.getInstance().Register(username,password,id);
+            return ClientController.getInstance().Register(username,password);
         }
 
         public Driver Login(string username, string password)
@@ -21,9 +21,9 @@ namespace T1Driver.Data
             return ClientController.getInstance().Login(username,password);
         }
 
-        public void Logout()
+        public void Logout(Driver driver)
         {
-            ClientController.getInstance().Logout();
+            ClientController.getInstance().Logout(driver);
         }
 
         public Driver GetDriver(string username)
@@ -31,10 +31,10 @@ namespace T1Driver.Data
             return ClientController.getInstance().GetDriver(username);
         }
 
-        public Driver EditDriver(int id, string username, string password, string firstName, string lastName,
-            DateTime birthday, string sex)
+        public Driver EditDriver(int id, string username, string password, string firstName, string secondName,
+            string birthday, string sex)
         {
-            return ClientController.getInstance().EditDriver(id, username, password, firstName, lastName, birthday, sex);
+            return ClientController.getInstance().EditDriver(id, username, password, firstName, secondName, birthday, sex);
         }
 
     }

@@ -12,6 +12,9 @@ namespace UberT1Costumer.Services
         string RequestReply(Request request);
         string Register(string username, string password);
         string Login(string username, string password);
-        void Logout();
+        void Logout(Costumer costumer);
+        Costumer GetCostumer(string username);
+        Costumer EditCostumer(int id, string username, string password, string firstName, string secondName,
+            string birthday,string sex);
     }
 }

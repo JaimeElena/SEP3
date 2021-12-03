@@ -136,9 +136,8 @@ using T1Driver.Authentication;
         try
         {
             client.Connect();
-            client.Login(username,password);
             Thread.Sleep(100);
-            //((UserAuthenticationStateProvider) AuthenticationStateProvider).ValidateLogin(username, password);
+            ((UserAuthenticationStateProvider) AuthenticationStateProvider).ValidateLogin(username, password);
             message = "Login succeed!";
 
         }
@@ -166,12 +165,19 @@ using T1Driver.Authentication;
             message = e.Message;
         }
     }
-    
+
     private void PerformRegister()
     {
-        client.Connect();
-        Thread.Sleep(100);
-        client.Register(username, password, id);
+        if (username == ""|| password == "")
+        {
+            message = "You should fill up username and password!";
+        }
+        else
+        {
+            client.Connect();
+            Thread.Sleep(100);
+            client.Register(username, password, id);
+        }
     }
 
 #line default

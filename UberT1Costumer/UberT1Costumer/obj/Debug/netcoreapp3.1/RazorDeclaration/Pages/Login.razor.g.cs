@@ -13,91 +13,91 @@ namespace UberT1Costumer.Pages
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Components;
 #nullable restore
-#line 1 "C:\Users\Lokkaze\Desktop\uni\SEP3\code\UberT1Costumer\UberT1Costumer\_Imports.razor"
+#line 1 "C:\Users\Lokkaze\Desktop\uni\SEP3\code\Tier1\UberT1Costumer\UberT1Costumer\_Imports.razor"
 using System.Net.Http;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\Users\Lokkaze\Desktop\uni\SEP3\code\UberT1Costumer\UberT1Costumer\_Imports.razor"
+#line 2 "C:\Users\Lokkaze\Desktop\uni\SEP3\code\Tier1\UberT1Costumer\UberT1Costumer\_Imports.razor"
 using Microsoft.AspNetCore.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "C:\Users\Lokkaze\Desktop\uni\SEP3\code\UberT1Costumer\UberT1Costumer\_Imports.razor"
+#line 3 "C:\Users\Lokkaze\Desktop\uni\SEP3\code\Tier1\UberT1Costumer\UberT1Costumer\_Imports.razor"
 using Microsoft.AspNetCore.Components.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 4 "C:\Users\Lokkaze\Desktop\uni\SEP3\code\UberT1Costumer\UberT1Costumer\_Imports.razor"
+#line 4 "C:\Users\Lokkaze\Desktop\uni\SEP3\code\Tier1\UberT1Costumer\UberT1Costumer\_Imports.razor"
 using Microsoft.AspNetCore.Components.Forms;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 5 "C:\Users\Lokkaze\Desktop\uni\SEP3\code\UberT1Costumer\UberT1Costumer\_Imports.razor"
+#line 5 "C:\Users\Lokkaze\Desktop\uni\SEP3\code\Tier1\UberT1Costumer\UberT1Costumer\_Imports.razor"
 using Microsoft.AspNetCore.Components.Routing;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 6 "C:\Users\Lokkaze\Desktop\uni\SEP3\code\UberT1Costumer\UberT1Costumer\_Imports.razor"
+#line 6 "C:\Users\Lokkaze\Desktop\uni\SEP3\code\Tier1\UberT1Costumer\UberT1Costumer\_Imports.razor"
 using Microsoft.AspNetCore.Components.Web;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 7 "C:\Users\Lokkaze\Desktop\uni\SEP3\code\UberT1Costumer\UberT1Costumer\_Imports.razor"
+#line 7 "C:\Users\Lokkaze\Desktop\uni\SEP3\code\Tier1\UberT1Costumer\UberT1Costumer\_Imports.razor"
 using Microsoft.JSInterop;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 8 "C:\Users\Lokkaze\Desktop\uni\SEP3\code\UberT1Costumer\UberT1Costumer\_Imports.razor"
+#line 8 "C:\Users\Lokkaze\Desktop\uni\SEP3\code\Tier1\UberT1Costumer\UberT1Costumer\_Imports.razor"
 using UberT1Costumer;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 9 "C:\Users\Lokkaze\Desktop\uni\SEP3\code\UberT1Costumer\UberT1Costumer\_Imports.razor"
+#line 9 "C:\Users\Lokkaze\Desktop\uni\SEP3\code\Tier1\UberT1Costumer\UberT1Costumer\_Imports.razor"
 using UberT1Costumer.Shared;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\Users\Lokkaze\Desktop\uni\SEP3\code\UberT1Costumer\UberT1Costumer\Pages\Login.razor"
+#line 2 "C:\Users\Lokkaze\Desktop\uni\SEP3\code\Tier1\UberT1Costumer\UberT1Costumer\Pages\Login.razor"
 using UberT1Costumer.Models;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "C:\Users\Lokkaze\Desktop\uni\SEP3\code\UberT1Costumer\UberT1Costumer\Pages\Login.razor"
+#line 3 "C:\Users\Lokkaze\Desktop\uni\SEP3\code\Tier1\UberT1Costumer\UberT1Costumer\Pages\Login.razor"
 using UberT1Costumer.Data;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 4 "C:\Users\Lokkaze\Desktop\uni\SEP3\code\UberT1Costumer\UberT1Costumer\Pages\Login.razor"
+#line 4 "C:\Users\Lokkaze\Desktop\uni\SEP3\code\Tier1\UberT1Costumer\UberT1Costumer\Pages\Login.razor"
 using System.Threading;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 5 "C:\Users\Lokkaze\Desktop\uni\SEP3\code\UberT1Costumer\UberT1Costumer\Pages\Login.razor"
+#line 5 "C:\Users\Lokkaze\Desktop\uni\SEP3\code\Tier1\UberT1Costumer\UberT1Costumer\Pages\Login.razor"
 using UberT1Costumer.Authentication;
 
 #line default
@@ -112,7 +112,7 @@ using UberT1Costumer.Authentication;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 28 "C:\Users\Lokkaze\Desktop\uni\SEP3\code\UberT1Costumer\UberT1Costumer\Pages\Login.razor"
+#line 28 "C:\Users\Lokkaze\Desktop\uni\SEP3\code\Tier1\UberT1Costumer\UberT1Costumer\Pages\Login.razor"
        
     private Costumer CurrentUser;
 
@@ -127,19 +127,17 @@ using UberT1Costumer.Authentication;
         message = "";
         try
         {
-            client.Connect();
-            Thread.Sleep(100);
-            ((UserAuthenticationStateProvider) AuthenticationStateProvider).ValidateLogin(username, password);
+            ((UserAuthenticationStateProvider)AuthenticationStateProvider).ValidateLogin(username, password);
             message = "Login succeed!";
-
+            
         }
         catch (Exception e)
         {
             message = "Username or password is incorrect!";
             Console.WriteLine(e);
-        }        
+        }
     }
-    
+
     public async Task PerformLogout()
     {
         message = "";
@@ -155,12 +153,20 @@ using UberT1Costumer.Authentication;
             message = e.Message;
         }
     }
-    
+
     public async Task PerformRegister()
     {
         client.Connect();
         Thread.Sleep(100);
-        client.Register(username, password);
+        string response = client.Register(username, password);
+        if(response.Equals("200"))
+        {
+            Console.WriteLine("Register was successful");
+        }
+        else
+        {
+
+        }
     }
 
 #line default

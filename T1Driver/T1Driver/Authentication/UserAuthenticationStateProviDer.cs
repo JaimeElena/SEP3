@@ -53,6 +53,7 @@ namespace T1Driver.Authentication
             ClaimsIdentity identity = new ClaimsIdentity();
             try
             {
+                client.Connect();
                 Driver driver = client.Login(username, password);
                 identity = SetupClaimsForUser(driver);
                 string serialisedData = JsonSerializer.Serialize(driver);
@@ -61,7 +62,7 @@ namespace T1Driver.Authentication
             }
             catch (Exception e)
             {
-                throw e;
+                Console.WriteLine(e.Message);
             }
 
             NotifyAuthenticationStateChanged(
@@ -75,7 +76,7 @@ namespace T1Driver.Authentication
 
         public void Logout()
         {
-            client.Logout();
+            client.Logout(cachedUser);
             cachedUser = null;
             var driver = new ClaimsPrincipal(new ClaimsIdentity());
             jsRuntime.InvokeVoidAsync("sessionStorage.setItem", "currentUser", "");

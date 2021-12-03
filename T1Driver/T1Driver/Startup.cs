@@ -31,7 +31,7 @@ namespace T1Driver
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddScoped<IWebServices, WebServices>();
+            services.AddScoped<ISocketConnectionService, SocketConnectionService>();
             services.AddScoped<IUserServices,UserServices>();
             services.AddScoped<AuthenticationStateProvider, UserAuthenticationStateProvider>();
 

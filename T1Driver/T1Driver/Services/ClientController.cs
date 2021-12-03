@@ -7,7 +7,7 @@ namespace T1Driver.Services
     public class ClientController
     {
         private static ClientController instance;
-        private IWebServices WebInstance = new WebServices();
+        private ISocketConnectionService WebInstance = new SocketConnectionService();
 
         private ClientController() 
         {
@@ -28,26 +28,27 @@ namespace T1Driver.Services
             WebInstance.Connect();
         }
 
-        public void Register(string username, string password, int id)
+        public string Register(string username, string password)
         {
             Driver driver = new Driver()
             {
                 username = username,
                 password = password
             };
-            WebInstance.Register(username, password, id);
+            return WebInstance.Register(username, password);
         }
 
         public Driver Login(string username, string password)
         {
 
-            Driver driver = WebInstance.Login(username, password);
+            String returnCode = WebInstance.Login(username, password);
+            Driver driver = JsonSerializer.Deserialize<Driver>(returnCode);
             return driver;
         }
 
-        public void Logout()
+        public void Logout(Driver driver)
         {
-            WebInstance.Logout();
+            WebInstance.Logout(driver);
         }
 
         public Driver GetDriver(string username)
@@ -56,10 +57,10 @@ namespace T1Driver.Services
             return driver;
         }
 
-        public Driver EditDriver(int id, string username, string password, string firstName, string lastName,
-            DateTime birthday, string sex)
+        public Driver EditDriver(int id, string username, string password, string firstName, string secondName,
+            string birthday, string sex)
         {
-            Driver driver = WebInstance.EditDriver(id, username, password, firstName, lastName, birthday, sex);
+            Driver driver = WebInstance.EditDriver(id, username, password, firstName, secondName, birthday, sex);
             return driver;
         }
     }

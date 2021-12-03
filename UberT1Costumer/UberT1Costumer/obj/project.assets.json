@@ -53,11 +53,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Lokkaze\\Desktop\\uni\\SEP3\\code\\UberT1Costumer\\UberT1Costumer\\UberT1Costumer.csproj",
+      "projectUniqueName": "C:\\Users\\Lokkaze\\Desktop\\uni\\SEP3\\code\\Tier1\\UberT1Costumer\\UberT1Costumer\\UberT1Costumer.csproj",
       "projectName": "UberT1Costumer",
-      "projectPath": "C:\\Users\\Lokkaze\\Desktop\\uni\\SEP3\\code\\UberT1Costumer\\UberT1Costumer\\UberT1Costumer.csproj",
+      "projectPath": "C:\\Users\\Lokkaze\\Desktop\\uni\\SEP3\\code\\Tier1\\UberT1Costumer\\UberT1Costumer\\UberT1Costumer.csproj",
       "packagesPath": "C:\\Users\\Lokkaze\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Lokkaze\\Desktop\\uni\\SEP3\\code\\UberT1Costumer\\UberT1Costumer\\obj\\",
+      "outputPath": "C:\\Users\\Lokkaze\\Desktop\\uni\\SEP3\\code\\Tier1\\UberT1Costumer\\UberT1Costumer\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Lokkaze\\AppData\\Roaming\\NuGet\\NuGet.Config"
