@@ -69,8 +69,7 @@ namespace Uber2.Controllers
             }
         }
         
-        [HttpPatch]
-        [Route("{Id:int}")]
+        [HttpPatch("EditCustomer")]
         public async Task<ActionResult<Customer>> UpdateCustomer([FromBody] Customer customer) 
         {
             try
