@@ -69,8 +69,7 @@ namespace Uber2.Controllers
             }
         }
         
-        [HttpPatch]
-        [Route("{Id:int}")]
+        [HttpPatch("EditDriver")]
         public async Task<ActionResult<Customer>> UpdateDriver([FromBody] Driver driver) 
         {
             try
