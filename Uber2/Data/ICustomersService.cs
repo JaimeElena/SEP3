@@ -13,6 +13,8 @@ namespace Uber2.Data
 
         Task<Customer> Login(string username, string password);
 
+        Task Logout(string username);
+
         Task<Customer> SearchCustomer(string username);
         
     }

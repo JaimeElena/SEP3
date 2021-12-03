@@ -51,6 +51,7 @@ namespace Uber2.Data
                 customerUpdate.firstname = customer.firstname;
                 customerUpdate.secondname = customer.secondname;
                 customerUpdate.sex = customer.sex;
+                customerUpdate.isLogged = customer.isLogged;
                 uberContext.Update(customerUpdate);
                 await uberContext.SaveChangesAsync();
                 return customerUpdate;
@@ -78,6 +79,16 @@ namespace Uber2.Data
             }
 
             return existingCustomer;
+        }
+
+        public async Task Logout(string username)
+        {
+            var existingCustomer = uberContext.Customers.SingleOrDefault(x => x.username == username);
+            if (existingCustomer != null && existingCustomer.isLogged.Equals(true))
+            {
+                existingCustomer.isLogged = false;
+                await uberContext.SaveChangesAsync();
+            }
         }
 
         public async Task<Customer> SearchCustomer(string username)

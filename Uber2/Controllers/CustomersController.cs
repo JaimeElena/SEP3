@@ -103,6 +103,26 @@ namespace Uber2.Controllers
                 return StatusCode(500, e.Message);
             }
         }
+        
+        [HttpPost("Logout")]
+        public async Task<ActionResult> LogoutCustomer([FromBody] Customer customer)
+        {
+            try
+            {
+                var result = customersService.Logout(customer.username);
+                
+                if (result.Equals(false))
+                {
+                    Console.WriteLine("Tier 3 log out failed");
+                }
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return StatusCode(500, e.Message);
+            }
+        }
 
         [HttpGet("GetCustomerInfo/{username}")]
         public async Task<ActionResult> GetCustomerInfo(string username)
