@@ -6,8 +6,8 @@ public class Costumer
     private String username;
     private String password;
     private String birthday;
-    private String firstName;
-    private String secondName;
+    private String firstname;
+    private String secondname;
     private String sex;
     private boolean isLogged;
 
@@ -17,13 +17,13 @@ public class Costumer
         this.password = password;
     }
 
-    public Costumer(String username, String password, String birthday, String firstName, String secondName, String sex)
+    public Costumer(String username, String password, String birthday, String firstname, String secondname, String sex)
     {
         this.username = username;
         this.password = password;
         this.birthday = birthday;
-        this.firstName = firstName;
-        this.secondName = secondName;
+        this.firstname = firstname;
+        this.secondname = secondname;
         this.sex = sex;
     }
 
@@ -33,8 +33,8 @@ public class Costumer
         this.username = username;
         this.password = password;
         this.birthday = birthday;
-        this.firstName = firstName;
-        this.secondName = secondName;
+        this.firstname = firstname;
+        this.secondname = secondname;
         this.sex = sex;
     }
 
@@ -60,12 +60,12 @@ public class Costumer
 
     public void setFirstName(String firstName)
     {
-        this.firstName = firstName;
+        this.firstname = firstname;
     }
 
     public void setSecondName(String secondName)
     {
-        this.secondName = secondName;
+        this.secondname = secondname;
     }
 
     public int getId()
@@ -90,12 +90,12 @@ public class Costumer
 
     public String getFirstName()
     {
-        return firstName;
+        return firstname;
     }
 
     public String getSecondName()
     {
-        return secondName;
+        return secondname;
     }
 
     public String toString()
