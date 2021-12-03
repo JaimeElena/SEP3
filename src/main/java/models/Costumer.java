@@ -17,7 +17,7 @@ public class Costumer
         this.password = password;
     }
 
-    public Costumer(String username, String password, String birthday, String firstName, String secondName, String sex, boolean isLogged)
+    public Costumer(String username, String password, String birthday, String firstName, String secondName, String sex)
     {
         this.username = username;
         this.password = password;
@@ -25,7 +25,6 @@ public class Costumer
         this.firstName = firstName;
         this.secondName = secondName;
         this.sex = sex;
-        this.isLogged = isLogged;
     }
 
     public Costumer(int id,String username, String password, String birthday, String firstName, String secondName, String sex)

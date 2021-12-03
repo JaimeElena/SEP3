@@ -75,10 +75,9 @@ public class ClientThread extends Thread
                 }
                 else if(request.getType().equals("edit"))
                 {
-                    String username = request.getBody().toString();
-                    Costumer costumer = apiService.GetCostumerByUsername(username);
-                    String costumerJson = gson.toJson(costumer);
-                    out.write(costumerJson.getBytes());
+                    Costumer costumer = gson.fromJson(request.getBody().toString(), Costumer.class);
+                    String apiResponse = apiService.EditCostumer(costumer);
+                    out.write(apiResponse.getBytes());
                     json = "";
                 }
             }

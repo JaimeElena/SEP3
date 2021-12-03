@@ -55,6 +55,7 @@ public class ApiService implements IApiService
         HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
         System.out.println(response.body().toString());
         JSONObject object = new JSONObject(response.body().toString());
+        System.out.println(object.getJSONObject("result"));
 
         return String.valueOf(object.getJSONObject("result"));
     }
@@ -87,9 +88,10 @@ public class ApiService implements IApiService
     {
         String costumerJson = gson.toJson(costumer);
 
+        System.out.println(costumerJson);
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(API_URL+"/"+ costumer.getId()))
-                .POST(HttpRequest.BodyPublishers.ofString(costumerJson))
+                .uri(URI.create(API_URL+"/EditCustomer"))
+                .method("PATCH", HttpRequest.BodyPublishers.ofString(costumerJson))
                 .header("Content-Type", "application/json")
                 .build();
 

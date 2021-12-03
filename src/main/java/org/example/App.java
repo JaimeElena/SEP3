@@ -20,7 +20,7 @@ public class App
         IApiService apiService = new ApiService();
 
 
-        Costumer temp = new Costumer(2,"Random", "1234", "22-07-00", "Randy", "Andom", "Male");
+        Costumer temp = new Costumer(2,"Randomnn", "1234", "22-07-00", "Randy", "Andom", "Male");
         apiService.EditCostumer(temp);
     }
 }
