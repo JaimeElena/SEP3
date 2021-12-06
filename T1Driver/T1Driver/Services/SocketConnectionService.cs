@@ -42,7 +42,7 @@ namespace T1Driver.Services
         {
             Request request = new Request()
             {
-                Type = "register",
+                Type = "driverregister",
                 Body = new Driver() {password = password, username = username}
             };
 
@@ -56,7 +56,7 @@ namespace T1Driver.Services
         {
             Request request = new Request()
             {
-                Type = "login",
+                Type = "driverlogin",
                 Body = new Driver() {password = password, username = username}
             };
 
@@ -70,7 +70,7 @@ namespace T1Driver.Services
         {
             Request request = new Request()
             {
-                Type = "logout",
+                Type = "driverlogout",
                 Body = driver
             };
 
@@ -83,7 +83,7 @@ namespace T1Driver.Services
         {
             Request request = new Request()
             {
-                Type = "get",
+                Type = "driverget",
                 Body = new Driver() {username = username}
             };
             string backString = RequestReply(request);
@@ -95,7 +95,7 @@ namespace T1Driver.Services
         {
             Request request = new Request()
             {
-                Type = "edit",
+                Type = "driveredit",
                 Body = driver
             };
             string backString = RequestReply(request);
