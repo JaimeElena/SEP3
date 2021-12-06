@@ -11,7 +11,6 @@ namespace Uber2.Models
         
         [Required] public string password { get; set; }
         
-        
          [Required,DefaultValue(false)]public bool isLogged { get; set; }
     }
 }
