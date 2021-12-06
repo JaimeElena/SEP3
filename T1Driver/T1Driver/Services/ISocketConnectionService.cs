@@ -11,7 +11,6 @@ namespace T1Driver.Services
         string Login(string username, string password);
         void Logout(Driver driver);
         Driver GetDriver(string username);
-        Driver EditDriver(int id, string username, string password, string firstName, string secondName,
-            string birthday,string sex);
+        public Driver EditDriver(Driver driver);
     }
 }

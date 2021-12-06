@@ -57,11 +57,10 @@ namespace T1Driver.Services
             return driver;
         }
 
-        public Driver EditDriver(int id, string username, string password, string firstName, string secondName,
-            string birthday, string sex)
+        public Driver EditDriver(Driver driver)
         {
-            Driver driver = WebInstance.EditDriver(id, username, password, firstName, secondName, birthday, sex);
-            return driver;
+            Driver apidriver = WebInstance.EditDriver(driver);
+            return apidriver;
         }
     }
 }

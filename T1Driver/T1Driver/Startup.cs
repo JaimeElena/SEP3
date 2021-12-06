@@ -18,8 +18,11 @@ namespace T1Driver
 {
     public class Startup
     {
+        IUserServices client = new UserServices();
+
         public Startup(IConfiguration configuration)
         {
+            client.Connect();
             Configuration = configuration;
         }
 

@@ -91,17 +91,16 @@ namespace T1Driver.Services
             return driver;
         }
 
-        public Driver EditDriver(int id, string username, string password, string firstName, string secondName,
-            string birthday, string sex)
+        public Driver EditDriver(Driver driver)
         {
             Request request = new Request()
             {
                 Type = "edit",
-                Body = new Driver() {id = id, username = username, password = password, firstName = firstName, secondName = secondName, birthday = birthday, sex = sex}
+                Body = driver
             };
             string backString = RequestReply(request);
-            Driver driver = JsonSerializer.Deserialize<Driver>(backString);
-            return driver;
+            Driver apidriver = JsonSerializer.Deserialize<Driver>(backString);
+            return apidriver;
         }
     }
 }

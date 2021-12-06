@@ -74,6 +74,12 @@ namespace T1Driver.Authentication
             return cachedUser;
         }
 
+        public Driver EditUser(Driver driver)
+        {
+            cachedUser = client.EditDriver(driver);
+            return cachedUser;
+        }
+
         public void Logout()
         {
             client.Logout(cachedUser);

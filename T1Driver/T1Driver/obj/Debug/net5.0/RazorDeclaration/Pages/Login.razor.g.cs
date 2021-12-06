@@ -136,7 +136,8 @@ using T1Driver.Authentication;
         {
             ((UserAuthenticationStateProvider) AuthenticationStateProvider).ValidateLogin(username, password);
             message = "Login succeed!";
-
+            Thread.Sleep(3000);
+            NavigationManager.NavigateTo("/profile");
         }
         catch (Exception e)
         {

@@ -31,10 +31,9 @@ namespace T1Driver.Data
             return ClientController.getInstance().GetDriver(username);
         }
 
-        public Driver EditDriver(int id, string username, string password, string firstName, string secondName,
-            string birthday, string sex)
+        public Driver EditDriver(Driver driver)
         {
-            return ClientController.getInstance().EditDriver(id, username, password, firstName, secondName, birthday, sex);
+            return ClientController.getInstance().EditDriver(driver);
         }
 
     }

@@ -20,27 +20,27 @@
                     {
                         <div class="form-group">
                             Username:<br/>
-                            <label @bind="CurrentUser.username"></label>
+                            <label>@username</label>
                         </div>
                         <div class="form-group">
                             Password:<br/>
-                            <label @bind="CurrentUser.password"></label>
+                            <label>@password</label>
                         </div>
                         <div class="form-group">
                             First name:<br/>
-                            <label @bind="CurrentUser.firstName"></label>
+                            <label>@firstName</label>
                         </div>
                         <div class="form-group">
                             Last name:<br/>
-                            <label @bind="CurrentUser.secondName"></label>
+                            <label>@secondName</label>
                         </div>
                         <div class="form-group">
                             Birthday:<br/>
-                            <label @bind="CurrentUser.birthday"></label>
+                            <label>@birthday</label>
                         </div>
                         <div class="form-group">
                             Gender:<br/>
-                            <label @bind="CurrentUser.sex"></label>
+                            <label>@sex</label>
                         </div>
                         <button class="btn btn-outline-dark" @onclick="@(() => {Hidden();ShowEdit();})">Edit</button>
                     }
@@ -62,11 +62,11 @@
                             </div>
                             <div class="form-group">
                                 First Name:<br/>
-                                <InputTextArea @bind-Value="CurrentUser.firstName"/>
+                                <InputTextArea @bind-Value="CurrentUser.firstname"/>
                             </div>
                             <div class="form-group">
                                 Last Name:<br/>
-                                <InputTextArea @bind-Value="CurrentUser.secondName"/>
+                                <InputTextArea @bind-Value="CurrentUser.secondname"/>
                             </div>
                             <div class="form-group">
                                 Birthday:<br/>
@@ -81,7 +81,7 @@
                             <p class="actions">
                                 <button class="btn btn-outline-dark" type="submit">Save</button>
                             </p>
-                            <button class="btn btn-outline-dark" @onclick="@(() => {Initialize();CancelEdit();})">Cancel</button>
+                            <button class="btn btn-outline-dark" @onclick="@(() => {Initialize();CancelEdit();Show();})">Cancel</button>
                         </EditForm>
                     }
                 }
@@ -112,8 +112,8 @@
         id = CurrentUser.id;
         username = CurrentUser.username;
         password = CurrentUser.password;
-        firstName = CurrentUser.firstName;
-        secondName = CurrentUser.secondName;
+        firstName = CurrentUser.firstname;
+        secondName = CurrentUser.secondname;
         birthday = CurrentUser.birthday;
         sex = CurrentUser.sex;
     }
@@ -133,9 +133,13 @@
     {
         try
         {
-            client.EditDriver(id, username, password, firstName, secondName, birthday, sex);
+            CurrentUser = ((UserAuthenticationStateProvider) AuthenticationStateProvider).EditUser(CurrentUser);
             message = "Change saved!";
             Thread.Sleep(1000);
+            Initialize();
+            Thread.Sleep(1000);
+            CancelEdit();
+            Show();
         }
         catch (Exception e)
         {
