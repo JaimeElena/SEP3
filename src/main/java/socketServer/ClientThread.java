@@ -1,7 +1,9 @@
 package socketServer;
 
-import apiConnection.ApiService;
-import apiConnection.IApiService;
+import apiConnection.ApiCustomerService;
+import apiConnection.ApiDriverService;
+import apiConnection.IApiCustomerService;
+import apiConnection.IApiDriverService;
 import com.google.gson.Gson;
 import models.Costumer;
 import models.Request;
@@ -15,13 +17,15 @@ public class ClientThread extends Thread
 {
     private static Socket socket;
     private Gson gson;
-    private IApiService apiService;
+    private IApiCustomerService apiCustomerService;
+    private IApiDriverService apiDriverService;
 
     public ClientThread(Socket socket)
     {
         this.socket = socket;
         gson = new Gson();
-        apiService = new ApiService();
+        apiCustomerService = new ApiCustomerService();
+        apiDriverService = new ApiDriverService();
         System.out.println("Connection started");
     }
 
@@ -56,7 +60,7 @@ public class ClientThread extends Thread
                 {
                     Costumer costumer = gson.fromJson(request.getBody().toString(), Costumer.class);
                     System.out.println(costumer.toString());
-                    String apiResponse = apiService.Register(costumer);
+                    String apiResponse = apiCustomerService.Register(costumer);
                     out.write(apiResponse.getBytes());
                     json = "";
                 }
@@ -65,7 +69,7 @@ public class ClientThread extends Thread
                     Costumer costumer = gson.fromJson(request.getBody().toString(), Costumer.class);
                     Costumer costumerTemp = new Costumer(costumer.getUsername(), costumer.getPassword());
                     System.out.println(costumer.toString());
-                    String apiResponse = apiService.Login(costumerTemp);
+                    String apiResponse = apiCustomerService.Login(costumerTemp);
                     out.write(apiResponse.getBytes());
                     json = "";
                 }
@@ -74,14 +78,14 @@ public class ClientThread extends Thread
                     Costumer costumer = gson.fromJson(request.getBody().toString(), Costumer.class);
                     Costumer costumerTemp = new Costumer(costumer.getUsername(), costumer.getPassword());
                     System.out.println(costumer.toString());
-                    String apiResponse = apiService.Logout(costumerTemp);
+                    String apiResponse = apiCustomerService.Logout(costumerTemp);
                     out.write(apiResponse.getBytes());
                     json = "";
                 }
                 else if(request.getType().equals("edit"))
                 {
                     Costumer costumer = gson.fromJson(request.getBody().toString(), Costumer.class);
-                    String apiResponse = apiService.EditCostumer(costumer);
+                    String apiResponse = apiCustomerService.EditCostumer(costumer);
                     out.write(apiResponse.getBytes());
                     json = "";
                 }

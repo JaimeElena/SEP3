@@ -5,7 +5,7 @@ import models.Costumer;
 
 import java.io.IOException;
 
-public interface IApiService
+public interface IApiCustomerService
 {
     String Register(Costumer costumer) throws IOException, InterruptedException;
     String Login(Costumer costumer) throws IOException, InterruptedException;

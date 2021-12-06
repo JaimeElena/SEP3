@@ -12,13 +12,13 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
-public class ApiService implements IApiService
+public class ApiCustomerService implements IApiCustomerService
 {
     public static final String API_URL = "https://localhost:5003/Customers";//"https://localhost:5003/Customers"
     Gson gson = new Gson();
     HttpClient client;
 
-    public ApiService()
+    public ApiCustomerService()
     {
         client = HttpClient.newHttpClient();
     }
@@ -114,9 +114,7 @@ public class ApiService implements IApiService
                 .build();
         HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
         System.out.println(response.body().toString());
-        JSONObject object = new JSONObject(response.body().toString());
-        System.out.println(object.getJSONObject("result"));
 
-        return String.valueOf(object.getJSONObject("result"));
+        return String.valueOf(response.body());
     }
 }
