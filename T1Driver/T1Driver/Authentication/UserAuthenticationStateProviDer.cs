@@ -53,7 +53,6 @@ namespace T1Driver.Authentication
             ClaimsIdentity identity = new ClaimsIdentity();
             try
             {
-                client.Connect();
                 Driver driver = client.Login(username, password);
                 identity = SetupClaimsForUser(driver);
                 string serialisedData = JsonSerializer.Serialize(driver);
