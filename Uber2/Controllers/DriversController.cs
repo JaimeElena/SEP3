@@ -125,5 +125,30 @@ namespace Uber2.Controllers
                 return StatusCode(500, e.Message);
             }
         }
+        
+        [HttpPost("ChangeStatus")]
+        public async Task<ActionResult> ChangeDriverStatus([FromBody] Driver driver)
+        {
+            try
+            {
+                var result = driverService.ChangeStatus(driver.username);
+                
+                if (result.Equals(false))
+                {
+                    Console.WriteLine("Tier 3 change status failed");
+                }
+                else
+                {
+                    return Ok();
+                }
+                return null;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return StatusCode(500, e.Message);
+            }
+        }
+        
     }
 }

@@ -45,8 +45,8 @@ namespace Uber2.Data
             try
             {
                 Driver driverUpdate = await uberContext.Drivers.FirstOrDefaultAsync(d => d.id == driver.id);
-                driverUpdate.username = driverUpdate.username;
-                driverUpdate.password = driverUpdate.password;
+                driverUpdate.username = driver.username;
+                driverUpdate.password = driver.password;
                 uberContext.Update(driverUpdate);
                 await uberContext.SaveChangesAsync();
                 return driverUpdate;
@@ -97,6 +97,21 @@ namespace Uber2.Data
                 }
             }
             return null;
+        }
+
+        public async Task ChangeStatus(string username)
+        {
+            var existingDriver = uberContext.Drivers.SingleOrDefault(x => x.username == username);
+            if (existingDriver.isFree.Equals(false))
+            {
+                existingDriver.isFree = true;
+                await uberContext.SaveChangesAsync();
+            }
+            else if(existingDriver.isFree.Equals(true))
+            {
+                existingDriver.isFree = false;
+                await uberContext.SaveChangesAsync();
+            }
         }
     }
     }

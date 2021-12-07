@@ -7,11 +7,15 @@ namespace Uber2.Data
     public interface IOrderService
     {
         Task<IList<Order>> GetOrdersAsync();
+
+        Task<Order> AddOrder(Order order);
         
         Task<Order> SearchOrder(int id);
 
-        Task<Location> GetFromLocation();
+        Task<Location> GetDriverLocation(int orderId);
 
-        Task<Location> GetToLocation();
+        Task<Location> GetCustomerLocation(int orderId);
+
+        Task<Order> EditOrderStatus(Order order);
     }
 }

@@ -7,6 +7,8 @@ namespace Uber2.Persistence
     {
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Driver> Drivers { get; set; }
+        
+        public DbSet<Order> Orders { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

@@ -4,8 +4,8 @@ namespace Uber2.Models
 {
     public class Location
     {
-        [Key]public int id;
-        public long lat { get; set; }
-        public long lng { get; set; }
+        [Key] public int id { get; set; }
+        public double lat { get; set; }
+        public double lng { get; set; }
     }
 }

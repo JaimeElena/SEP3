@@ -32,6 +32,7 @@ namespace Uber2
             services.AddDbContext<UberDBContext>();
             services.AddScoped<ICustomersService, SqliteCustomerService>();
             services.AddScoped<IDriversService, SqliteDriverService>();
+            services.AddScoped<IOrderService, SqliteOrderService>();
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "Uber2", Version = "v1"}); });
         }
 

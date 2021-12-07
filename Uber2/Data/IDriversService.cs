@@ -16,5 +16,7 @@ namespace Uber2.Data
         Task Logout(string username);
         
         Task<Driver> SearchDriver(string username);
+
+        Task ChangeStatus(string username);
     }
 }
