@@ -128,34 +128,36 @@ using T1Driver.Authentication;
     private string password;
 
     IUserServices client = new UserServices();
-    
-    private async Task PerformLogin()
+
+    public async Task PerformLogin()
     {
         message = "";
         try
         {
-            ((UserAuthenticationStateProvider) AuthenticationStateProvider).ValidateLogin(username, password);
+            ((UserAuthenticationStateProvider)AuthenticationStateProvider).ValidateLogin(username, password);
             message = "Login succeed!";
-            Thread.Sleep(3000);
+            Thread.Sleep(1000);
             NavigationManager.NavigateTo("/profile");
+
         }
         catch (Exception e)
         {
             message = "Username or password is incorrect!";
             Console.WriteLine(e);
-        }        
+        }
     }
-    
-    private async Task PerformLogout()
+
+    public async Task PerformLogout()
     {
         message = "";
         username = "";
         password = "";
+        CurrentUser = null;
         try
         {
             ((UserAuthenticationStateProvider) AuthenticationStateProvider).Logout();
             message = "Logout succeed!";
-            Thread.Sleep(3000);
+            Thread.Sleep(1000);
             NavigationManager.NavigateTo("/");
         }
         catch (Exception e)
@@ -164,7 +166,7 @@ using T1Driver.Authentication;
         }
     }
 
-    private async Task PerformRegister()
+    public async Task PerformRegister()
     {
         if (username == ""|| password == "")
         {
@@ -180,6 +182,7 @@ using T1Driver.Authentication;
                 Console.WriteLine("Register was successful");
             }
         }
+        
     }
 
 #line default

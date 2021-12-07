@@ -127,8 +127,8 @@ using System.Threading;
     private int id;
     private string username;
     private string password;
-    private string firstName;
-    private string secondName;
+    private string firstname;
+    private string secondname;
     private string birthday;
     private string sex;
 
@@ -143,8 +143,8 @@ using System.Threading;
         id = CurrentUser.id;
         username = CurrentUser.username;
         password = CurrentUser.password;
-        firstName = CurrentUser.firstName;
-        secondName = CurrentUser.secondName;
+        firstname = CurrentUser.firstname;
+        secondname = CurrentUser.secondname;
         birthday = CurrentUser.birthday;
         sex = CurrentUser.sex;
     }
@@ -164,9 +164,13 @@ using System.Threading;
     {
         try
         {
-            client.EditDriver(id, username, password, firstName, secondName, birthday, sex);
+            CurrentUser = ((UserAuthenticationStateProvider) AuthenticationStateProvider).EditUser(CurrentUser);
             message = "Change saved!";
             Thread.Sleep(1000);
+            Initialize();
+            Thread.Sleep(1000);
+            CancelEdit();
+            Show();
         }
         catch (Exception e)
         {
