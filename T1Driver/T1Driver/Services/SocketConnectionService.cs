@@ -43,7 +43,8 @@ namespace T1Driver.Services
             Request request = new Request()
             {
                 Type = "driverregister",
-                Body = new Driver() {password = password, username = username}
+                Body = new Driver() {password = password, username = username},
+                RequestEntity = "driver"
             };
 
             string backString = RequestReply(request);
@@ -57,7 +58,8 @@ namespace T1Driver.Services
             Request request = new Request()
             {
                 Type = "driverlogin",
-                Body = new Driver() {password = password, username = username}
+                Body = new Driver() {password = password, username = username},
+                RequestEntity = "driver"
             };
 
             string backString = RequestReply(request);
@@ -71,7 +73,8 @@ namespace T1Driver.Services
             Request request = new Request()
             {
                 Type = "driverlogout",
-                Body = driver
+                Body = driver,
+                RequestEntity = "driver"
             };
 
             string backString = RequestReply(request);
@@ -84,7 +87,8 @@ namespace T1Driver.Services
             Request request = new Request()
             {
                 Type = "driverget",
-                Body = new Driver() {username = username}
+                Body = new Driver() {username = username},
+                RequestEntity = "driver"
             };
             string backString = RequestReply(request);
             Driver driver = JsonSerializer.Deserialize<Driver>(backString);
@@ -96,7 +100,8 @@ namespace T1Driver.Services
             Request request = new Request()
             {
                 Type = "driveredit",
-                Body = driver
+                Body = driver,
+                RequestEntity = "driver"
             };
             string backString = RequestReply(request);
             Driver apidriver = JsonSerializer.Deserialize<Driver>(backString);

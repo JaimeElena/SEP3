@@ -6,6 +6,6 @@ namespace T1Driver.Models
     {
         public string Type { get; set; }
         public Object Body { get; set; }
-        public string RequestEntity = "driver";
+        public string RequestEntity{ get; set; }
     }
 }
