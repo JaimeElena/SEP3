@@ -31,11 +31,6 @@ namespace UberT1Costumer.Services
             WebInstance.Connect();
         }
 
-        public void DisConnect()
-        {
-            
-        }
-
         public string Register(string username, string password)
         {
             Costumer costumer = new Costumer()

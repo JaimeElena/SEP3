@@ -78,6 +78,7 @@ namespace UberT1Costumer.Services
             };
 
             string backString = RequestReply(request);
+            socket.Close();
             Console.WriteLine("Logout");
         }
         
