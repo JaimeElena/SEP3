@@ -46,7 +46,8 @@ namespace UberT1Costumer.Services
             Request request = new Request()
             {
                 Type = "register",
-                Body = new Costumer() {password = password, username = username}
+                Body = new Costumer() {password = password, username = username},
+                RequestEntity = "costumer"
             };
 
             string backString = RequestReply(request);
@@ -60,7 +61,8 @@ namespace UberT1Costumer.Services
             Request request = new Request()
             {
                 Type = "login",
-                Body = new Costumer() {password = password, username = username}
+                Body = new Costumer() {password = password, username = username},
+                RequestEntity = "costumer"
             };
 
             string backString = RequestReply(request);
@@ -74,7 +76,8 @@ namespace UberT1Costumer.Services
             Request request = new Request()
             {
                 Type = "logout",
-                Body = costumer
+                Body = costumer,
+                RequestEntity = "costumer"
             };
 
             string backString = RequestReply(request);
@@ -99,7 +102,8 @@ namespace UberT1Costumer.Services
             Request request = new Request()
             {
                 Type = "edit",
-                Body = costumer
+                Body = costumer,
+                RequestEntity = "costumer"
             };
             string backString = RequestReply(request);
             Costumer apiCostumer = JsonSerializer.Deserialize<Costumer>(backString);
