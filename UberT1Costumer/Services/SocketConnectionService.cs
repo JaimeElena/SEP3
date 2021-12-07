@@ -90,7 +90,8 @@ namespace UberT1Costumer.Services
             Request request = new Request()
             {
                 Type = "get",
-                Body = new Costumer() {username = username}
+                Body = new Costumer() {username = username},
+                RequestEntity = "driver"
             };
             string backString = RequestReply(request);
             Costumer costumer = JsonSerializer.Deserialize<Costumer>(backString);
