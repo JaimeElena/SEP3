@@ -65,12 +65,14 @@ namespace Uber2.Data
                 if (existingDriver.password==password)
                 {
                     existingDriver.isLogged = true;
+                    existingDriver.isFree = true;
                     await uberContext.SaveChangesAsync();
                 }
             }
             else
             {
                 existingDriver.isLogged = false;
+                existingDriver.isFree = false;
             }
 
             return existingDriver;
@@ -82,6 +84,7 @@ namespace Uber2.Data
             if (existingDriver != null && existingDriver.isLogged.Equals(true))
             {
                 existingDriver.isLogged = false;
+                existingDriver.isFree = false;
                 await uberContext.SaveChangesAsync();
             }
         }

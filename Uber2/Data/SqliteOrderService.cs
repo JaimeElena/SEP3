@@ -79,13 +79,13 @@ namespace Uber2.Data
                 Order orderUpdate = await uberContext.Orders.FirstOrDefaultAsync(o => o.id == order.id);
                 orderUpdate.status = order.status;
                 uberContext.Update(orderUpdate);
-            await uberContext.SaveChangesAsync();
-            return orderUpdate;
-        }
-        catch (Exception e)
-        {
-            throw new Exception($"Did not find order with id{order.id}");
-        }
+                await uberContext.SaveChangesAsync();
+                return orderUpdate; 
+            }
+            catch (Exception e) 
+            { 
+                throw new Exception($"Did not find order with id{order.id}"); 
+            }
         }
     }
     }

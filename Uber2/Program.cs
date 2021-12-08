@@ -29,6 +29,9 @@ namespace Uber2
         {
             Customer customer1 = new Customer();
             Driver driver1 = new Driver();
+            Order order1 = new Order();
+            Location location1 = new Location();
+            Location location2 = new Location();
 
             customer1.id = 1;
             customer1.username = "Buger King";
@@ -41,7 +44,8 @@ namespace Uber2
             driver1.id = 1;
             driver1.username = "Tim";
             driver1.password = "ADDrtrt2324";
-            
+            driver1.isFree = false;
+
             uberContext = new UberDBContext();
             uberContext.Add(customer1);
             uberContext.Add(driver1);
