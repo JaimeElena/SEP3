@@ -18,5 +18,7 @@ namespace Uber2.Data
         Task<Driver> SearchDriver(string username);
 
         Task ChangeStatus(string username);
+
+        Task<IList<Driver>> GetAllFreeDrivers();
     }
 }

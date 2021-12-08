@@ -113,5 +113,19 @@ namespace Uber2.Data
                 await uberContext.SaveChangesAsync();
             }
         }
+
+        public async Task<IList<Driver>> GetAllFreeDrivers()
+        {
+            var all = uberContext.Drivers;
+            IList<Driver> list = new List<Driver>();
+            foreach (var driver in all)
+            {
+                if (driver.isFree == true)
+                {
+                    list.Add(driver);
+                }
+            }
+            return list;
+        }
     }
     }
