@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text.Json;
 using T1Driver.Models;
 
@@ -62,5 +63,17 @@ namespace T1Driver.Services
             Driver apidriver = WebInstance.EditDriver(driver);
             return apidriver;
         }
+
+        public IList<Order> GetOrders()
+        {
+            return WebInstance.GetOrders();
+        }
+
+        public Order AcceptOrder(Order order)
+        {
+            Order apiorder = WebInstance.AcceptOrder(order);
+            return apiorder;
+        }
+
     }
 }

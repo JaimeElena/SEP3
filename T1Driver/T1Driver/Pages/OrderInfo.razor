@@ -1,0 +1,53 @@
+﻿@page "/OrderInfo"
+@using T1Driver.Data
+@using T1Driver.Models
+
+@inject IUserServices OrdersData
+
+<h3>OrderInfo</h3>
+<AuthorizeView>
+    <NotAuthorized>
+        <h3>You need to login before access!</h3>
+    </NotAuthorized>
+    <Authorized>
+        @if (order == null)
+        {
+            <p><em>No requests exist now</em></p>
+        }
+        else if (order != null)
+        {
+            <div class="form-group">
+                Status:<br/>
+                <label>@order.status</label>
+            </div>
+            <div class="form-group">
+                Customer first name:<br/>
+                <label>@order.firstname</label>
+            </div>
+            <div class="form-group">
+                Customer last name:<br/>
+                <label>@order.secondname</label>
+            </div>
+            <div class="form-group">
+                Location:<br/>
+                <label>@order.location</label>
+            </div>
+            <div class="form-group">
+                Direction:<br/>
+                <label>@order.direction</label>
+            </div>
+            <div class="form-group">
+                Estimate time:<br/>
+                <label>@order.estimatetime</label>
+            </div>
+        }
+    </Authorized>
+</AuthorizeView>
+
+@code {
+    private Order order;
+    protected override async Task OnInitializedAsync()
+    {
+        order = OrdersData.GetCacheOrder();
+    }
+}

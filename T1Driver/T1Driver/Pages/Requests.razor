@@ -1,0 +1,105 @@
+﻿@page "/requests"
+@using System.Collections
+@using System.Threading
+@using T1Driver.Data
+@using T1Driver.Models
+
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject NavigationManager NavigationManager
+@inject IUserServices OrdersData
+
+<h3>Requests</h3>
+<AuthorizeView>
+    <NotAuthorized>
+        <h3>You need to login before access!</h3>
+    </NotAuthorized>
+    <Authorized>
+        @if (find)
+        {
+            <h3>Click here to look for orders</h3>
+            <button id="start" @onclick="StartFind">Start receving</button>
+        }
+        @if (list)
+        {
+            @if (orders == null)
+            {
+                <p><em>Loading......</em></p>
+            }
+            else if (!orders.Any())
+            {
+                <p><em>No requests exist now.</em></p>
+            }
+            else if (orders.Any())
+            {
+                <EditForm Model="@orders" @OnValidSubmit="@AcceptOrder(selectOrder)">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <td>Customer first name</td>
+                            <td>Customer second name</td>
+                            <td>Location</td>
+                            <td>Direction</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach (var item in orders)
+                        {
+                            <tr>
+                                <td>@item.firstname</td>
+                                <td>@item.secondname</td>
+                                <td>@item.location</td>
+                                <td>@item.direction</td>
+                                <td><input type="radio" id="check" value="@item.id" @onclick="SelectOrder(@item.id)"/></td>
+                            </tr>
+                        }
+                        </tbody>
+                    </table>
+                    <button type="submit">Accept</button>
+                    <button id="cancel" @onclick="StopFind">Cancel</button>
+                </EditForm>
+            }
+        }
+        
+    </Authorized>
+    <NotAuthorized>
+        <h2>You need to log in to access this page!</h2>
+    </NotAuthorized>
+</AuthorizeView>
+
+
+@code
+{
+    private IList<Order> orders;
+    private bool find = true;
+    private bool list;
+    private int selectOrder;
+
+    public void StartFind()
+    {
+        orders = OrdersData.GetOrders();
+        Thread.Sleep(1000);
+        find = false;
+        list = true;
+    }
+
+    public async Task StopFind()
+    {
+        list = false;
+        find = true;
+        NavigationManager.NavigateTo("/");
+    }
+
+    public void SelectOrder(int value)
+    {
+        selectOrder = value;
+    }
+
+    public async Task AcceptOrder(int id)
+    {
+        Order orderToAccept = orders.First(t => t.id == id);
+        OrdersData.AcceptOrder(orderToAccept);
+        NavigationManager.NavigateTo("/");
+    }
+
+    
+}

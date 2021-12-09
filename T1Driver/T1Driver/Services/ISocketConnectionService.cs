@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using T1Driver.Models;
 
 namespace T1Driver.Services
@@ -12,5 +13,8 @@ namespace T1Driver.Services
         void Logout(Driver driver);
         Driver GetDriver(string username);
         public Driver EditDriver(Driver driver);
+        public IList<Order> GetOrders();
+        public Order AcceptOrder(Order order);
+
     }
 }

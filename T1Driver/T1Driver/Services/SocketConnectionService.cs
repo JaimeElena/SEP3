@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -42,7 +43,7 @@ namespace T1Driver.Services
         {
             Request request = new Request()
             {
-                Type = "driverregister",
+                Type = "register",
                 Body = new Driver() {password = password, username = username},
                 RequestEntity = "driver"
             };
@@ -57,7 +58,7 @@ namespace T1Driver.Services
         {
             Request request = new Request()
             {
-                Type = "driverlogin",
+                Type = "login",
                 Body = new Driver() {password = password, username = username},
                 RequestEntity = "driver"
             };
@@ -72,7 +73,7 @@ namespace T1Driver.Services
         {
             Request request = new Request()
             {
-                Type = "driverlogout",
+                Type = "logout",
                 Body = driver,
                 RequestEntity = "driver"
             };
@@ -86,7 +87,7 @@ namespace T1Driver.Services
         {
             Request request = new Request()
             {
-                Type = "driverget",
+                Type = "get",
                 Body = new Driver() {username = username},
                 RequestEntity = "driver"
             };
@@ -99,13 +100,38 @@ namespace T1Driver.Services
         {
             Request request = new Request()
             {
-                Type = "driveredit",
+                Type = "edit",
                 Body = driver,
                 RequestEntity = "driver"
             };
             string backString = RequestReply(request);
             Driver apidriver = JsonSerializer.Deserialize<Driver>(backString);
             return apidriver;
+        }
+
+        public IList<Order> GetOrders()
+        {
+            Request request = new Request()
+            {
+                Type = "getorders",
+                RequestEntity = "driver"
+            };
+            string backString = RequestReply(request);
+            IList<Order> orders = JsonSerializer.Deserialize<IList<Order>>(backString);
+            return orders;
+        }
+
+        public Order AcceptOrder(Order order)
+        {
+            Request request = new Request()
+            {
+                Type = "acceptorder",
+                Body = order,
+                RequestEntity = "driver"
+            };
+            string backString = RequestReply(request);
+            Order apiOrder = JsonSerializer.Deserialize<Order>(backString);
+            return apiOrder;
         }
     }
 }
