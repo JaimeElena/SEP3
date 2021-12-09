@@ -45,19 +45,7 @@ namespace Uber2.Data
             }
             return null;
         }
-
-        public async Task<Location> GetDriverLocation(int orderId)
-        {
-            var list = uberContext.Orders;
-            foreach (var order in list)
-            {
-                if (order.id == orderId)
-                {
-                    return order.driverLocation;   
-                }
-            }
-            return null;
-        }
+        
 
         public async Task<Location> GetCustomerLocation(int orderId)
         {
@@ -72,6 +60,20 @@ namespace Uber2.Data
             return null;
         }
 
+        public async Task<Location> GetDestination(int orderId)
+        {
+            var list = uberContext.Orders;
+            foreach (var order in list)
+            {
+                if (order.id == orderId)
+                {
+                    return order.destination;
+                }
+            }
+            return null;
+        }
+
+
         public async Task<Order> EditOrderStatus(Order order)
         {
             try
@@ -85,6 +87,28 @@ namespace Uber2.Data
             catch (Exception e) 
             { 
                 throw new Exception($"Did not find order with id{order.id}"); 
+            }
+        }
+
+        public async Task<IList<Order>> GetCompletedOrders(Customer customer)
+        {
+            try
+            {
+                var all = uberContext.Orders;
+                IList<Order> list = new List<Order>();
+                foreach (var order in all)
+                {
+                    if (order.status == "Completed" && order.customer == customer)
+                    {
+                        list.Add(order);
+                    }
+                }
+                return list;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
             }
         }
     }

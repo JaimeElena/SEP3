@@ -69,10 +69,10 @@ namespace Uber2.Controllers
             }
         }
 
-        [HttpGet("GetDriverLocation")]
-        public async Task<ActionResult<Location>> GetDriverLocation(int orderId)
+        [HttpGet("GetDestination")]
+        public async Task<ActionResult<Location>> GetDestination(int orderId)
         {
-            return await orderService.GetDriverLocation(orderId);
+            return await orderService.GetDestination(orderId);
         }
         
         [HttpGet("GetCustomerLocation")]
@@ -81,7 +81,13 @@ namespace Uber2.Controllers
             return await orderService.GetCustomerLocation(orderId);
         }
         
-        
+        [HttpGet("GetCompletedOrders")]
+        public async Task<IList<Order>> GetCompletedOrders(Customer customer)
+        {
+            return await orderService.GetCompletedOrders(customer);
+        }
+
+
     }
     
     

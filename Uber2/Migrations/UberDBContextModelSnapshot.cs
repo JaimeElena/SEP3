@@ -104,7 +104,7 @@ namespace Uber2.Migrations
                     b.Property<int?>("customerid")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("driverLocationid")
+                    b.Property<int?>("destinationid")
                         .HasColumnType("INTEGER");
 
                     b.Property<int?>("driverid")
@@ -119,7 +119,7 @@ namespace Uber2.Migrations
 
                     b.HasIndex("customerid");
 
-                    b.HasIndex("driverLocationid");
+                    b.HasIndex("destinationid");
 
                     b.HasIndex("driverid");
 
@@ -136,9 +136,9 @@ namespace Uber2.Migrations
                         .WithMany()
                         .HasForeignKey("customerid");
 
-                    b.HasOne("Uber2.Models.Location", "driverLocation")
+                    b.HasOne("Uber2.Models.Location", "destination")
                         .WithMany()
-                        .HasForeignKey("driverLocationid");
+                        .HasForeignKey("destinationid");
 
                     b.HasOne("Uber2.Models.Driver", "driver")
                         .WithMany()
@@ -148,9 +148,9 @@ namespace Uber2.Migrations
 
                     b.Navigation("customerLocation");
 
-                    b.Navigation("driver");
+                    b.Navigation("destination");
 
-                    b.Navigation("driverLocation");
+                    b.Navigation("driver");
                 });
 #pragma warning restore 612, 618
         }
