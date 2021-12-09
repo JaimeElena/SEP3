@@ -81,7 +81,7 @@ namespace Uber2.Controllers
             try
             {
                 Driver updated = await driverService.EditDriverInfoAsync(driver);
-                return Ok(updated);
+                return Ok(driverService.SearchDriver(updated.username));
             }
             catch (Exception e)
             {

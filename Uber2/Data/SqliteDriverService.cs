@@ -47,6 +47,11 @@ namespace Uber2.Data
                 Driver driverUpdate = await uberContext.Drivers.FirstOrDefaultAsync(d => d.id == driver.id);
                 driverUpdate.username = driver.username;
                 driverUpdate.password = driver.password;
+                driverUpdate.birthday = driver.birthday;
+                driverUpdate.firstname = driver.firstname;
+                driverUpdate.secondname = driver.secondname;
+                driverUpdate.sex = driver.sex;
+                driverUpdate.numberPlate = driver.numberPlate;
                 uberContext.Update(driverUpdate);
                 await uberContext.SaveChangesAsync();
                 return driverUpdate;
