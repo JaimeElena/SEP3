@@ -82,6 +82,7 @@
                             </div>
                             <div class="form-group"> Gender:
                                 <select class="form-control selectpicker" @onchange="arg => ChangeGender(arg)">
+                                    <option>Choose your gender</option>
                                     <option>Male</option>
                                     <option>Female</option>
                                 </select>
@@ -130,7 +131,6 @@
     
     private void ChangeGender(ChangeEventArgs args)
     {
-        CurrentUser.sex = null;
         try
         {
             CurrentUser.sex = args.Value.ToString();
