@@ -8,16 +8,60 @@
 @inject NavigationManager NavigationManager
 <AuthorizeView>
     <NotAuthorized>
-        <h3>Login</h3>
-        <div id="logIn">
-            <div >Username </div> <input type="text" placeholder="username" @bind-value="username"/>
-            <div id="password"> Password </div> <input type="password" placeholder="password" @bind-value="password"/>
-            <div>
-                <button id="logButt" @onclick="PerformLogin"> Log in </button>
-                <button id="registerButt" @onclick="PerformRegister"> Sign Up</button>
+        @if (showLogin)
+        {
+            <h3>Login</h3>
+            <div id="logIn">
+                <div >Username </div> <input type="text" placeholder="username" @bind-value="username"/>
+                <div id="password"> Password </div> <input type="password" placeholder="password" @bind-value="password"/>
+                <div>
+                    <button id="logButt" @onclick="PerformLogin"> Log in </button>
+                    <button id="registerButt" @onclick="ShowRegister"> Sign Up</button>
+                </div>
+                <div style="color:red">@message</div>
             </div>
-            <div style="color:red">@message</div>
-        </div>
+        }
+        @if (showRegister)
+        {
+            <EditForm Model="CurrentUser" OnValidSubmit="PerformRegister">
+                <DataAnnotationsValidator/>
+                <ValidationSummary/>
+                <div class="form-group">
+                    Username:<br/>
+                    <InputTextArea @bind-Value="CurrentUser.username"/>
+                </div>
+                <div class="form-group">
+                    Password:<br/>
+                    <InputTextArea @bind-Value="CurrentUser.password"/>
+                </div>
+                <div class="form-group">
+                    First Name:<br/>
+                    <InputTextArea @bind-Value="CurrentUser.firstname"/>
+                </div>
+                <div class="form-group">
+                    Last Name:<br/>
+                    <InputTextArea @bind-Value="CurrentUser.secondname"/>
+                </div>
+                <div class="form-group">
+                    Number plate:<br/>
+                    <InputTextArea @bind-Value="CurrentUser.numberplate"/>
+                </div>
+                <div class="form-group">
+                    Birthday:<br/>
+                    <InputDate @bind-Value="CurrentUser.birthday" @bind-Value:format="dd/MM/yyyy"/>
+                </div>
+                <div class="form-group"> Gender:
+                    <select class="form-control selectpicker" @onchange="arg => ChangeGender(arg)">
+                        <option>Male</option>
+                        <option>Female</option>
+                    </select>
+                </div>
+                <p class="actions">
+                    <button class="btn btn-outline-dark" type="submit">Save</button>
+                </p>
+                <button class="btn btn-outline-dark" @onclick="HideRegister">Cancel</button>
+            </EditForm>
+        }
     </NotAuthorized>
     <Authorized>
         <h3>You are signed in!</h3>
@@ -31,6 +75,8 @@
     private string message;
     private string username;
     private string password;
+    private bool showLogin = true;
+    private bool showRegister;
 
     IUserServices client = new UserServices();
 
@@ -79,14 +125,35 @@
         }
         else
         {
-            client.Connect();
-            Thread.Sleep(100);
-            string response = client.Register(username, password);
+            string response = client.Register(CurrentUser);
             if(response.Equals("200"))
             {
                 Console.WriteLine("Register was successful");
             }
+            HideRegister();
         }
+    }
+
+    public async Task ShowRegister()
+    {
+        showLogin = false;
+        showRegister = true;
+    }
+
+    public async Task HideRegister()
+    {
+        showRegister = false;
+        showLogin = true;
+    }
+    
+    private void ChangeGender(ChangeEventArgs args)
+    {
+        CurrentUser.sex = null;
+        try
+        {
+            CurrentUser.sex = args.Value.ToString();
+        }
+        catch (Exception e){}
         
     }
 }

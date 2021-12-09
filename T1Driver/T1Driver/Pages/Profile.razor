@@ -35,6 +35,10 @@
                             <label>@secondname</label>
                         </div>
                         <div class="form-group">
+                            Number plate:<br/>
+                            <label>@numberplate</label>
+                        </div>
+                        <div class="form-group">
                             Birthday:<br/>
                             <label>@birthday</label>
                         </div>
@@ -69,6 +73,10 @@
                                 <InputTextArea @bind-Value="CurrentUser.secondname"/>
                             </div>
                             <div class="form-group">
+                                Number plate:<br/>
+                                <InputTextArea @bind-Value="CurrentUser.numberplate"/>
+                            </div>
+                            <div class="form-group">
                                 Birthday:<br/>
                                 <InputDate @bind-Value="CurrentUser.birthday" @bind-Value:format="dd/MM/yyyy"/>
                             </div>
@@ -100,6 +108,7 @@
     private string secondname;
     private string birthday;
     private string sex;
+    private string numberplate;
 
     private bool show = true;
     private bool showEdit;
@@ -116,6 +125,7 @@
         secondname = CurrentUser.secondname;
         birthday = CurrentUser.birthday;
         sex = CurrentUser.sex;
+        numberplate = CurrentUser.numberplate;
     }
     
     private void ChangeGender(ChangeEventArgs args)

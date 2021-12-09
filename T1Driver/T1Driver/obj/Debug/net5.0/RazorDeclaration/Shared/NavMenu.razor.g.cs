@@ -90,7 +90,7 @@ using T1Driver.Shared;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 28 "C:\Users\Lokkaze\Desktop\uni\SEP3\code\Tier1\T1Driver\T1Driver\Shared\NavMenu.razor"
+#line 39 "C:\Users\Lokkaze\Desktop\uni\SEP3\code\Tier1\T1Driver\T1Driver\Shared\NavMenu.razor"
        
     private bool collapseNavMenu = true;
 

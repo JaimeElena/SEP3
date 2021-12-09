@@ -39,12 +39,12 @@ namespace T1Driver.Services
             return reply;
         }
 
-        public string Register(string username, string password)
+        public string Register(Driver driver)
         {
             Request request = new Request()
             {
                 Type = "register",
-                Body = new Driver() {password = password, username = username},
+                Body = driver,
                 RequestEntity = "driver"
             };
 

@@ -119,7 +119,7 @@ using System.Threading;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 92 "C:\Users\Lokkaze\Desktop\uni\SEP3\code\Tier1\T1Driver\T1Driver\Pages\Profile.razor"
+#line 100 "C:\Users\Lokkaze\Desktop\uni\SEP3\code\Tier1\T1Driver\T1Driver\Pages\Profile.razor"
        
     private Driver CurrentUser;
 
@@ -131,6 +131,7 @@ using System.Threading;
     private string secondname;
     private string birthday;
     private string sex;
+    private string numberplate;
 
     private bool show = true;
     private bool showEdit;
@@ -147,6 +148,7 @@ using System.Threading;
         secondname = CurrentUser.secondname;
         birthday = CurrentUser.birthday;
         sex = CurrentUser.sex;
+        numberplate = CurrentUser.numberplate;
     }
     
     private void ChangeGender(ChangeEventArgs args)

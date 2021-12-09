@@ -29,14 +29,9 @@ namespace T1Driver.Services
             WebInstance.Connect();
         }
 
-        public string Register(string username, string password)
+        public string Register(Driver driver)
         {
-            Driver driver = new Driver()
-            {
-                username = username,
-                password = password
-            };
-            return WebInstance.Register(username, password);
+            return WebInstance.Register(driver);
         }
 
         public Driver Login(string username, string password)

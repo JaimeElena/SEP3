@@ -13,5 +13,6 @@ namespace T1Driver.Models
         public string birthday { get; set; }
         public string sex { get; set; }
         public Boolean isLogged { get; set; }
+        public string numberplate { get; set; }
     }
 }
