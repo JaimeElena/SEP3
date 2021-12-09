@@ -69,7 +69,6 @@ namespace Uber2.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("numberPlate")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("password")

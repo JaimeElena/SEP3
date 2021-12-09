@@ -6,6 +6,6 @@ namespace Uber2.Models
     {
         public bool isFree { get; set; }
         
-        [Required]public string numberPlate { get; set; }
+        public string numberPlate { get; set; }
     }
 }

@@ -29,8 +29,7 @@ namespace Uber2.Migrations
                 name: "numberPlate",
                 table: "Drivers",
                 type: "TEXT",
-                nullable: false,
-                defaultValue: "");
+                nullable: true);
 
             migrationBuilder.AddColumn<string>(
                 name: "secondname",

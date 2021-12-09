@@ -9,7 +9,7 @@ using Uber2.Persistence;
 namespace Uber2.Migrations
 {
     [DbContext(typeof(UberDBContext))]
-    [Migration("20211209140132_UberData4")]
+    [Migration("20211209161109_UberData4")]
     partial class UberData4
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -71,7 +71,6 @@ namespace Uber2.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("numberPlate")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("password")
