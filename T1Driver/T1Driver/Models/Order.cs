@@ -7,7 +7,8 @@
         public string estimatetime { get; set; }
         public string firstname { get; set; }
         public string secondname { get; set; }
-        public Location location { get; set; }
-        public Location direction { get; set; }
+        public Location driverlocation { get; set; }
+        public Location customerlocation { get; set; }
+        public Location destination { get; set; }
     }
 }

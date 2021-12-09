@@ -37,8 +37,8 @@
                         <tr>
                             <td>Customer first name</td>
                             <td>Customer second name</td>
-                            <td>Location</td>
-                            <td>Direction</td>
+                            <td>Customer Location</td>
+                            <td>Destination</td>
                         </tr>
                         </thead>
                         <tbody>
@@ -47,8 +47,8 @@
                             <tr>
                                 <td>@item.firstname</td>
                                 <td>@item.secondname</td>
-                                <td>@item.location</td>
-                                <td>@item.direction</td>
+                                <td>@item.customerlocation</td>
+                                <td>@item.destination</td>
                                 <td><input type="radio" id="check" value="@item.id" @onclick="SelectOrder(@item.id)"/></td>
                             </tr>
                         }
@@ -98,7 +98,7 @@
     {
         Order orderToAccept = orders.First(t => t.id == id);
         OrdersData.AcceptOrder(orderToAccept);
-        NavigationManager.NavigateTo("/");
+        NavigationManager.NavigateTo("/OrderInfo");
     }
 
     
