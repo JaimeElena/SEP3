@@ -80,6 +80,17 @@ public class ApiDriverService implements IApiDriverService
     @Override
     public Driver GetDriverByUsername(String username) throws IOException, InterruptedException
     {
+        HttpRequest request = HttpRequest.newBuilder()
+                .GET()
+                .header("accept", "application/json")
+                .uri(URI.create(String.format(API_URL + "/GetCustomerInfo/%s", username)))
+                .build();
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        System.out.println(response.body());
+        JsonParser jsonParser = new JsonParser();
+        //JsonObject jsonObject = (JsonObject) jsonParser.parse(response.body());
+
+        //System.out.println(jsonObject.toString());
         return null;
     }
 

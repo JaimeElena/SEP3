@@ -13,8 +13,9 @@ public class Driver
     private boolean isFree;
     private boolean isLogged;
 
-    public Driver( String username, String password, String birthday, String firstname, String lastname, String sex, String numberPlate)
+    public Driver(int id,  String username, String password, String birthday, String firstname, String lastname, String sex, String numberPlate)
     {
+        this.id = id;
         this.username = username;
         this.password = password;
         this.birthday = birthday;
