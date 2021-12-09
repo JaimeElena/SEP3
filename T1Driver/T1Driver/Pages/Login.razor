@@ -6,6 +6,7 @@
 
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @inject NavigationManager NavigationManager
+
 <AuthorizeView>
     <NotAuthorized>
         @if (showLogin)
@@ -20,64 +21,64 @@
                 </div>
                 <div style="color:red">@message</div>
             </div>
-        }
+                }
         @if (showRegister)
-        {
-            <EditForm Model="CurrentUser" OnValidSubmit="PerformRegister">
-                <DataAnnotationsValidator/>
-                <ValidationSummary/>
-                <div class="form-group">
-                    Username:<br/>
-                    <InputTextArea @bind-Value="CurrentUser.username"/>
-                </div>
-                <div class="form-group">
-                    Password:<br/>
-                    <InputTextArea @bind-Value="CurrentUser.password"/>
-                </div>
-                <div class="form-group">
-                    First Name:<br/>
-                    <InputTextArea @bind-Value="CurrentUser.firstname"/>
-                </div>
-                <div class="form-group">
-                    Last Name:<br/>
-                    <InputTextArea @bind-Value="CurrentUser.secondname"/>
-                </div>
-                <div class="form-group">
-                    Number plate:<br/>
-                    <InputTextArea @bind-Value="CurrentUser.numberplate"/>
-                </div>
-                <div class="form-group">
-                    Birthday:<br/>
-                    <InputDate @bind-Value="CurrentUser.birthday" @bind-Value:format="dd/MM/yyyy"/>
-                </div>
-                <div class="form-group"> Gender:
-                    <select class="form-control selectpicker" @onchange="arg => ChangeGender(arg)">
-                        <option>Male</option>
-                        <option>Female</option>
-                    </select>
-                </div>
-                <p class="actions">
-                    <button class="btn btn-outline-dark" type="submit">Save</button>
-                </p>
-                <button class="btn btn-outline-dark" @onclick="HideRegister">Cancel</button>
-            </EditForm>
-        }
+                {
+                    <EditForm Model="CurrentUser" OnValidSubmit="PerformRegister" Context="register">
+                        <DataAnnotationsValidator/>
+                        <ValidationSummary/>
+                        <div class="form-group">
+                            Username:<br/>
+                            <InputTextArea @bind-Value="CurrentUser.username"/>
+                        </div>
+                        <div class="form-group">
+                            Password:<br/>
+                            <InputTextArea @bind-Value="CurrentUser.password"/>
+                        </div>
+                        <div class="form-group">
+                            First Name:<br/>
+                            <InputTextArea @bind-Value="CurrentUser.firstname"/>
+                        </div>
+                        <div class="form-group">
+                            Last Name:<br/>
+                            <InputTextArea @bind-Value="CurrentUser.secondname"/>
+                        </div>
+                        <div class="form-group">
+                            Number plate:<br/>
+                            <InputTextArea @bind-Value="CurrentUser.numberPlate"/>
+                        </div>
+                        <div class="form-group">
+                            Birthday:<br/>
+                            <InputTextArea @bind-Value="CurrentUser.birthday"/>
+                        </div>
+                        <div class="form-group"> Gender:
+                            <select class="form-control selectpicker" @onchange="arg => ChangeGender(arg)">
+                                <option>Male</option>
+                                <option>Female</option>
+                            </select>
+                        </div>
+                        <p class="actions">
+                            <button class="btn btn-outline-dark" type="submit">Save</button>
+                        </p>
+                        <button class="btn btn-outline-dark" @onclick="HideRegister">Cancel</button>
+                    </EditForm>
+                }
     </NotAuthorized>
     <Authorized>
         <h3>You are signed in!</h3>
         <button id="logoutButt" @onclick="PerformLogout"> Log out</button>
-        </Authorized>
+    </Authorized>
 </AuthorizeView>
 
 @code {
-    private Driver CurrentUser;
+    private Driver CurrentUser = new Driver();
 
     private string message;
     private string username;
     private string password;
     private bool showLogin = true;
     private bool showRegister;
-
+    
     IUserServices client = new UserServices();
 
     public async Task PerformLogin()
@@ -89,7 +90,6 @@
             message = "Login succeed!";
             Thread.Sleep(1000);
             NavigationManager.NavigateTo("/profile");
-
         }
         catch (Exception e)
         {

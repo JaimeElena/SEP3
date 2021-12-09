@@ -112,3 +112,7 @@ C:\Users\Lokkaze\Desktop\uni\SEP3\code\Tier1\T1Driver\T1Driver\obj\Debug\net5.0\
 C:\Users\Lokkaze\Desktop\uni\SEP3\code\Tier1\T1Driver\T1Driver\obj\Debug\net5.0\T1Driver.Views.pdb
 C:\Users\Lokkaze\Desktop\uni\SEP3\code\Tier1\T1Driver\T1Driver\obj\Debug\net5.0\T1Driver.genruntimeconfig.cache
 C:\Users\Lokkaze\Desktop\uni\SEP3\code\Tier1\T1Driver\T1Driver\obj\Debug\net5.0\T1Driver.csproj.CopyComplete
+C:\Users\Lokkaze\Desktop\uni\SEP3\code\Tier1\T1Driver\T1Driver\obj\Debug\net5.0\RazorDeclaration\Pages\OrderInfo.razor.g.cs
+C:\Users\Lokkaze\Desktop\uni\SEP3\code\Tier1\T1Driver\T1Driver\obj\Debug\net5.0\RazorDeclaration\Pages\Requests.razor.g.cs
+C:\Users\Lokkaze\Desktop\uni\SEP3\code\Tier1\T1Driver\T1Driver\obj\Debug\net5.0\Razor\Pages\OrderInfo.razor.g.cs
+C:\Users\Lokkaze\Desktop\uni\SEP3\code\Tier1\T1Driver\T1Driver\obj\Debug\net5.0\Razor\Pages\Requests.razor.g.cs

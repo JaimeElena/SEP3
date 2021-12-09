@@ -13,54 +13,59 @@
     <NotAuthorized>
         <h3>You need to login before access!</h3>
     </NotAuthorized>
-    <Authorized>
-        @if (find)
-        {
-            <h3>Click here to look for orders</h3>
-            <button id="start" @onclick="StartFind">Start receving</button>
-        }
-        @if (list)
-        {
-            @if (orders == null)
+    <ChildContent Context="another_name3">
+        <Authorized>
+            @if (find)
             {
-                <p><em>Loading......</em></p>
+                <h3>Click here to look for orders</h3>
+                <button id="start" @onclick="StartFind">Start receving</button>
             }
-            else if (!orders.Any())
+            @if (list)
             {
-                <p><em>No requests exist now.</em></p>
-            }
-            else if (orders.Any())
-            {
-                <EditForm Model="@orders" @OnValidSubmit="@AcceptOrder(selectOrder)">
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <td>Customer first name</td>
-                            <td>Customer second name</td>
-                            <td>Customer Location</td>
-                            <td>Destination</td>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach (var item in orders)
-                        {
+                @if (orders == null)
+                {
+                    <p><em>Loading......</em></p>
+                }
+                else if (!orders.Any())
+                {
+                    <p><em>No requests exist now.</em></p>
+                }
+                else if (orders.Any())
+                {
+                    <EditForm Model="@orders" @OnValidSubmit="@AcceptOrder(selectOrder)">
+                        <table class="table">
+                            <thead>
                             <tr>
-                                <td>@item.firstname</td>
-                                <td>@item.secondname</td>
-                                <td>@item.customerlocation</td>
-                                <td>@item.destination</td>
-                                <td><input type="radio" id="check" value="@item.id" @onclick="SelectOrder(@item.id)"/></td>
+                                <td>Customer first name</td>
+                                <td>Customer second name</td>
+                                <td>Customer Location</td>
+                                <td>Destination</td>
                             </tr>
-                        }
-                        </tbody>
-                    </table>
-                    <button type="submit">Accept</button>
-                    <button id="cancel" @onclick="StopFind">Cancel</button>
-                </EditForm>
+                            </thead>
+                            <tbody>
+                            @foreach (var item in orders)
+                            {
+                                <tr>
+                                    <td>@item.firstname</td>
+                                    <td>@item.secondname</td>
+                                    <td>@item.customerlocation</td>
+                                    <td>@item.destination</td>
+                                    @{
+                                        id = @item.id;
+                                    }
+                                    <td><input type="radio" id="check" value="@item.id" @onclick="SelectOrder"/></td>
+                                </tr>
+                            }
+                            </tbody>
+                        </table>
+                        <button type="submit">Accept</button>
+                        <button id="cancel" @onclick="StopFind">Cancel</button>
+                    </EditForm>
+
+                }
             }
-        }
-        
-    </Authorized>
+        </Authorized>
+    </ChildContent>
     <NotAuthorized>
         <h2>You need to log in to access this page!</h2>
     </NotAuthorized>
@@ -73,6 +78,7 @@
     private bool find = true;
     private bool list;
     private int selectOrder;
+    private int id;
 
     public void StartFind()
     {
@@ -89,9 +95,9 @@
         NavigationManager.NavigateTo("/");
     }
 
-    public void SelectOrder(int value)
+    public void SelectOrder()
     {
-        selectOrder = value;
+        selectOrder = id;
     }
 
     public async Task AcceptOrder(int id)

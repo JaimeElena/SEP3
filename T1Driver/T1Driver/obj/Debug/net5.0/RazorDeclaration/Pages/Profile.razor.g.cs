@@ -148,7 +148,7 @@ using System.Threading;
         secondname = CurrentUser.secondname;
         birthday = CurrentUser.birthday;
         sex = CurrentUser.sex;
-        numberplate = CurrentUser.numberplate;
+        numberplate = CurrentUser.numberPlate;
     }
     
     private void ChangeGender(ChangeEventArgs args)

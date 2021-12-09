@@ -10,7 +10,7 @@
     <NotAuthorized>
         <h3>You need to login before access!</h3>
     </NotAuthorized>
-        <ChildContent Context="another_name">
+        <ChildContent Context="another_name2">
             <Authorized>
                 @{
                     Initialize();
@@ -74,11 +74,11 @@
                             </div>
                             <div class="form-group">
                                 Number plate:<br/>
-                                <InputTextArea @bind-Value="CurrentUser.numberplate"/>
+                                <InputTextArea @bind-Value="CurrentUser.numberPlate"/>
                             </div>
                             <div class="form-group">
                                 Birthday:<br/>
-                                <InputDate @bind-Value="CurrentUser.birthday" @bind-Value:format="dd/MM/yyyy"/>
+                                <InputTextArea @bind-Value="CurrentUser.birthday"/>
                             </div>
                             <div class="form-group"> Gender:
                                 <select class="form-control selectpicker" @onchange="arg => ChangeGender(arg)">
@@ -125,7 +125,7 @@
         secondname = CurrentUser.secondname;
         birthday = CurrentUser.birthday;
         sex = CurrentUser.sex;
-        numberplate = CurrentUser.numberplate;
+        numberplate = CurrentUser.numberPlate;
     }
     
     private void ChangeGender(ChangeEventArgs args)

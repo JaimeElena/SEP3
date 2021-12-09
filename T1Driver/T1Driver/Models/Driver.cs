@@ -3,7 +3,6 @@
 namespace T1Driver.Models
 {
     public class Driver
-
     {
         public int id { get; set; }
         public string username { get; set; }
@@ -13,6 +12,6 @@ namespace T1Driver.Models
         public string birthday { get; set; }
         public string sex { get; set; }
         public Boolean isLogged { get; set; }
-        public string numberplate { get; set; }
+        public string numberPlate { get; set; }
     }
 }
