@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
 import models.Costumer;
+import models.Order;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -15,6 +16,7 @@ import java.net.http.HttpResponse;
 public class ApiCustomerService implements IApiCustomerService
 {
     public static final String API_URL = "https://localhost:5003/Customers";//"https://localhost:5003/Customers"
+    public static final String API_URL_ORDERS = "https://localhost:5003/Orders";
     Gson gson = new Gson();
     HttpClient client;
 
@@ -116,5 +118,20 @@ public class ApiCustomerService implements IApiCustomerService
         System.out.println(response.body().toString());
 
         return String.valueOf(response.body());
+    }
+
+    @Override
+    public String RequestOrder(Order order) throws IOException, InterruptedException
+    {
+        String orderJson = gson.toJson(order);
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(API_URL_ORDERS))
+                .POST(HttpRequest.BodyPublishers.ofString(orderJson))
+                .header("Content-Type", "application/json")
+                .build();
+        HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        System.out.println(response.body().toString());
+        return response.body().toString();
     }
 }

@@ -6,6 +6,7 @@ import apiConnection.IApiCustomerService;
 import apiConnection.IApiDriverService;
 import com.google.gson.Gson;
 import models.Costumer;
+import models.Order;
 import models.Request;
 import org.json.JSONObject;
 
@@ -86,6 +87,13 @@ public class ClientThread extends Thread
                 {
                     Costumer costumer = gson.fromJson(request.getBody().toString(), Costumer.class);
                     String apiResponse = apiCustomerService.EditCostumer(costumer);
+                    out.write(apiResponse.getBytes());
+                    json = "";
+                }
+                else if(request.getType().equals("order"))
+                {
+                    Order order = gson.fromJson(request.getBody().toString(), Order.class);
+                    String apiResponse = apiCustomerService.RequestOrder(order);
                     out.write(apiResponse.getBytes());
                     json = "";
                 }

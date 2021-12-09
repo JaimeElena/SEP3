@@ -2,6 +2,7 @@ package apiConnection;
 
 import com.google.gson.JsonArray;
 import models.Costumer;
+import models.Order;
 
 import java.io.IOException;
 
@@ -13,4 +14,5 @@ public interface IApiCustomerService
     Costumer GetCostumerByUsername(String username) throws IOException, InterruptedException;
     String EditCostumer(Costumer costumer) throws IOException, InterruptedException;
     String Logout(Costumer costumer) throws IOException, InterruptedException;
+    String RequestOrder(Order order) throws  IOException, InterruptedException;
 }
