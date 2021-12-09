@@ -125,5 +125,31 @@ namespace UberT1Costumer.Services
             Order order = JsonSerializer.Deserialize<Order>(backString);
             return order;
         }
+
+        public Order RequestVehicle(Order order)
+        {
+            Request request = new Request()
+            {
+                Type = "requestvehicle",
+                Body = order,
+                RequestEntity = "costumer"
+            };
+            string backString = RequestReply(request);
+            Order apiorder = JsonSerializer.Deserialize<Order>(backString);
+            return apiorder;
+        }
+
+        public Order CancelRequest(Order order)
+        {
+            Request request = new Request()
+            {
+                Type = "requestvehicle",
+                Body = order,
+                RequestEntity = "costumer"
+            };
+            string backString = RequestReply(request);
+            Order apiorder = JsonSerializer.Deserialize<Order>(backString);
+            return apiorder;
+        }
     }
 }

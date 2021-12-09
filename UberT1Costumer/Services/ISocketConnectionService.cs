@@ -16,5 +16,7 @@ namespace UberT1Costumer.Services
         Costumer GetCostumer(string username);
         Costumer EditCostumer(Costumer costumer);
         public Order GetOrder(Costumer costumer);
+        public Order RequestVehicle(Order order);
+        public Order CancelRequest(Order order);
     }
 }
