@@ -72,19 +72,22 @@ namespace Uber2.Controllers
         [HttpGet("GetDestination")]
         public async Task<ActionResult<Location>> GetDestination(int orderId)
         {
-            return await orderService.GetDestination(orderId);
+            Location destination = await orderService.GetDestination(orderId);
+            return Ok(destination);
         }
         
         [HttpGet("GetCustomerLocation")]
         public async Task<ActionResult<Location>> GetCustomerLocation(int orderId)
         {
-            return await orderService.GetCustomerLocation(orderId);
+            Location customer = await orderService.GetCustomerLocation(orderId);
+            return Ok(customer);
         }
         
         [HttpGet("GetCompletedOrders")]
-        public async Task<IList<Order>> GetCompletedOrders(Customer customer)
+        public async Task<ActionResult<IList<Order>>> GetCompletedOrders(Customer customer)
         {
-            return await orderService.GetCompletedOrders(customer);
+            IList<Order> completed = await orderService.GetCompletedOrders(customer);
+            return Ok(completed);
         }
 
 

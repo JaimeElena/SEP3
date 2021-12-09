@@ -167,5 +167,12 @@ namespace Uber2.Controllers
             IList<Driver> drivers = await driverService.GetAllFreeDrivers();
             return Ok(drivers);
         }
+
+        [HttpGet("GetNumberPlate")]
+        public async Task<ActionResult<string>> GetNumberPlate(string username)
+        {
+            driverService.GetNumberPlate(username);
+            return Ok();
+        }
     }
 }

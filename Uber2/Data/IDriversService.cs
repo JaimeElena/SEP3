@@ -20,5 +20,7 @@ namespace Uber2.Data
         Task ChangeStatus(string username);
 
         Task<IList<Driver>> GetAllFreeDrivers();
+
+        Task<string> GetNumberPlate(string username);
     }
 }

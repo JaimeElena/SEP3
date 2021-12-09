@@ -56,14 +56,30 @@ namespace Uber2.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("birthday")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("firstname")
+                        .HasColumnType("TEXT");
+
                     b.Property<bool>("isFree")
                         .HasColumnType("INTEGER");
 
                     b.Property<bool>("isLogged")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("numberPlate")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("password")
                         .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("secondname")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("sex")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("username")

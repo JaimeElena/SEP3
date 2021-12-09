@@ -130,5 +130,11 @@ namespace Uber2.Data
             }
             return list;
         }
+
+        public async Task<string> GetNumberPlate(string username)
+        {
+            var existingDriver = uberContext.Drivers.SingleOrDefault(x => x.username == username);
+            return existingDriver.numberPlate;
+        }
     }
     }
