@@ -30,6 +30,7 @@ namespace Uber2.Data
                     await uberContext.SaveChangesAsync();
                     return orderAdd.Entity;
             }
+            Console.WriteLine("add order successful");
             return null;
         }
 
