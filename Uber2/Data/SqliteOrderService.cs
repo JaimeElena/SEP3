@@ -23,15 +23,10 @@ namespace Uber2.Data
 
         public async Task<Order> AddOrder(Order order)
         {
-            var list = uberContext.Orders;
-            foreach (var check in list)
-            {
+
                 EntityEntry<Order> orderAdd = await uberContext.Orders.AddAsync(order);
-                    await uberContext.SaveChangesAsync();
-                    return orderAdd.Entity;
-            }
-            Console.WriteLine("add order successful");
-            return null;
+                await uberContext.SaveChangesAsync(); 
+                return orderAdd.Entity;
         }
 
         public async Task<Order> SearchOrder(int id)
