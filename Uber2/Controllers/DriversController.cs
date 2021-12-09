@@ -171,8 +171,8 @@ namespace Uber2.Controllers
         [HttpGet("GetNumberPlate")]
         public async Task<ActionResult<string>> GetNumberPlate(string username)
         {
-            driverService.GetNumberPlate(username);
-            return Ok();
+            String numberPlate = await driverService.GetNumberPlate(username);
+            return Ok(numberPlate);
         }
     }
 }
