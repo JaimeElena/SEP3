@@ -103,9 +103,7 @@
 
     private bool show = true;
     private bool showEdit;
-
-    IUserServices client = new UserServices();
-
+    
     private void Initialize()
     {
         CurrentUser = ((UserAuthenticationStateProvider) AuthenticationStateProvider).GetUser();

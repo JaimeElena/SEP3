@@ -139,17 +139,28 @@ namespace UberT1Costumer.Services
             return apiorder;
         }
 
-        public Order CancelRequest(Order order)
+        public string CancelRequest(Order order)
         {
             Request request = new Request()
             {
-                Type = "requestvehicle",
+                Type = "cancelrequest",
                 Body = order,
                 RequestEntity = "costumer"
             };
             string backString = RequestReply(request);
-            Order apiorder = JsonSerializer.Deserialize<Order>(backString);
-            return apiorder;
+            return backString;
+        }
+
+        public string CheckProcess(Order order)
+        {
+            Request request = new Request()
+            {
+                Type = "check",
+                Body = order,
+                RequestEntity = "costumer"
+            };
+            string backString = RequestReply(request);
+            return backString;
         }
     }
 }

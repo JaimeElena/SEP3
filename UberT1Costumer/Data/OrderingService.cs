@@ -10,9 +10,14 @@ namespace UberT1Costumer.Data
             return ClientController.getInstance().RequestVehicle(order);
         }
 
-        public Order CancelRequest(Order order)
+        public string CancelRequest(Order order)
         {
             return ClientController.getInstance().CancelRequest(order);
+        }
+
+        public string CheckProcess(Order order)
+        {
+            return ClientController.getInstance().CheckProcess(order);
         }
     }
 }

@@ -75,9 +75,14 @@ namespace UberT1Costumer.Services
             return WebInstance.RequestVehicle(order);
         }
 
-        public Order CancelRequest(Order order)
+        public string CancelRequest(Order order)
         {
             return WebInstance.CancelRequest(order);
+        }
+
+        public string CheckProcess(Order order)
+        {
+            return WebInstance.CheckProcess(order);
         }
     }
 }
