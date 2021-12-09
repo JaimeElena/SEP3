@@ -34,5 +34,10 @@ namespace UberT1Costumer.Data
         {
             return ClientController.getInstance().EditCostumer(costumer);
         }
+
+        public Order GetOrder(Costumer costumer)
+        {
+            return ClientController.getInstance().GetOrder(costumer);
+        }
     }
 }

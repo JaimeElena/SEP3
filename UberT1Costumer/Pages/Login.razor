@@ -16,7 +16,12 @@
                 <button id="logButt" @onclick="PerformLogin"> Log in </button>
                 <button id="registerButt" @onclick="PerformRegister"> Sign Up</button>
             </div>
-            <div style="color:red">@message</div>
+            @{
+                if (showMessage)
+                {
+                    <div style="color:red">@message</div>
+                }
+            }
         </div>
     </NotAuthorized>
     <Authorized>
@@ -28,9 +33,10 @@
 @code {
     private Costumer CurrentUser;
 
-    private string message;
+    private string message = "";
     private string username;
     private string password;
+    private bool showMessage;
 
     IUserServices client = new UserServices();
 
@@ -41,13 +47,16 @@
         {
             ((UserAuthenticationStateProvider)AuthenticationStateProvider).ValidateLogin(username, password);
             message = "Login succeed!";
-            Thread.Sleep(1000);
+            ShowMessage();
+            Thread.Sleep(3000);
             NavigationManager.NavigateTo("/profile");
 
         }
         catch (Exception e)
         {
             message = "Username or password is incorrect!";
+            ShowMessage();
+            Thread.Sleep(3000);
             Console.WriteLine(e);
         }
     }
@@ -62,12 +71,14 @@
         {
             ((UserAuthenticationStateProvider) AuthenticationStateProvider).Logout();
             message = "Logout succeed!";
-            Thread.Sleep(1000);
+            ShowMessage();
+            Thread.Sleep(3000);
             NavigationManager.NavigateTo("/");
         }
         catch (Exception e)
         {
             message = e.Message;
+            ShowMessage();
         }
     }
 
@@ -76,17 +87,23 @@
         if (username == ""|| password == "")
         {
             message = "You should fill up username and password!";
+            ShowMessage();
         }
         else
         {
-            client.Connect();
-            Thread.Sleep(100);
             string response = client.Register(username, password);
             if(response.Equals("200"))
             {
-                Console.WriteLine("Register was successful");
+                message = "Register was successful";
+                ShowMessage();
             }
         }
         
     }
+
+    public void ShowMessage()
+    {
+        showMessage = true;
+    }
+    
 }

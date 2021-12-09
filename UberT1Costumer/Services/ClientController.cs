@@ -55,14 +55,19 @@ namespace UberT1Costumer.Services
         
         public Costumer GetCostumer(string username)
         {
-            Costumer costumer = WebInstance.GetCostumer(username);
-            return costumer;
+            return WebInstance.GetCostumer(username);
         }
 
         public Costumer EditCostumer(Costumer costumer)
         {
-            Costumer apiCostumer = WebInstance.EditCostumer(costumer);
-            return apiCostumer;
+            return WebInstance.EditCostumer(costumer);
+            
+        }
+
+        public Order GetOrder(Costumer costumer)
+        {
+            return WebInstance.GetOrder(costumer);
+            
         }
     }
 }

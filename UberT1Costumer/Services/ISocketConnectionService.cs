@@ -15,5 +15,6 @@ namespace UberT1Costumer.Services
         void Logout(Costumer costumer);
         Costumer GetCostumer(string username);
         Costumer EditCostumer(Costumer costumer);
+        public Order GetOrder(Costumer costumer);
     }
 }

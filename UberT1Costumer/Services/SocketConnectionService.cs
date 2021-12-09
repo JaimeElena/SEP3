@@ -112,6 +112,18 @@ namespace UberT1Costumer.Services
             Console.WriteLine(apiCostumer.firstname);
             return apiCostumer;
         }
-        
+
+        public Order GetOrder(Costumer costumer)
+        {
+            Request request = new Request()
+            {
+                Type = "getorder",
+                Body = costumer,
+                RequestEntity = "costumer"
+            };
+            string backString = RequestReply(request);
+            Order order = JsonSerializer.Deserialize<Order>(backString);
+            return order;
+        }
     }
 }

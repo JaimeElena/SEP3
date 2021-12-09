@@ -10,8 +10,7 @@ namespace UberT1Costumer.Data
         Costumer Login(string username, string password);
         void Logout(Costumer costumer);
         Costumer GetCostumer(string username);
-
         Costumer EditCostumer(Costumer costumer);
-    
+        public Order GetOrder(Costumer costumer);
     }
 }
