@@ -174,5 +174,17 @@ namespace Uber2.Controllers
             String numberPlate = await driverService.GetNumberPlate(username);
             return Ok(numberPlate);
         }
+        
+        [HttpGet("GetDriverInfo/{username}")]
+        public async Task<ActionResult> GetDriverInfo(string username)
+        {
+            Task<Driver> driver = driverService.SearchDriver(username);
+            if (driver != null)
+            {
+                return Ok(driver);
+            }
+            Console.WriteLine(username);
+            return BadRequest("username not found");
+        }
     }
 }
