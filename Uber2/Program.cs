@@ -30,8 +30,6 @@ namespace Uber2
             Customer customer1 = new Customer();
             Driver driver1 = new Driver();
             Order order1 = new Order();
-            Location location1 = new Location();
-            Location location2 = new Location();
 
             customer1.id = 1;
             customer1.username = "Buger King";

@@ -12,12 +12,8 @@ namespace Uber2.Data
         
         Task<Order> SearchOrder(int id);
 
-        Task<Location> GetDestination(int orderId);
-
-        Task<Location> GetCustomerLocation(int orderId);
-
         Task<Order> EditOrderStatus(Order order);
 
-        Task<IList<Order>> GetCompletedOrders(Customer customer);
+        Task<IList<Order>> GetCompletedOrders(string customer);
     }
 }

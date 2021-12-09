@@ -28,7 +28,7 @@ namespace Uber2.Controllers
                 IList<Order> orders = await orderService.GetOrdersAsync();
                 if (username != null)
                 {
-                    orders = orders.Where(order => order.customer.username == username).ToList();
+                    orders = orders.Where(order => order.customer == username).ToList();
                 }
                 return Ok(orders);
             }
@@ -69,22 +69,8 @@ namespace Uber2.Controllers
             }
         }
 
-        [HttpGet("GetDestination")]
-        public async Task<ActionResult<Location>> GetDestination(int orderId)
-        {
-            Location destination = await orderService.GetDestination(orderId);
-            return Ok(destination);
-        }
-        
-        [HttpGet("GetCustomerLocation")]
-        public async Task<ActionResult<Location>> GetCustomerLocation(int orderId)
-        {
-            Location customer = await orderService.GetCustomerLocation(orderId);
-            return Ok(customer);
-        }
-        
         [HttpGet("GetCompletedOrders")]
-        public async Task<ActionResult<IList<Order>>> GetCompletedOrders(Customer customer)
+        public async Task<ActionResult<IList<Order>>> GetCompletedOrders(string customer)
         {
             IList<Order> completed = await orderService.GetCompletedOrders(customer);
             return Ok(completed);

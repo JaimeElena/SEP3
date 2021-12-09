@@ -40,33 +40,6 @@ namespace Uber2.Data
             }
             return null;
         }
-        
-
-        public async Task<Location> GetCustomerLocation(int orderId)
-        {
-            var list = uberContext.Orders;
-            foreach (var order in list)
-            {
-                if (order.id == orderId)
-                {
-                    return order.customerLocation;   
-                }
-            }
-            return null;
-        }
-
-        public async Task<Location> GetDestination(int orderId)
-        {
-            var list = uberContext.Orders;
-            foreach (var order in list)
-            {
-                if (order.id == orderId)
-                {
-                    return order.destination;
-                }
-            }
-            return null;
-        }
 
 
         public async Task<Order> EditOrderStatus(Order order)
@@ -85,7 +58,7 @@ namespace Uber2.Data
             }
         }
 
-        public async Task<IList<Order>> GetCompletedOrders(Customer customer)
+        public async Task<IList<Order>> GetCompletedOrders(string customer)
         {
             try
             {

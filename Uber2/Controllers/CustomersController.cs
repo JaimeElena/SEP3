@@ -76,7 +76,9 @@ namespace Uber2.Controllers
             {
                 Customer updated = await customersService.EditCustomerInfoAsync(customer);
                 return Ok(customersService.SearchCustomer(updated.username)); 
-            } catch (Exception e) {
+            } 
+            catch (Exception e) 
+            {
                 Console.WriteLine(e);
                 return StatusCode(500, e.Message);
             }
