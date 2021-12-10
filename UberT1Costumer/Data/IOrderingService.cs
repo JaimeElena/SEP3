@@ -1,11 +1,12 @@
-﻿using UberT1Costumer.Models;
+﻿using System.Threading.Tasks;
+using UberT1Costumer.Models;
 
 namespace UberT1Costumer.Data
 {
     public interface IOrderingService
     {
-        public Order RequestVehicle(Order order);
-        public string CancelRequest(Order order);
-        public string CheckProcess(Order order);
+        Task<Order> RequestVehicle(Order order);
+        Task<string> CancelRequest(Order order);
+        Task<string> CheckProcess(Order order);
     }
 }

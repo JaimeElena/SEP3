@@ -45,10 +45,10 @@
         message = "";
         try
         {
-            ((UserAuthenticationStateProvider)AuthenticationStateProvider).ValidateLogin(username, password);
+            await ((UserAuthenticationStateProvider)AuthenticationStateProvider).ValidateLogin(username, password);
             message = "Login succeed!";
             ShowMessage();
-            Thread.Sleep(3000);
+            await Task.Delay(3000);
             NavigationManager.NavigateTo("/profile");
 
         }
@@ -56,7 +56,7 @@
         {
             message = "Username or password is incorrect!";
             ShowMessage();
-            Thread.Sleep(3000);
+            await Task.Delay(3000);
             Console.WriteLine(e);
         }
     }
@@ -69,10 +69,10 @@
         CurrentUser = null;
         try
         {
-            ((UserAuthenticationStateProvider) AuthenticationStateProvider).Logout();
+            await ((UserAuthenticationStateProvider) AuthenticationStateProvider).Logout();
             message = "Logout succeed!";
             ShowMessage();
-            Thread.Sleep(3000);
+            await Task.Delay(3000);
             NavigationManager.NavigateTo("/");
         }
         catch (Exception e)
@@ -91,7 +91,7 @@
         }
         else
         {
-            string response = client.Register(username, password);
+            string response = await client.Register(username, password);
             if(response.Equals("200"))
             {
                 message = "Register was successful";

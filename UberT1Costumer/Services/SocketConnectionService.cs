@@ -24,9 +24,9 @@ namespace UberT1Costumer.Services
             Console.WriteLine("Connection stablished");
         }
 
-        public string RequestReply(Request request)
+        public async Task<string> RequestReply(Request request)
         {
-            Thread.Sleep(1000);
+            await Task.Delay(1000);
             var jsonRequest = JsonSerializer.Serialize(request);
             Console.WriteLine("Sending: " + jsonRequest);
             byte[] byteStream = Encoding.UTF8.GetBytes(jsonRequest);
@@ -41,7 +41,7 @@ namespace UberT1Costumer.Services
             return reply;
         }
 
-        public string Register(string username, string password)
+        public async Task<string> Register(string username, string password)
         {
             Request request = new Request()
             {
@@ -50,13 +50,13 @@ namespace UberT1Costumer.Services
                 RequestEntity = "costumer"
             };
 
-            string backString = RequestReply(request);
+            var backString = await RequestReply(request);
             Console.WriteLine(backString);
 
             return backString;
         }
 
-        public string Login(string username, string password)
+        public async Task<string> Login(string username, string password)
         {
             Request request = new Request()
             {
@@ -65,13 +65,13 @@ namespace UberT1Costumer.Services
                 RequestEntity = "costumer"
             };
 
-            string backString = RequestReply(request);
+            string backString = await RequestReply(request);
             Console.WriteLine(username + password);
 
             return backString;
         }
 
-        public void Logout(Costumer costumer)
+        public async Task Logout(Costumer costumer)
         {
             Request request = new Request()
             {
@@ -80,12 +80,12 @@ namespace UberT1Costumer.Services
                 RequestEntity = "costumer"
             };
 
-            string backString = RequestReply(request);
+            string backString = await RequestReply(request);
             socket.Close();
             Console.WriteLine("Logout");
         }
         
-        public Costumer GetCostumer(string username)
+        public async Task<Costumer> GetCostumer(string username)
         {
             Request request = new Request()
             {
@@ -93,12 +93,12 @@ namespace UberT1Costumer.Services
                 Body = new Costumer() {username = username},
                 RequestEntity = "driver"
             };
-            string backString = RequestReply(request);
+            string backString = await RequestReply(request);
             Costumer costumer = JsonSerializer.Deserialize<Costumer>(backString);
             return costumer;
         }
 
-        public Costumer EditCostumer(Costumer costumer)
+        public async Task<Costumer> EditCostumer(Costumer costumer)
         {
             Request request = new Request()
             {
@@ -106,14 +106,14 @@ namespace UberT1Costumer.Services
                 Body = costumer,
                 RequestEntity = "costumer"
             };
-            string backString = RequestReply(request);
+            string backString = await RequestReply(request);
             Costumer apiCostumer = JsonSerializer.Deserialize<Costumer>(backString);
             Console.WriteLine(costumer.firstname);
             Console.WriteLine(apiCostumer.firstname);
             return apiCostumer;
         }
 
-        public Order GetOrder(Costumer costumer)
+        public async Task<Order> GetOrder(Costumer costumer)
         {
             Request request = new Request()
             {
@@ -121,12 +121,12 @@ namespace UberT1Costumer.Services
                 Body = costumer,
                 RequestEntity = "costumer"
             };
-            string backString = RequestReply(request);
+            string backString = await RequestReply(request);
             Order order = JsonSerializer.Deserialize<Order>(backString);
             return order;
         }
 
-        public Order RequestVehicle(Order order)
+        public async Task<Order> RequestVehicle(Order order)
         {
             Request request = new Request()
             {
@@ -134,12 +134,12 @@ namespace UberT1Costumer.Services
                 Body = order,
                 RequestEntity = "costumer"
             };
-            string backString = RequestReply(request);
+            string backString = await RequestReply(request);
             Order apiorder = JsonSerializer.Deserialize<Order>(backString);
             return apiorder;
         }
 
-        public string CancelRequest(Order order)
+        public async Task<string> CancelRequest(Order order)
         {
             Request request = new Request()
             {
@@ -147,11 +147,11 @@ namespace UberT1Costumer.Services
                 Body = order,
                 RequestEntity = "costumer"
             };
-            string backString = RequestReply(request);
+            string backString = await RequestReply(request);
             return backString;
         }
 
-        public string CheckProcess(Order order)
+        public async Task<string> CheckProcess(Order order)
         {
             Request request = new Request()
             {
@@ -159,7 +159,7 @@ namespace UberT1Costumer.Services
                 Body = order,
                 RequestEntity = "costumer"
             };
-            string backString = RequestReply(request);
+            string backString = await RequestReply(request);
             return backString;
         }
     }

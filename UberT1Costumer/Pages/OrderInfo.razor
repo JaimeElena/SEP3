@@ -2,6 +2,7 @@
 @using UberT1Costumer.Data
 @using UberT1Costumer.Models
 @using UberT1Costumer.Authentication
+@using System.Device.Location
 
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @inject IOrderingService OrderingService
@@ -21,8 +22,8 @@
                     Destination:<br/>
                     <InputTextArea @bind-Value="destination.streetname"/>
                 </div>
+                <button type="submit">Request vehicle</button>
             </EditForm>
-            <button type="submit">Request vehicle</button>
             <button @onclick="@ShowOrder">Show order</button>
         }
         
@@ -95,25 +96,30 @@
     private string estimatetime;
     private double price;
     private Location destination = new Location();
-    private Order order;
+    private Order order = new Order();
     private bool showMenu = true;
     private bool showCheck;
     private bool showOrder;
     private bool showFinished;
     private string message = "";
+    private Location customerlocation;
 
     public async Task RequestVehicle()
     {
         destination.streetname = destinationstreetname;
         order.destination = destination;
-        order = OrderingService.RequestVehicle(order);
-        showMenu = false;
-        showCheck = true;
+        order.customerlocation = GetLocation();
+        if (order.customerlocation != null)
+        {
+            order = await OrderingService.RequestVehicle(order);
+            showMenu = false;
+            showCheck = true;
+        }
     }
 
     public async Task CancelRequest()
     {
-        message = OrderingService.CancelRequest(order);
+        message = await OrderingService.CancelRequest(order);
         if (message == "Cancelled")
         {
             order = new Order();
@@ -124,10 +130,10 @@
 
     public async Task CheckAccept()
     {
-        message = OrderingService.CheckProcess(order);
+        message = await OrderingService.CheckProcess(order);
         if (message == "Accept!")
         {
-            order = ((UserAuthenticationStateProvider) AuthenticationStateProvider).GetOrder();
+            order = await ((UserAuthenticationStateProvider) AuthenticationStateProvider).GetOrder();
             status = order.status;
             driverfirstname = order.driver.firstname;
             driversecondname = order.driver.lastname;
@@ -142,7 +148,7 @@
 
     public async Task CheckFinished()
     {
-        message = OrderingService.CheckProcess(order);
+        message = await OrderingService.CheckProcess(order);
         if (message == "Accept!")
         {
             showOrder = false;
@@ -151,7 +157,7 @@
 
     public async Task ShowOrder()
     {
-        order = ((UserAuthenticationStateProvider) AuthenticationStateProvider).GetOrder();
+        order = await ((UserAuthenticationStateProvider) AuthenticationStateProvider).GetOrder();
         status = order.status;
         driverfirstname = order.driver.firstname;
         driversecondname = order.driver.lastname;
@@ -163,10 +169,34 @@
         showOrder = true;
     }
 
-    public async Task Back()
+    public void Back()
     {
         showOrder = false;
         showMenu = true;
     }
-    
+
+    public Location GetLocation()
+    {
+        Console.WriteLine("Im here");
+        GeoCoordinateWatcher watcher = new GeoCoordinateWatcher();
+        watcher.TryStart(false, TimeSpan.FromMilliseconds(1000));
+        GeoPosition<GeoCoordinate> GC = new GeoPosition<GeoCoordinate>();
+        GC = watcher.Position;
+
+        double latitude = GC.Location.Latitude;
+        double longitude = GC.Location.Longitude;
+
+        Console.WriteLine(latitude + " " + longitude);
+        
+        if (watcher.Position.Location.IsUnknown)
+        {
+            Console.WriteLine("Unknown");
+            return null;
+        }
+        else
+        {
+            return new Location(latitude, longitude);
+        }
+    }
+
 }

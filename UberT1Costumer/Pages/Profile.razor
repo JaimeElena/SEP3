@@ -104,7 +104,7 @@
     private bool show = true;
     private bool showEdit;
     
-    private void Initialize()
+    private Task Initialize()
     {
         CurrentUser = ((UserAuthenticationStateProvider) AuthenticationStateProvider).GetUser();
         id = CurrentUser.id;
@@ -114,6 +114,7 @@
         secondName = CurrentUser.secondname;
         birthday = CurrentUser.birthday;
         sex = CurrentUser.sex;
+        return null;
     }
     
     private void ChangeGender(ChangeEventArgs args)
@@ -127,16 +128,13 @@
         
     }
 
-    private void SaveEdit()
+    private async Task SaveEdit()
     {
         try
         {
-            CurrentUser = ((UserAuthenticationStateProvider) AuthenticationStateProvider).EditUser(CurrentUser);
+            CurrentUser = await ((UserAuthenticationStateProvider) AuthenticationStateProvider).EditUser(CurrentUser);
             message = "Change saved!";
-            Thread.Sleep(1000);
-            Initialize();
-            Thread.Sleep(1000);
-            CancelEdit();
+            await Task.WhenAll(Initialize(), CancelEdit());
             Show();
         }
         catch (Exception e)
@@ -160,8 +158,9 @@
         showEdit = true;
     }
 
-    private void CancelEdit()
+    private Task CancelEdit()
     {
         showEdit = false;
+        return null;
     }
 }

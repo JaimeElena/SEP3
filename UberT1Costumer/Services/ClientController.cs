@@ -31,58 +31,58 @@ namespace UberT1Costumer.Services
             WebInstance.Connect();
         }
 
-        public string Register(string username, string password)
+        public async Task<string> Register(string username, string password)
         {
             Costumer costumer = new Costumer()
             {
                 username = username,
                 password = password
             };
-            return WebInstance.Register(username, password);
+            return await WebInstance.Register(username, password);
         }
 
-        public Costumer Login(string username, string password)
+        public async Task<Costumer> Login(string username, string password)
         {
-           String returnCode = WebInstance.Login(username, password);
+           String returnCode = await WebInstance.Login(username, password);
            Costumer costumer = JsonSerializer.Deserialize<Costumer>(returnCode);
            return costumer;
         }
 
-        public void Logout(Costumer costumer)
+        public async Task Logout(Costumer costumer)
         {
-            WebInstance.Logout(costumer);
+            await WebInstance.Logout(costumer);
         }
         
-        public Costumer GetCostumer(string username)
+        public async Task<Costumer> GetCostumer(string username)
         {
-            return WebInstance.GetCostumer(username);
+            return await WebInstance.GetCostumer(username);
         }
 
-        public Costumer EditCostumer(Costumer costumer)
+        public async Task<Costumer> EditCostumer(Costumer costumer)
         {
-            return WebInstance.EditCostumer(costumer);
+            return await WebInstance.EditCostumer(costumer);
             
         }
 
-        public Order GetOrder(Costumer costumer)
+        public async Task<Order> GetOrder(Costumer costumer)
         {
-            return WebInstance.GetOrder(costumer);
+            return await WebInstance.GetOrder(costumer);
             
         }
 
-        public Order RequestVehicle(Order order)
+        public async Task<Order> RequestVehicle(Order order)
         {
-            return WebInstance.RequestVehicle(order);
+            return await WebInstance.RequestVehicle(order);
         }
 
-        public string CancelRequest(Order order)
+        public async Task<string> CancelRequest(Order order)
         {
-            return WebInstance.CancelRequest(order);
+            return await WebInstance.CancelRequest(order);
         }
 
-        public string CheckProcess(Order order)
+        public async Task<string> CheckProcess(Order order)
         {
-            return WebInstance.CheckProcess(order);
+            return await WebInstance.CheckProcess(order);
         }
     }
 }

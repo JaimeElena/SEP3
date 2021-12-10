@@ -9,16 +9,16 @@ namespace UberT1Costumer.Services
     interface ISocketConnectionService
     {
         void Connect();
-        string RequestReply(Request request);
-        string Register(string username, string password);
-        string Login(string username, string password);
-        void Logout(Costumer costumer);
-        Costumer GetCostumer(string username);
-        Costumer EditCostumer(Costumer costumer);
-        public Order GetOrder(Costumer costumer);
-        public Order RequestVehicle(Order order);
-        public string CancelRequest(Order order);
-        public string CheckProcess(Order order);
+        Task<string> RequestReply(Request request);
+        Task<string> Register(string username, string password);
+        Task<string> Login(string username, string password);
+        Task Logout(Costumer costumer);
+        Task<Costumer> GetCostumer(string username);
+        Task<Costumer> EditCostumer(Costumer costumer);
+        Task<Order> GetOrder(Costumer costumer);
+        Task<Order> RequestVehicle(Order order);
+        Task<string> CancelRequest(Order order);
+        Task<string> CheckProcess(Order order);
 
     }
 }
