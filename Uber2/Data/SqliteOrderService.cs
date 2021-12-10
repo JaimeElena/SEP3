@@ -42,12 +42,12 @@ namespace Uber2.Data
         }
 
 
-        public async Task<Order> EditOrderStatus(Order order)
+        public async Task<Order> EditOrderStatus(Order order,string status)
         {
             try
             {
                 Order orderUpdate = await uberContext.Orders.FirstOrDefaultAsync(o => o.id == order.id);
-                orderUpdate.status = order.status;
+                orderUpdate.status = status;
                 uberContext.Update(orderUpdate);
                 await uberContext.SaveChangesAsync();
                 return orderUpdate; 
@@ -78,6 +78,22 @@ namespace Uber2.Data
                 Console.WriteLine(e);
                 throw;
             }
+        }
+
+        public async Task<Order> EditOrderDriver(Order order,string drivername)
+        {
+            try
+            {
+                Order orderUpdate = await uberContext.Orders.FirstOrDefaultAsync(o => o.id == order.id);
+                orderUpdate.driver = drivername;
+                uberContext.Update(orderUpdate);
+                await uberContext.SaveChangesAsync();
+                return orderUpdate; 
+            }
+            catch (Exception e) 
+            { 
+                throw new Exception($"Did not find order with id{order.id}"); 
+            };
         }
     }
     }

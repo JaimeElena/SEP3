@@ -62,11 +62,11 @@ namespace Uber2.Controllers
         }
         
         [HttpPatch("EditStatus")]
-        public async Task<ActionResult<Order>> UpdateOrder([FromBody] Order order) 
+        public async Task<ActionResult<Order>> UpdateOrder([FromBody] Order order,string status) 
         {
             try
             {
-                Order updated = await orderService.EditOrderStatus(order);
+                Order updated = await orderService.EditOrderStatus(order,status);
                 return Ok(orderService.SearchOrder(updated.id)); 
             } catch (Exception e) {
                 Console.WriteLine(e);
@@ -80,8 +80,34 @@ namespace Uber2.Controllers
             IList<Order> completed = await orderService.GetCompletedOrders(customer);
             return Ok(completed);
         }
-
-
+        
+        
+        [HttpPatch("AcceptOrder")]
+        public async Task<ActionResult<Order>> AcceptOrder([FromBody] Order order,string drivername) 
+        {
+            try
+            {
+                Order updated = await orderService.EditOrderDriver(order,drivername);
+                orderService.EditOrderStatus(order,"Pending");
+                return Ok(orderService.SearchOrder(updated.id)); 
+            } catch (Exception e) {
+                Console.WriteLine(e);
+                return StatusCode(500, e.Message);
+            }
+        }
+        
+        [HttpPatch("DenyOrder")]
+        public async Task<ActionResult<Order>> DenyOrder([FromBody] Order order) 
+        {
+            try
+            {
+                orderService.EditOrderStatus(order,"Denied");
+                return Ok(orderService.SearchOrder(order.id)); 
+            } catch (Exception e) {
+                Console.WriteLine(e);
+                return StatusCode(500, e.Message);
+            }
+        }
     }
     
     
