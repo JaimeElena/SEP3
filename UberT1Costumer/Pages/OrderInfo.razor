@@ -106,7 +106,6 @@
 
     public async Task RequestVehicle()
     {
-        destination.streetname = destinationstreetname;
         order.destination = destination;
         order.customerlocation = GetLocation();
         if (order.customerlocation != null)
