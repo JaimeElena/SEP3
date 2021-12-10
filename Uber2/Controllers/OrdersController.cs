@@ -40,7 +40,7 @@ namespace Uber2.Controllers
         }
         
         [HttpPost]
-        public async Task<ActionResult<Customer>> AddOrder([FromBody] Order order) 
+        public async Task<ActionResult<Order>> AddOrder([FromBody] Order order) 
         {
             if (!ModelState.IsValid)
             {
@@ -49,6 +49,11 @@ namespace Uber2.Controllers
             try
             {
                 Order added = await orderService.AddOrder(order);
+                if (added.Equals(true))
+                {
+                    Console.WriteLine("Add Order Successful!");
+                    return added;
+                }
                 return Created($"/{added.id}",added);
             } catch (Exception e) {
                 Console.WriteLine(e);

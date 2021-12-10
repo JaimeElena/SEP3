@@ -14,6 +14,7 @@ namespace Uber2.Models
         
         public double dlng { get; set; }
         public string customer { get; set; }
+        
         public string driver { get; set; }
         public string status { get; set; }
     }
