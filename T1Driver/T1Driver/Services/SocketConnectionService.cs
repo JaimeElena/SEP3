@@ -5,6 +5,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Text.Json;
 using System.Threading;
+using System.Threading.Tasks;
 using T1Driver.Models;
 
 namespace T1Driver.Services
@@ -22,9 +23,9 @@ namespace T1Driver.Services
             Console.WriteLine("Connection stablished");
         }
 
-        public string RequestReply(Request request)
+        public async Task<string> RequestReply(Request request)
         {
-            Thread.Sleep(1000);
+            await Task.Delay(1000);
             var jsonRequest = JsonSerializer.Serialize(request);
             Console.WriteLine("Sending: " + jsonRequest);
             byte[] byteStream = Encoding.UTF8.GetBytes(jsonRequest);
@@ -39,7 +40,7 @@ namespace T1Driver.Services
             return reply;
         }
 
-        public string Register(Driver driver)
+        public async Task<string> Register(Driver driver)
         {
             Request request = new Request()
             {
@@ -48,13 +49,13 @@ namespace T1Driver.Services
                 RequestEntity = "driver"
             };
 
-            string backString = RequestReply(request);
+            string backString = await RequestReply(request);
             Console.WriteLine(backString);
 
             return backString;
         }
 
-        public string Login(string username, string password)
+        public async Task<string> Login(string username, string password)
         {
             Request request = new Request()
             {
@@ -63,13 +64,13 @@ namespace T1Driver.Services
                 RequestEntity = "driver"
             };
 
-            string backString = RequestReply(request);
+            string backString = await RequestReply(request);
             Console.WriteLine(username + password);
 
             return backString;
         }
 
-        public void Logout(Driver driver)
+        public async Task Logout(Driver driver)
         {
             Request request = new Request()
             {
@@ -78,12 +79,12 @@ namespace T1Driver.Services
                 RequestEntity = "driver"
             };
 
-            string backString = RequestReply(request);
+            string backString = await RequestReply(request);
             socket.Close();
             Console.WriteLine("Logout");
         }
 
-        public Driver GetDriver(string username)
+        public async Task<Driver> GetDriver(string username)
         {
             Request request = new Request()
             {
@@ -91,12 +92,12 @@ namespace T1Driver.Services
                 Body = new Driver() {username = username},
                 RequestEntity = "driver"
             };
-            string backString = RequestReply(request);
+            string backString = await RequestReply(request);
             Driver driver = JsonSerializer.Deserialize<Driver>(backString);
             return driver;
         }
 
-        public Driver EditDriver(Driver driver)
+        public async Task<Driver> EditDriver(Driver driver)
         {
             Request request = new Request()
             {
@@ -104,24 +105,24 @@ namespace T1Driver.Services
                 Body = driver,
                 RequestEntity = "driver"
             };
-            string backString = RequestReply(request);
+            string backString = await RequestReply(request);
             Driver apidriver = JsonSerializer.Deserialize<Driver>(backString);
             return apidriver;
         }
 
-        public IList<Order> GetOrders()
+        public async Task<IList<Order>> GetOrders()
         {
             Request request = new Request()
             {
                 Type = "getorders",
                 RequestEntity = "driver"
             };
-            string backString = RequestReply(request);
+            string backString = await RequestReply(request);
             IList<Order> orders = JsonSerializer.Deserialize<IList<Order>>(backString);
             return orders;
         }
 
-        public Order AcceptOrder(Order order)
+        public async Task<Order> AcceptOrder(Order order)
         {
             Request request = new Request()
             {
@@ -129,7 +130,7 @@ namespace T1Driver.Services
                 Body = order,
                 RequestEntity = "driver"
             };
-            string backString = RequestReply(request);
+            string backString = await RequestReply(request);
             Order apiOrder = JsonSerializer.Deserialize<Order>(backString);
             return apiOrder;
         }

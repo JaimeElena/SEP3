@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using T1Driver.Models;
 using T1Driver.Services;
 
@@ -14,39 +15,39 @@ namespace T1Driver.Data
             ClientController.getInstance().Connect();
         }
 
-        public string Register(Driver driver)
+        public async Task<string> Register(Driver driver)
         {
-            return ClientController.getInstance().Register(driver);
+            return await ClientController.getInstance().Register(driver);
         }
 
-        public Driver Login(string username, string password)
+        public async Task<Driver> Login(string username, string password)
         {
-            return ClientController.getInstance().Login(username,password);
+            return await ClientController.getInstance().Login(username,password);
         }
 
-        public void Logout(Driver driver)
+        public async Task Logout(Driver driver)
         {
-            ClientController.getInstance().Logout(driver);
+            await ClientController.getInstance().Logout(driver);
         }
 
-        public Driver GetDriver(string username)
+        public async Task<Driver> GetDriver(string username)
         {
-            return ClientController.getInstance().GetDriver(username);
+            return await ClientController.getInstance().GetDriver(username);
         }
 
-        public Driver EditDriver(Driver driver)
+        public async Task<Driver> EditDriver(Driver driver)
         {
-            return ClientController.getInstance().EditDriver(driver);
+            return await ClientController.getInstance().EditDriver(driver);
         }
 
-        public IList<Order> GetOrders()
+        public async Task<IList<Order>> GetOrders()
         {
-            return ClientController.getInstance().GetOrders();
+            return await ClientController.getInstance().GetOrders();
         }
 
-        public Order AcceptOrder(Order order)
+        public async Task<Order> AcceptOrder(Order order)
         { 
-            cacheOrder = ClientController.getInstance().AcceptOrder(order);
+            cacheOrder = await ClientController.getInstance().AcceptOrder(order);
             return cacheOrder;
         }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using T1Driver.Models;
 
 namespace T1Driver.Data
@@ -7,13 +8,13 @@ namespace T1Driver.Data
     public interface IUserServices
     {
         void Connect();
-        string Register(Driver driver);
-        Driver Login(string username, string password);
-        void Logout(Driver driver);
-        Driver GetDriver(string username);
-        Driver EditDriver(Driver driver);
-        public IList<Order> GetOrders();
-        public Order AcceptOrder(Order order);
-        public Order GetCacheOrder();
+        Task<string> Register(Driver driver);
+        Task<Driver> Login(string username, string password);
+        Task Logout(Driver driver);
+        Task<Driver> GetDriver(string username);
+        Task<Driver> EditDriver(Driver driver);
+        Task<IList<Order>> GetOrders();
+        Task<Order> AcceptOrder(Order order);
+        Order GetCacheOrder();
     }
 }

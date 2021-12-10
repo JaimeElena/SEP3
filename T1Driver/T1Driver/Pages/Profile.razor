@@ -139,15 +139,15 @@
         
     }
 
-    private void SaveEdit()
+    private async Task SaveEdit()
     {
         try
         {
-            CurrentUser = ((UserAuthenticationStateProvider) AuthenticationStateProvider).EditUser(CurrentUser);
+            CurrentUser = await ((UserAuthenticationStateProvider) AuthenticationStateProvider).EditUser(CurrentUser);
             message = "Change saved!";
-            Thread.Sleep(1000);
+            await Task.Delay(1000);
             Initialize();
-            Thread.Sleep(1000);
+            await Task.Delay(1000);
             CancelEdit();
             Show();
         }

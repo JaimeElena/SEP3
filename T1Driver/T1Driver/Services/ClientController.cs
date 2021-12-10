@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text.Json;
+using System.Threading.Tasks;
 using T1Driver.Models;
 
 namespace T1Driver.Services
@@ -29,44 +30,44 @@ namespace T1Driver.Services
             WebInstance.Connect();
         }
 
-        public string Register(Driver driver)
+        public async Task<string> Register(Driver driver)
         {
-            return WebInstance.Register(driver);
+            return await WebInstance.Register(driver);
         }
 
-        public Driver Login(string username, string password)
+        public async Task<Driver> Login(string username, string password)
         {
 
-            String returnCode = WebInstance.Login(username, password);
+            String returnCode = await WebInstance.Login(username, password);
             Driver driver = JsonSerializer.Deserialize<Driver>(returnCode);
             return driver;
         }
 
-        public void Logout(Driver driver)
+        public async Task Logout(Driver driver)
         {
-            WebInstance.Logout(driver);
+            await WebInstance.Logout(driver);
         }
 
-        public Driver GetDriver(string username)
+        public async Task<Driver> GetDriver(string username)
         {
-            Driver driver = WebInstance.GetDriver(username);
+            Driver driver = await WebInstance.GetDriver(username);
             return driver;
         }
 
-        public Driver EditDriver(Driver driver)
+        public async Task<Driver> EditDriver(Driver driver)
         {
-            Driver apidriver = WebInstance.EditDriver(driver);
+            Driver apidriver = await WebInstance.EditDriver(driver);
             return apidriver;
         }
 
-        public IList<Order> GetOrders()
+        public async Task<IList<Order>> GetOrders()
         {
-            return WebInstance.GetOrders();
+            return await WebInstance.GetOrders();
         }
 
-        public Order AcceptOrder(Order order)
+        public async Task<Order> AcceptOrder(Order order)
         {
-            Order apiorder = WebInstance.AcceptOrder(order);
+            Order apiorder = await WebInstance.AcceptOrder(order);
             return apiorder;
         }
 

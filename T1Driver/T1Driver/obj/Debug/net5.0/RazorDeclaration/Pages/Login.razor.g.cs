@@ -119,7 +119,7 @@ using T1Driver.Authentication;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 73 "C:\Users\Lokkaze\Desktop\uni\SEP3\code\Tier1\T1Driver\T1Driver\Pages\Login.razor"
+#line 74 "C:\Users\Lokkaze\Desktop\uni\SEP3\code\Tier1\T1Driver\T1Driver\Pages\Login.razor"
        
     private Driver CurrentUser = new Driver();
 
@@ -136,9 +136,9 @@ using T1Driver.Authentication;
         message = "";
         try
         {
-            ((UserAuthenticationStateProvider)AuthenticationStateProvider).ValidateLogin(username, password);
+            await ((UserAuthenticationStateProvider)AuthenticationStateProvider).ValidateLogin(username, password);
             message = "Login succeed!";
-            Thread.Sleep(1000);
+            await Task.Delay(1000);
             NavigationManager.NavigateTo("/profile");
         }
         catch (Exception e)
@@ -156,9 +156,9 @@ using T1Driver.Authentication;
         CurrentUser = null;
         try
         {
-            ((UserAuthenticationStateProvider) AuthenticationStateProvider).Logout();
+            await ((UserAuthenticationStateProvider) AuthenticationStateProvider).Logout();
             message = "Logout succeed!";
-            Thread.Sleep(1000);
+            await Task.Delay(1000);
             NavigationManager.NavigateTo("/");
         }
         catch (Exception e)
@@ -175,7 +175,7 @@ using T1Driver.Authentication;
         }
         else
         {
-            string response = client.Register(CurrentUser);
+            string response = await client.Register(CurrentUser);
             if(response.Equals("200"))
             {
                 Console.WriteLine("Register was successful");
@@ -184,13 +184,13 @@ using T1Driver.Authentication;
         }
     }
 
-    public async Task ShowRegister()
+    public void ShowRegister()
     {
         showLogin = false;
         showRegister = true;
     }
 
-    public async Task HideRegister()
+    public void HideRegister()
     {
         showRegister = false;
         showLogin = true;

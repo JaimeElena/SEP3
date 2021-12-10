@@ -80,15 +80,15 @@
     private int selectOrder;
     private int id;
 
-    public void StartFind()
+    public async Task StartFind()
     {
-        orders = OrdersData.GetOrders();
-        Thread.Sleep(1000);
+        orders = await OrdersData.GetOrders();
+        await Task.Delay(1000);
         find = false;
         list = true;
     }
 
-    public async Task StopFind()
+    public void StopFind()
     {
         list = false;
         find = true;
@@ -103,7 +103,7 @@
     public async Task AcceptOrder(int id)
     {
         Order orderToAccept = orders.First(t => t.id == id);
-        OrdersData.AcceptOrder(orderToAccept);
+        await OrdersData.AcceptOrder(orderToAccept);
         NavigationManager.NavigateTo("/OrderInfo");
     }
 

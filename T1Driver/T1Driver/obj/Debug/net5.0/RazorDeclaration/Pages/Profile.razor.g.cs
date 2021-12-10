@@ -119,7 +119,7 @@ using System.Threading;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 100 "C:\Users\Lokkaze\Desktop\uni\SEP3\code\Tier1\T1Driver\T1Driver\Pages\Profile.razor"
+#line 101 "C:\Users\Lokkaze\Desktop\uni\SEP3\code\Tier1\T1Driver\T1Driver\Pages\Profile.razor"
        
     private Driver CurrentUser;
 
@@ -153,7 +153,6 @@ using System.Threading;
     
     private void ChangeGender(ChangeEventArgs args)
     {
-        CurrentUser.sex = null;
         try
         {
             CurrentUser.sex = args.Value.ToString();
@@ -162,15 +161,15 @@ using System.Threading;
         
     }
 
-    private void SaveEdit()
+    private async Task SaveEdit()
     {
         try
         {
-            CurrentUser = ((UserAuthenticationStateProvider) AuthenticationStateProvider).EditUser(CurrentUser);
+            CurrentUser = await ((UserAuthenticationStateProvider) AuthenticationStateProvider).EditUser(CurrentUser);
             message = "Change saved!";
-            Thread.Sleep(1000);
+            await Task.Delay(1000);
             Initialize();
-            Thread.Sleep(1000);
+            await Task.Delay(1000);
             CancelEdit();
             Show();
         }

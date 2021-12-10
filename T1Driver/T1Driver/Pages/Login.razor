@@ -87,9 +87,9 @@
         message = "";
         try
         {
-            ((UserAuthenticationStateProvider)AuthenticationStateProvider).ValidateLogin(username, password);
+            await ((UserAuthenticationStateProvider)AuthenticationStateProvider).ValidateLogin(username, password);
             message = "Login succeed!";
-            Thread.Sleep(1000);
+            await Task.Delay(1000);
             NavigationManager.NavigateTo("/profile");
         }
         catch (Exception e)
@@ -107,9 +107,9 @@
         CurrentUser = null;
         try
         {
-            ((UserAuthenticationStateProvider) AuthenticationStateProvider).Logout();
+            await ((UserAuthenticationStateProvider) AuthenticationStateProvider).Logout();
             message = "Logout succeed!";
-            Thread.Sleep(1000);
+            await Task.Delay(1000);
             NavigationManager.NavigateTo("/");
         }
         catch (Exception e)
@@ -126,7 +126,7 @@
         }
         else
         {
-            string response = client.Register(CurrentUser);
+            string response = await client.Register(CurrentUser);
             if(response.Equals("200"))
             {
                 Console.WriteLine("Register was successful");
@@ -135,13 +135,13 @@
         }
     }
 
-    public async Task ShowRegister()
+    public void ShowRegister()
     {
         showLogin = false;
         showRegister = true;
     }
 
-    public async Task HideRegister()
+    public void HideRegister()
     {
         showRegister = false;
         showLogin = true;

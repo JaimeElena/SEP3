@@ -44,7 +44,7 @@ namespace T1Driver.Authentication
             return await Task.FromResult(new AuthenticationState(cachedClaimsPrincipal));
         }
 
-        public void ValidateLogin(string username, string password)
+        public async Task ValidateLogin(string username, string password)
         {
             Console.WriteLine("Validating log in");
             if (string.IsNullOrEmpty(username)) throw new Exception("Enter username");
@@ -53,7 +53,7 @@ namespace T1Driver.Authentication
             ClaimsIdentity identity = new ClaimsIdentity();
             try
             {
-                Driver driver = client.Login(username, password);
+                Driver driver = await client.Login(username, password);
                 identity = SetupClaimsForUser(driver);
                 string serialisedData = JsonSerializer.Serialize(driver);
                 jsRuntime.InvokeVoidAsync("sessionStorage.setItem", "currentUser", serialisedData);
@@ -73,18 +73,18 @@ namespace T1Driver.Authentication
             return cachedUser;
         }
 
-        public Driver EditUser(Driver driver)
+        public async Task<Driver> EditUser(Driver driver)
         {
-            cachedUser = client.EditDriver(driver);
+            cachedUser = await client.EditDriver(driver);
             return cachedUser;
         }
 
-        public void Logout()
+        public async Task Logout()
         {
-            client.Logout(cachedUser);
+            await client.Logout(cachedUser);
             cachedUser = null;
             var driver = new ClaimsPrincipal(new ClaimsIdentity());
-            jsRuntime.InvokeVoidAsync("sessionStorage.setItem", "currentUser", "");
+            await jsRuntime.InvokeVoidAsync("sessionStorage.setItem", "currentUser", "");
             NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(driver)));
         }
             
