@@ -107,11 +107,11 @@
 
     public async Task RequestVehicle()
     {
-        order.destination = destination;
-        order.customerlocation = GetLocation();
+        order.destinationName = destination.streetname;
+        order.customerLocation = GetLocation();
         costumer = ((UserAuthenticationStateProvider) AuthenticationStateProvider).GetUser();
         order.costumer = costumer;
-        if (order.customerlocation != null)
+        if (order.customerLocation != null)
         {
             order = await OrderingService.RequestVehicle(order);
             showMenu = false;
@@ -139,10 +139,10 @@
             status = order.status;
             driverfirstname = order.driver.firstname;
             driversecondname = order.driver.lastname;
-            customerstreetname = order.customerlocation.streetname;
-            estimatetime = order.estimatetime;
+            customerstreetname = order.customerLocation.streetname;
+            estimatetime = order.estimateTime;
             price = order.price;
-            destinationstreetname = order.destination.streetname;
+            destinationstreetname = order.destinationName;
             showCheck = false;
             showOrder = true;
         }
@@ -163,10 +163,10 @@
         status = order.status;
         driverfirstname = order.driver.firstname;
         driversecondname = order.driver.lastname;
-        customerstreetname = order.customerlocation.streetname;
-        estimatetime = order.estimatetime;
+        customerstreetname = order.customerLocation.streetname;
+        estimatetime = order.estimateTime;
         price = order.price;
-        destinationstreetname = order.destination.streetname;
+        destinationstreetname = order.destinationName;
         showMenu = false;
         showOrder = true;
     }
