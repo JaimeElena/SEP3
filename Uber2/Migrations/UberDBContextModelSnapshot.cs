@@ -95,25 +95,16 @@ namespace Uber2.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<double>("clat")
-                        .HasColumnType("REAL");
-
-                    b.Property<double>("clng")
-                        .HasColumnType("REAL");
-
                     b.Property<string>("customer")
                         .HasColumnType("TEXT");
-
-                    b.Property<double>("dlat")
-                        .HasColumnType("REAL");
-
-                    b.Property<double>("dlng")
-                        .HasColumnType("REAL");
 
                     b.Property<string>("driver")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("status")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("streetName")
                         .HasColumnType("TEXT");
 
                     b.HasKey("id");
