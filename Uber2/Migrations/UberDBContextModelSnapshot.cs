@@ -98,13 +98,16 @@ namespace Uber2.Migrations
                     b.Property<string>("customer")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("customerStreetName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("destinationStreetName")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("driver")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("status")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("streetName")
                         .HasColumnType("TEXT");
 
                     b.HasKey("id");
