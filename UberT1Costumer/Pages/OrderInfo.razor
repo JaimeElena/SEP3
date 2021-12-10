@@ -11,14 +11,18 @@
     <NotAuthorized>
         <h3>You need to login before access!</h3>
     </NotAuthorized>
-    <Authorized>
+    <Authorized Context="menu">
         @if (showMenu)
         {
-            <div>
-                Destination:<br/>
-                <InputTextArea @bind-Value="order.destination.streetname"/>
-            </div>
-            <button @onclick="@RequestVehicle">Request vehicle</button>
+            <EditForm model="destination" OnValidSubmit="RequestVehicle">
+                <DataAnnotationsValidator/>
+                <ValidationSummary/>
+                <div>
+                    Destination:<br/>
+                    <InputTextArea @bind-Value="destination.streetname"/>
+                </div>
+            </EditForm>
+            <button type="submit">Request vehicle</button>
             <button @onclick="@ShowOrder">Show order</button>
         }
         
@@ -41,31 +45,31 @@
             {
                 <div class="form-group">
                     Status:<br/>
-                    <label>@order.status</label>
+                    <label>@status</label>
                 </div>
                 <div class="form-group">
                     Driver first name:<br/>
-                    <label>@order.driver.firstname</label>
+                    <label>@driverfirstname</label>
                 </div>
                 <div class="form-group">
                     Driver last name:<br/>
-                    <label>@order.driver.lastname</label>
+                    <label>@driversecondname</label>
                 </div>
                 <div class="form-group">
                     Your Location:<br/>
-                    <label>@order.customerlocation.streetname</label>
+                    <label>@customerstreetname</label>
                 </div>
                 <div class="form-group">
                     Destination:<br/>
-                    <label>@order.destination.streetname</label>
+                    <label>@destinationstreetname</label>
                 </div>
                 <div class="form-group">
                     Estimate time:<br/>
-                    <label>@order.estimatetime</label>
+                    <label>@estimatetime</label>
                 </div>
                 <div class="form-group">
                     Price:<br/>
-                    <label>@order.price</label>
+                    <label>@price</label>
                 </div>
                 <div class="form-group">
                     <label>@message</label>
@@ -83,7 +87,15 @@
     </Authorized>
 </AuthorizeView>
 @code {
-    private Order order = new Order();
+    private string destinationstreetname;
+    private string status;
+    private string driverfirstname;
+    private string driversecondname;
+    private string customerstreetname;
+    private string estimatetime;
+    private double price;
+    private Location destination = new Location();
+    private Order order;
     private bool showMenu = true;
     private bool showCheck;
     private bool showOrder;
@@ -92,6 +104,8 @@
 
     public async Task RequestVehicle()
     {
+        destination.streetname = destinationstreetname;
+        order.destination = destination;
         order = OrderingService.RequestVehicle(order);
         showMenu = false;
         showCheck = true;
@@ -114,6 +128,13 @@
         if (message == "Accept!")
         {
             order = ((UserAuthenticationStateProvider) AuthenticationStateProvider).GetOrder();
+            status = order.status;
+            driverfirstname = order.driver.firstname;
+            driversecondname = order.driver.lastname;
+            customerstreetname = order.customerlocation.streetname;
+            estimatetime = order.estimatetime;
+            price = order.price;
+            destinationstreetname = order.destination.streetname;
             showCheck = false;
             showOrder = true;
         }
@@ -131,6 +152,13 @@
     public async Task ShowOrder()
     {
         order = ((UserAuthenticationStateProvider) AuthenticationStateProvider).GetOrder();
+        status = order.status;
+        driverfirstname = order.driver.firstname;
+        driversecondname = order.driver.lastname;
+        customerstreetname = order.customerlocation.streetname;
+        estimatetime = order.estimatetime;
+        price = order.price;
+        destinationstreetname = order.destination.streetname;
         showMenu = false;
         showOrder = true;
     }

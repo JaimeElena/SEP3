@@ -37,6 +37,7 @@ namespace UberT1Costumer
             services.AddServerSideBlazor();
             services.AddScoped<ISocketConnectionService, SocketConnectionService>();
             services.AddScoped<IUserServices,UserServices>();
+            services.AddScoped<IOrderingService, OrderingService>();
             services.AddScoped<AuthenticationStateProvider, UserAuthenticationStateProvider>();
         }
 
