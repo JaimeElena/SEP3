@@ -7,20 +7,26 @@ public class Driver
     private String password;
     private String birthday;
     private String firstname;
-    private String lastname;
+    private String secondname;
     private String sex;
     private String numberPlate;
     private boolean isFree;
     private boolean isLogged;
 
-    public Driver(int id,  String username, String password, String birthday, String firstname, String lastname, String sex, String numberPlate)
+    public Driver(String username, String password)
+    {
+        this.username = username;
+        this.password = password;
+    }
+
+    public Driver(int id,  String username, String password, String birthday, String firstname, String secondname, String sex, String numberPlate)
     {
         this.id = id;
         this.username = username;
         this.password = password;
         this.birthday = birthday;
         this.firstname = firstname;
-        this.lastname = lastname;
+        this.secondname = secondname;
         this.numberPlate = numberPlate;
         this.sex = sex;
         isFree = true;
@@ -49,7 +55,7 @@ public class Driver
 
     public String getLastname()
     {
-        return lastname;
+        return secondname;
     }
 
     public String getSex()
@@ -84,7 +90,7 @@ public class Driver
 
     public void setLastname(String lastname)
     {
-        this.lastname = lastname;
+        this.secondname = lastname;
     }
 
     public void setSex(String sex)
@@ -95,5 +101,10 @@ public class Driver
     public void setFree(boolean free)
     {
         isFree = free;
+    }
+
+    public String toString()
+    {
+        return username + id + password + birthday + firstname + secondname + sex + numberPlate;
     }
 }

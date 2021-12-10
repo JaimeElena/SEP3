@@ -82,7 +82,16 @@ public class ApiCustomerService implements IApiCustomerService
     @Override
     public Costumer GetCostumerByUsername(String username) throws IOException, InterruptedException
     {
-        return null;
+        HttpRequest request = HttpRequest.newBuilder()
+                .GET()
+                .header("accept", "application/json")
+                .uri(URI.create(String.format(API_URL + "/GetCustomerInfo/%s", username)))
+                .build();
+        HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        System.out.println(response.body().toString());
+        JSONObject object = new JSONObject(response.body().toString());
+        Costumer costumer = gson.fromJson(object.getJSONObject("result").toString(), Costumer.class);
+        return costumer;
     }
 
     @Override

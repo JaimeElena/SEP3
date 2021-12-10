@@ -1,6 +1,9 @@
 package org.example;
 
 import apiConnection.*;
+import data.IOrderParsingService;
+import data.OrderParsingService;
+import models.*;
 
 import java.io.IOException;
 
@@ -18,16 +21,17 @@ public class App
         IApiCustomerService apiService = new ApiCustomerService();
         ILocationService locationService = new LocationService();
         IApiDriverService apiDriverService = new ApiDriverService();
+        IOrderParsingService orderParsingService = new OrderParsingService();
 
-        apiDriverService.GetDriverByUsername("Tim");
+        Location loc1 = new Location();
+        Location loc2 = new Location();
+        Costumer costumer = new Costumer("Random", "1234");
+        Driver driver  = new Driver("Tim", "1234");
 
-        //Location loc1 = new Location();
-        //Location loc2 = new Location();
+        CustomerOrder customerOrder = new CustomerOrder("Fussingsvej8,8700Horsens", loc1, costumer, driver, "pending", "" );
+        Order order = orderParsingService.ParseCustomerOrder(customerOrder, locationService);
 
-        //Costumer costumer = new Costumer(1,"Buger King","5678", "2001.04.02","Siyu","Xia", "M");
-        //Driver driver = new Driver(3,"deee", "1234","22-07-00","ada","as","M", "3245A");
-        //Order order = new Order(loc1, loc2, costumer, driver, "Pending", null);
-
-        //apiService.RequestOrder(order);
+        //locationService.GetDistance(loc1, loc2);
+        apiService.RequestOrder(order);
     }
 }

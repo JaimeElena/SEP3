@@ -32,4 +32,9 @@ public class Location
     {
         this.lng = lng;
     }
+
+    public String toString()
+    {
+        return "lat: " + lat + " lng: " + lng;
+    }
 }

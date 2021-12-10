@@ -100,6 +100,8 @@ public class Costumer
 
     public String toString()
     {
-        return "Id: " + id + "Username: " + username;
+
+            return username + id + password + birthday + firstname + secondname + sex;
+
     }
 }

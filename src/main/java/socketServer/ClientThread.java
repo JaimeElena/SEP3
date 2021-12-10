@@ -1,11 +1,11 @@
 package socketServer;
 
-import apiConnection.ApiCustomerService;
-import apiConnection.ApiDriverService;
-import apiConnection.IApiCustomerService;
-import apiConnection.IApiDriverService;
+import apiConnection.*;
 import com.google.gson.Gson;
+import data.IOrderParsingService;
+import data.OrderParsingService;
 import models.Costumer;
+import models.CustomerOrder;
 import models.Order;
 import models.Request;
 import org.json.JSONObject;
@@ -20,6 +20,8 @@ public class ClientThread extends Thread
     private Gson gson;
     private IApiCustomerService apiCustomerService;
     private IApiDriverService apiDriverService;
+    private ILocationService locationService;
+    private IOrderParsingService parsingService;
 
     public ClientThread(Socket socket)
     {
@@ -27,6 +29,8 @@ public class ClientThread extends Thread
         gson = new Gson();
         apiCustomerService = new ApiCustomerService();
         apiDriverService = new ApiDriverService();
+        locationService = new LocationService();
+        parsingService = new OrderParsingService();
         System.out.println("Connection started");
     }
 
@@ -90,9 +94,12 @@ public class ClientThread extends Thread
                     out.write(apiResponse.getBytes());
                     json = "";
                 }
-                else if(request.getType().equals("order"))
+                else if(request.getType().equals("requestvehicle"))
                 {
-                    Order order = gson.fromJson(request.getBody().toString(), Order.class);
+                    CustomerOrder customerOrder = gson.fromJson(request.getBody().toString(), CustomerOrder.class);
+                    System.out.println(customerOrder.getCustomerLocation().toString());
+                    System.out.println(customerOrder.getCustomer().toString());
+                    Order order = parsingService.ParseCustomerOrder(customerOrder, locationService);
                     String apiResponse = apiCustomerService.RequestOrder(order);
                     out.write(apiResponse.getBytes());
                     json = "";

@@ -83,15 +83,13 @@ public class ApiDriverService implements IApiDriverService
         HttpRequest request = HttpRequest.newBuilder()
                 .GET()
                 .header("accept", "application/json")
-                .uri(URI.create(String.format(API_URL + "/GetCustomerInfo/%s", username)))
+                .uri(URI.create(String.format(API_URL + "/GetDriverInfo/%s", username)))
                 .build();
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        System.out.println(response.body());
-        JsonParser jsonParser = new JsonParser();
-        //JsonObject jsonObject = (JsonObject) jsonParser.parse(response.body());
-
-        //System.out.println(jsonObject.toString());
-        return null;
+        HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        System.out.println(response.body().toString());
+        JSONObject object = new JSONObject(response.body().toString());
+        Driver driver = gson.fromJson(object.getJSONObject("result").toString(), Driver.class);
+        return driver;
     }
 
     @Override

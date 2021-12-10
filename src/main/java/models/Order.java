@@ -3,21 +3,23 @@ package models;
 public class Order
 {
     private int id;
-    private Location destination;
-    private Location customerLocation;
-    private Costumer customer;
-    private Driver driver;
+    private double dlat;
+    private double dlng;
+    private double clat;
+    private double clng;
+    private String customer;
+    private String driver;
     private String status;
-    private String estimatedTime;
 
-    public Order(Location destination, Location customerLocation, Costumer customer, Driver driver, String status, String estimatedTime)
+    public Order(double dlat, double dlng, double clat, double clng, String customer, String driver, String status)
     {
-        this.destination = destination;
-        this.customerLocation = customerLocation;
+        this.dlat = dlat;
+        this.dlng = dlng;
+        this.clat = clat;
+        this.clng = clng;
         this.customer = customer;
         this.driver = driver;
         this.status = status;
-        this.estimatedTime = estimatedTime;
     }
 
     public int getId()
@@ -25,68 +27,38 @@ public class Order
         return id;
     }
 
-    public Location getDestination()
+    public double getDlat()
     {
-        return destination;
+        return dlat;
     }
 
-    public Location getCustomerLocation()
+    public double getDlng()
     {
-        return customerLocation;
+        return dlng;
     }
 
-    public Costumer getCustomer()
+    public double getClat()
     {
+        return clat;
+    }
+
+    public double getClng() {
+        return clng;
+    }
+
+    public String getCustomer() {
         return customer;
     }
 
-    public Driver getDriver()
-    {
+    public String getDriver() {
         return driver;
     }
 
-    public String getStatus()
-    {
+    public String getStatus() {
         return status;
     }
-
-    public String getEstimatedTime()
+    public String toString()
     {
-        return estimatedTime;
-    }
-
-    public void setId(int id)
-    {
-        this.id = id;
-    }
-
-    public void setDestination(Location destination)
-    {
-        this.destination = destination;
-    }
-
-    public void setCustomerLocation(Location customerLocation)
-    {
-        this.customerLocation = customerLocation;
-    }
-
-    public void setCustomer(Costumer customer)
-    {
-        this.customer = customer;
-    }
-
-    public void setDriver(Driver driver)
-    {
-        this.driver = driver;
-    }
-
-    public void setStatus(String status)
-    {
-        this.status = status;
-    }
-
-    public void setEstimatedTime(String estimatedTime)
-    {
-        this.estimatedTime = estimatedTime;
+        return status;
     }
 }
