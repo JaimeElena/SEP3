@@ -80,6 +80,28 @@ namespace Uber2.Data
             }
         }
 
+        public async Task<IList<Order>> GetPendingOrders()
+        {
+            try
+            {
+                var all = uberContext.Orders;
+                IList<Order> list = new List<Order>();
+                foreach (var order in all)
+                {
+                    if (order.status == "Pending")
+                    {
+                        list.Add(order);
+                    }
+                }
+                return list;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
         public async Task<Order> EditOrderDriver(Order order,string drivername)
         {
             try

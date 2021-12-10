@@ -16,6 +16,8 @@ namespace Uber2.Data
 
         Task<IList<Order>> GetCompletedOrders(string customer);
 
+        Task<IList<Order>> GetPendingOrders();
+
         Task<Order> EditOrderDriver(Order order,string drivername);
     }
 }

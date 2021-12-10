@@ -80,8 +80,15 @@ namespace Uber2.Controllers
             IList<Order> completed = await orderService.GetCompletedOrders(customer);
             return Ok(completed);
         }
-        
-        
+
+        [HttpGet("GetPendingOrders")]
+        public async Task<ActionResult<IList<Order>>> GetPendingOrders()
+        {
+            IList<Order> pending = await orderService.GetPendingOrders();
+            return Ok(pending);
+        }
+
+
         [HttpPatch("AcceptOrder")]
         public async Task<ActionResult<Order>> AcceptOrder([FromBody] Order order,string drivername) 
         {
