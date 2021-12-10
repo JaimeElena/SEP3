@@ -103,11 +103,14 @@
     private bool showFinished;
     private string message = "";
     private Location customerlocation;
+    private Costumer costumer;
 
     public async Task RequestVehicle()
     {
         order.destination = destination;
         order.customerlocation = GetLocation();
+        costumer = ((UserAuthenticationStateProvider) AuthenticationStateProvider).GetUser();
+        order.costumer = costumer;
         if (order.customerlocation != null)
         {
             order = await OrderingService.RequestVehicle(order);
