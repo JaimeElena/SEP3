@@ -67,7 +67,7 @@ namespace UberT1Costumer.Services
 
             string backString = await RequestReply(request);
             Console.WriteLine(username + password);
-
+            
             return backString;
         }
 
@@ -81,7 +81,6 @@ namespace UberT1Costumer.Services
             };
 
             string backString = await RequestReply(request);
-            socket.Close();
             Console.WriteLine("Logout");
         }
         
