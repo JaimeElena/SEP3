@@ -56,8 +56,7 @@ public class LocationService implements  ILocationService
 
 
     @Override
-    public String GetStreetNameFromLocation(Location location)
-    {
+    public String GetStreetNameFromLocation(Location location) throws IOException, InterruptedException {
 
         HttpRequest request = HttpRequest.newBuilder()
                 .GET()
@@ -69,11 +68,11 @@ public class LocationService implements  ILocationService
         JSONObject jsonObject =  new JSONObject(response.body());
         JSONArray params = jsonObject.getJSONArray("results");
         JSONObject object = params.getJSONObject(0).getJSONObject("geometry").getJSONObject("location");
-        Location location = new Location(object.getDouble("lat"), object.getDouble("lng"));
+        Location locationParsed = new Location(object.getDouble("lat"), object.getDouble("lng"));
 
         System.out.println(location.toString());
 
-        return location;
+        return null;
     }
 
     @Override
