@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
 import models.Driver;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -15,6 +16,7 @@ import java.net.http.HttpResponse;
 public class ApiDriverService implements IApiDriverService
 {
     public static final String API_URL = "https://localhost:5003/Drivers";//"https://localhost:5003/Customers"
+    public static final String API_URL_ORDERS = "https://localhost:5003/Orders";
     Gson gson = new Gson();
     HttpClient client;
 
@@ -126,4 +128,20 @@ public class ApiDriverService implements IApiDriverService
 
         return String.valueOf(response.body());
     }
+
+    @Override
+    public String GetAllPendingRequests() throws IOException, InterruptedException
+    {
+        HttpRequest request = HttpRequest.newBuilder()
+                .GET()
+                .header("accept", "application/json")
+                .uri(URI.create(String.format(API_URL_ORDERS + "/GetPendingOrders")))
+                .build();
+        HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        System.out.println(response.body().toString());
+        JSONArray object = new JSONArray(response.body().toString());
+        System.out.println(object.toString());
+        return response.body().toString();
+    }
+
 }

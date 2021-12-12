@@ -3,20 +3,16 @@ package models;
 public class Order
 {
     private int id;
-    private double dlat;
-    private double dlng;
-    private double clat;
-    private double clng;
+    private String customerStreetName;
+    private String destinationStreetName;
     private String customer;
     private String driver;
     private String status;
 
-    public Order(double dlat, double dlng, double clat, double clng, String customer, String driver, String status)
+    public Order(String customerStringName, String destinationStringName, String customer, String driver, String status)
     {
-        this.dlat = dlat;
-        this.dlng = dlng;
-        this.clat = clat;
-        this.clng = clng;
+        this.customerStreetName = customerStreetName;
+        this.destinationStreetName = destinationStreetName;
         this.customer = customer;
         this.driver = driver;
         this.status = status;
@@ -27,23 +23,14 @@ public class Order
         return id;
     }
 
-    public double getDlat()
+    public String getCustomerStreetName()
     {
-        return dlat;
+        return customerStreetName;
     }
 
-    public double getDlng()
+    public String getDestinationStreetName()
     {
-        return dlng;
-    }
-
-    public double getClat()
-    {
-        return clat;
-    }
-
-    public double getClng() {
-        return clng;
+        return destinationStreetName;
     }
 
     public String getCustomer() {
@@ -57,6 +44,31 @@ public class Order
     public String getStatus() {
         return status;
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setCustomerStreetName(String customerStreetName) {
+        this.customerStreetName = customerStreetName;
+    }
+
+    public void setDestinationStreetName(String destinationStreetName) {
+        this.destinationStreetName = destinationStreetName;
+    }
+
+    public void setCustomer(String customer) {
+        this.customer = customer;
+    }
+
+    public void setDriver(String driver) {
+        this.driver = driver;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public String toString()
     {
         return status;

@@ -4,10 +4,7 @@ import apiConnection.*;
 import com.google.gson.Gson;
 import data.IOrderParsingService;
 import data.OrderParsingService;
-import models.Costumer;
-import models.CustomerOrder;
-import models.Order;
-import models.Request;
+import models.*;
 import org.json.JSONObject;
 
 import java.io.InputStream;
@@ -36,8 +33,7 @@ public class ClientThread extends Thread
 
     public void StartThread()
     {
-        try
-        {
+        try {
             String json = "";
             InputStream in = socket.getInputStream();
             OutputStream out = socket.getOutputStream();
@@ -45,12 +41,12 @@ public class ClientThread extends Thread
 
             byte[] byteStream = new byte[1024];
             System.out.println("im in the connection");
-            int byteCount ;
+            int byteCount;
 
 
-            while(true)
+            while (true)
             {
-                while((byteCount =  in.read(byteStream)) != 0)
+                while ((byteCount = in.read(byteStream)) != 0)
                 {
                     json = new String(byteStream, 0, byteCount);
                     break;
@@ -58,49 +54,101 @@ public class ClientThread extends Thread
                 System.out.println(json);
 
                 JSONObject jsonObject = new JSONObject(json);
-                Request request = new Request((String)jsonObject.get("Type"), jsonObject.get("Body"));
+                Request request = new Request((String) jsonObject.get("Type"), jsonObject.get("Body"), (String) jsonObject.get("RequestEntity"));
                 System.out.println(request.toString());
 
-                if(request.getType().equals("register"))
+                if (request.getType().equals("register"))
                 {
-                    Costumer costumer = gson.fromJson(request.getBody().toString(), Costumer.class);
-                    System.out.println(costumer.toString());
-                    String apiResponse = apiCustomerService.Register(costumer);
-                    out.write(apiResponse.getBytes());
-                    json = "";
-                }
-                else if(request.getType().equals("login"))
+                    if (request.getRequestEntity().equals("costumer"))
+                    {
+                        Costumer costumer = gson.fromJson(request.getBody().toString(), Costumer.class);
+                        System.out.println(costumer.toString());
+                        String apiResponse = apiCustomerService.Register(costumer);
+                        out.write(apiResponse.getBytes());
+                        json = "";
+                    }
+                    else if (request.getRequestEntity().equals("driver"))
+                    {
+                        Driver driver = gson.fromJson(request.getBody().toString(), Driver.class);
+                        System.out.println(driver.toString());
+                        String apiResponse = apiDriverService.Register(driver);
+                        out.write(apiResponse.getBytes());
+                        json = "";
+                    }
+                } else if (request.getType().equals("login"))
                 {
-                    Costumer costumer = gson.fromJson(request.getBody().toString(), Costumer.class);
-                    Costumer costumerTemp = new Costumer(costumer.getUsername(), costumer.getPassword());
-                    System.out.println(costumer.toString());
-                    String apiResponse = apiCustomerService.Login(costumerTemp);
-                    out.write(apiResponse.getBytes());
-                    json = "";
+                    if (request.getRequestEntity().equals("costumer"))
+                    {
+                        Costumer costumer = gson.fromJson(request.getBody().toString(), Costumer.class);
+                        Costumer costumerTemp = new Costumer(costumer.getUsername(), costumer.getPassword());
+                        System.out.println(costumer.toString());
+                        String apiResponse = apiCustomerService.Login(costumerTemp);
+                        out.write(apiResponse.getBytes());
+                        json = "";
+                    }
+                    else if (request.getRequestEntity().equals("driver"))
+                    {
+                        Driver driver = gson.fromJson(request.getBody().toString(), Driver.class);
+                        Driver driverTemp = new Driver(driver.getUsername(), driver.getPassword());
+                        System.out.println(driver.toString());
+                        String apiResponse = apiDriverService.Login(driverTemp);
+                        out.write(apiResponse.getBytes());
+                        json = "";
+                    }
                 }
-                else if(request.getType().equals("logout"))
+                else if (request.getType().equals("logout"))
                 {
-                    Costumer costumer = gson.fromJson(request.getBody().toString(), Costumer.class);
-                    Costumer costumerTemp = new Costumer(costumer.getUsername(), costumer.getPassword());
-                    System.out.println(costumer.toString());
-                    String apiResponse = apiCustomerService.Logout(costumerTemp);
-                    out.write(apiResponse.getBytes());
-                    json = "";
+                    if (request.getRequestEntity().equals("costumer"))
+                    {
+                        Costumer costumer = gson.fromJson(request.getBody().toString(), Costumer.class);
+                        Costumer costumerTemp = new Costumer(costumer.getUsername(), costumer.getPassword());
+                        System.out.println(costumer.toString());
+                        String apiResponse = apiCustomerService.Logout(costumerTemp);
+                        out.write(apiResponse.getBytes());
+                        json = "";
+                    }
+                    else if (request.getRequestEntity().equals("driver"))
+                    {
+                        Driver driver = gson.fromJson(request.getBody().toString(), Driver.class);
+                        Driver driverTemp = new Driver(driver.getUsername(), driver.getPassword());
+                        System.out.println(driver.toString());
+                        String apiResponse = apiDriverService.Logout(driverTemp);
+                        out.write(apiResponse.getBytes());
+                        json = "";
+                    }
+
                 }
-                else if(request.getType().equals("edit"))
+                else if (request.getType().equals("edit"))
                 {
-                    Costumer costumer = gson.fromJson(request.getBody().toString(), Costumer.class);
-                    String apiResponse = apiCustomerService.EditCostumer(costumer);
-                    out.write(apiResponse.getBytes());
-                    json = "";
+                    if (request.getRequestEntity().equals("costumer"))
+                    {
+                        Costumer costumer = gson.fromJson(request.getBody().toString(), Costumer.class);
+                        String apiResponse = apiCustomerService.EditCostumer(costumer);
+                        out.write(apiResponse.getBytes());
+                        json = "";
+                    }
+                    else if (request.getRequestEntity().equals("driver"))
+                    {
+                        Driver driver = gson.fromJson(request.getBody().toString(), Driver.class);
+                        String apiResponse = apiDriverService.EditDriver(driver);
+                        out.write(apiResponse.getBytes());
+                        json = "";
+                    }
                 }
-                else if(request.getType().equals("requestvehicle"))
+                else if (request.getType().equals("requestvehicle"))
                 {
                     CustomerOrder customerOrder = gson.fromJson(request.getBody().toString(), CustomerOrder.class);
                     System.out.println(customerOrder.getCustomerLocation().toString());
                     System.out.println(customerOrder.getCustomer().toString());
                     Order order = parsingService.ParseCustomerOrder(customerOrder, locationService);
                     String apiResponse = apiCustomerService.RequestOrder(order);
+                    out.write(apiResponse.getBytes());
+                    json = "";
+                }
+                else if(request.getType().equals("getPendingOrders"))
+                {
+                    String apiResponse = apiDriverService.GetAllPendingRequests();
+                    System.out.println(apiResponse);
                     out.write(apiResponse.getBytes());
                     json = "";
                 }

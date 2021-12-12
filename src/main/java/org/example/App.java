@@ -28,10 +28,13 @@ public class App
         Costumer costumer = new Costumer("Random", "1234");
         Driver driver  = new Driver("Tim", "1234");
 
-        CustomerOrder customerOrder = new CustomerOrder("Fussingsvej8,8700Horsens", loc1, costumer, driver, "pending", "" );
-        Order order = orderParsingService.ParseCustomerOrder(customerOrder, locationService);
+        //CustomerOrder customerOrder = new CustomerOrder("Fussingsvej8,8700Horsens", loc1, costumer, driver, "pending", "" );
+        //Order order = orderParsingService.ParseCustomerOrder(customerOrder, locationService);
 
         //locationService.GetDistance(loc1, loc2);
-        apiService.RequestOrder(order);
+        //apiService.RequestOrder(order);
+        //apiDriverService.GetAllPendingRequests();
+        locationService.GetDistance(null, null);
+
     }
 }

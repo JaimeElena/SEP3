@@ -16,6 +16,7 @@ public class LocationService implements  ILocationService
 {
     private final String API_URL_LATLNG = "https://maps.googleapis.com/maps/api/geocode/json?latlng=55.872559066987634,9.88610200179567&key=AIzaSyCSEWcCV-DTiIsJU2NsMHM41RlbU5w6AQM";
     private final String API_URL_STREETNAME = "https://maps.googleapis.com/maps/api/geocode/json?address=Fussingsvej8,8700HorsensA&key=AIzaSyCSEWcCV-DTiIsJU2NsMHM41RlbU5w6AQM";
+    private final String API_URL_DISTANCE = "https://maps.googleapis.com/maps/api/distancematrix/json?&units=imperial&origins=Fussingsvej8,8700Horsens&destinations=Langmarksvej53,8700Horsens&key=AIzaSyCSEWcCV-DTiIsJU2NsMHM41RlbU5w6AQM";
     private HttpClient client;
 
     public LocationService()
@@ -26,12 +27,23 @@ public class LocationService implements  ILocationService
     @Override
     public double GetDistance(Location loc1, Location loc2) throws IOException, InterruptedException
     {
-        String formatedURL = String.format(API_URL_LATLNG, loc1.getLat(), loc2.getLat());
+        //String formatedURL = String.format(API_URL_LATLNG, loc1.getLat(), loc2.getLat());
+        //HttpRequest request = HttpRequest.newBuilder()
+          //      .GET()
+            //    .header("accept", "application/json")
+              //  .uri(URI.create(API_URL_LATLNG))
+                //.build();
+        //HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        //System.out.println(response.body());
+        //JsonParser jsonParser = new JsonParser();
+        //JsonObject jsonObject = (JsonObject) jsonParser.parse(response.body());
+
+        //System.out.println(jsonObject.toString());
         HttpRequest request = HttpRequest.newBuilder()
-                .GET()
-                .header("accept", "application/json")
-                .uri(URI.create(API_URL_LATLNG))
-                .build();
+              .GET()
+              .header("accept", "application/json")
+              .uri(URI.create(API_URL_DISTANCE))
+              .build();
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         System.out.println(response.body());
         JsonParser jsonParser = new JsonParser();
@@ -44,10 +56,24 @@ public class LocationService implements  ILocationService
 
 
     @Override
-    public String GetStreetName(Location location)
+    public String GetStreetNameFromLocation(Location location)
     {
 
-        return null;
+        HttpRequest request = HttpRequest.newBuilder()
+                .GET()
+                .header("accept", "application/json")
+                .uri(URI.create(API_URL_STREETNAME))
+                .build();
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        System.out.println(response.body());
+        JSONObject jsonObject =  new JSONObject(response.body());
+        JSONArray params = jsonObject.getJSONArray("results");
+        JSONObject object = params.getJSONObject(0).getJSONObject("geometry").getJSONObject("location");
+        Location location = new Location(object.getDouble("lat"), object.getDouble("lng"));
+
+        System.out.println(location.toString());
+
+        return location;
     }
 
     @Override
