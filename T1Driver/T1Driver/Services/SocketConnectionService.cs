@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -13,6 +14,7 @@ namespace T1Driver.Services
     public class SocketConnectionService : ISocketConnectionService
     {
         Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+        private string pendingfile = "file.json";
 
         public void Connect()
         {
@@ -36,7 +38,7 @@ namespace T1Driver.Services
             int byteCount;
             byteCount = socket.Receive(byteReply, byteReply.Length, 0);
             reply = Encoding.UTF8.GetString(byteReply, 0, byteCount);
-            Console.WriteLine(reply);
+            Console.WriteLine("reply: " + reply);
             return reply;
         }
 
@@ -66,6 +68,8 @@ namespace T1Driver.Services
 
             string backString = await RequestReply(request);
             Console.WriteLine(username + password);
+            File.WriteAllText(pendingfile, backString);
+
 
             return backString;
         }
@@ -114,10 +118,12 @@ namespace T1Driver.Services
         {
             Request request = new Request()
             {
-                Type = "getorders",
+                Type = "getPendingOrders",
                 RequestEntity = "driver"
             };
             string backString = await RequestReply(request);
+            File.WriteAllText(pendingfile, backString);
+            //Console.WriteLine(request.Body.ToString());
             IList<Order> orders = JsonSerializer.Deserialize<IList<Order>>(backString);
             return orders;
         }

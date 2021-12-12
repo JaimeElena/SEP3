@@ -4,11 +4,9 @@
     {
         public int id { get; set; }
         public string status { get; set; }
-        public string estimatetime { get; set; }
-        public string firstname { get; set; }
-        public string secondname { get; set; }
-        public Location driverlocation { get; set; }
-        public Location customerlocation { get; set; }
-        public Location destination { get; set; }
+        public string customer { get; set; }
+        public string driver { get; set; }
+        public string customerStreetName { get; set; }
+        public string destinationStreetName { get; set; }
     }
 }

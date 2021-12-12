@@ -32,12 +32,11 @@
                 }
                 else if (orders.Any())
                 {
-                    <EditForm Model="@orders" @OnValidSubmit="@AcceptOrder(selectOrder)">
-                        <table class="table">
+                    <table class="table">
                             <thead>
                             <tr>
-                                <td>Customer first name</td>
-                                <td>Customer second name</td>
+                                <td>Driver</td>
+                                <td>Customer</td>
                                 <td>Customer Location</td>
                                 <td>Destination</td>
                             </tr>
@@ -46,22 +45,20 @@
                             @foreach (var item in orders)
                             {
                                 <tr>
-                                    <td>@item.firstname</td>
-                                    <td>@item.secondname</td>
-                                    <td>@item.customerlocation</td>
-                                    <td>@item.destination</td>
+                                    <td>@item.driver</td>
+                                    <td>@item.customer</td>
+                                    <td>@item.customerStreetName</td>
+                                    <td>@item.destinationStreetName</td>
                                     @{
                                         id = @item.id;
                                     }
-                                    <td><input type="radio" id="check" value="@item.id" @onclick="SelectOrder"/></td>
+                                    <td><input type="radio" id="check" value="@item.id" @onchange="SelectOrder"/></td>
                                 </tr>
                             }
                             </tbody>
                         </table>
-                        <button type="submit">Accept</button>
-                        <button id="cancel" @onclick="StopFind">Cancel</button>
-                    </EditForm>
-
+                        <button id="accept" @onclick="@AcceptOrder">Accept</button>
+                        <button id="cancel" @onclick="@StopFind">Cancel</button>
                 }
             }
         </Authorized>
@@ -100,9 +97,9 @@
         selectOrder = id;
     }
 
-    public async Task AcceptOrder(int id)
+    public async Task AcceptOrder()
     {
-        Order orderToAccept = orders.First(t => t.id == id);
+        Order orderToAccept = orders.First(t => t.id == selectOrder);
         await OrdersData.AcceptOrder(orderToAccept);
         NavigationManager.NavigateTo("/OrderInfo");
     }
