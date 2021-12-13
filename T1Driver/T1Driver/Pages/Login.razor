@@ -19,7 +19,10 @@
                     <button id="logButt" @onclick="PerformLogin"> Log in </button>
                     <button id="registerButt" @onclick="ShowRegister"> Sign Up</button>
                 </div>
-                <div style="color:red">@message</div>
+                @if (showMessage)
+                {
+                    <div style="color:red">@message</div>
+                }
             </div>
                 }
         @if (showRegister)
@@ -58,6 +61,10 @@
                                 <option>Female</option>
                             </select>
                         </div>
+                        @if (showMessage)
+                        {
+                            <div style="color:red">@message</div>
+                        }
                         <p class="actions">
                             <button class="btn btn-outline-dark" type="submit">Save</button>
                         </p>
@@ -79,6 +86,7 @@
     private string password;
     private bool showLogin = true;
     private bool showRegister;
+    private bool showMessage;
     
     IUserServices client = new UserServices();
 
@@ -87,14 +95,21 @@
         message = "";
         try
         {
+            if (username == "" || password == "")
+            {
+                message = "Username or password is incorrect!";
+                ShowMessage();
+            }
             await ((UserAuthenticationStateProvider)AuthenticationStateProvider).ValidateLogin(username, password);
             message = "Login succeed!";
+            ShowMessage();
             await Task.Delay(1000);
             NavigationManager.NavigateTo("/profile");
         }
         catch (Exception e)
         {
             message = "Username or password is incorrect!";
+            ShowMessage();
             Console.WriteLine(e);
         }
     }
@@ -109,6 +124,7 @@
         {
             await ((UserAuthenticationStateProvider) AuthenticationStateProvider).Logout();
             message = "Logout succeed!";
+            ShowMessage();
             await Task.Delay(1000);
             NavigationManager.NavigateTo("/");
         }
@@ -120,9 +136,10 @@
 
     public async Task PerformRegister()
     {
-        if (username == ""|| password == "")
+        if (CurrentUser.username == "" || CurrentUser.password == "" || CurrentUser.firstname == "" || CurrentUser.secondname == "" || CurrentUser.birthday == "" || CurrentUser.sex == "")
         {
-            message = "You should fill up username and password!";
+            message = "You should fill up all your information!";
+            ShowMessage();
         }
         else
         {
@@ -132,6 +149,8 @@
                 Console.WriteLine("Register was successful");
             }
             HideRegister();
+            message = "Register was successful";
+            ShowMessage();
         }
     }
 
@@ -155,6 +174,10 @@
             CurrentUser.sex = args.Value.ToString();
         }
         catch (Exception e){}
-        
+    }
+
+    private void ShowMessage()
+    {
+        showMessage = true;
     }
 }
