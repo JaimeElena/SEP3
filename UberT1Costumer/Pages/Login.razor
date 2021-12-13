@@ -16,11 +16,9 @@
                 <button id="logButt" @onclick="PerformLogin"> Log in </button>
                 <button id="registerButt" @onclick="PerformRegister"> Sign Up</button>
             </div>
-            @{
-                if (showMessage)
-                {
-                    <div style="color:red">@message</div>
-                }
+            @if (showMessage)
+            {
+                <div style="color:red">@message</div>
             }
         </div>
     </NotAuthorized>
