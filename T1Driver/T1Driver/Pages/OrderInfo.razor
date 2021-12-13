@@ -42,6 +42,7 @@
                     Destination:<br/>
                     <label>@order.destinationStreetName</label>
                 </div>
+                <button id="finish" @onclick="@FinishOrder">Finish order</button>
             }
         }
     </Authorized>
@@ -55,5 +56,10 @@
     {
         showOrder = true;
         order = OrdersData.GetCacheOrder();
+    }
+
+    public async Task FinishOrder()
+    {
+        order = await OrdersData.FinishOrder(order);
     }
 }

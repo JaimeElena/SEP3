@@ -16,6 +16,6 @@ namespace T1Driver.Services
         Task<Driver> EditDriver(Driver driver);
         Task<IList<Order>> GetOrders();
         Task<Order> AcceptOrder(Order order);
-
+        Task<Order> FinishOrder(Order order);
     }
 }

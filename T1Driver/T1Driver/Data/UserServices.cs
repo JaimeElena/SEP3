@@ -56,5 +56,11 @@ namespace T1Driver.Data
             return cacheOrder;
         }
 
+        public async Task<Order> FinishOrder(Order order)
+        {
+            cacheOrder = await ClientController.getInstance().FinishOrder(order);
+            return cacheOrder;
+        }
+
     }
 }

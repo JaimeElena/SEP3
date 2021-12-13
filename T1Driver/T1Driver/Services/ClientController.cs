@@ -71,5 +71,11 @@ namespace T1Driver.Services
             return apiorder;
         }
 
+        public async Task<Order> FinishOrder(Order order)
+        {
+            Order apiorder = await WebInstance.FinishOrder(order);
+            return apiorder;
+        }
+
     }
 }

@@ -16,5 +16,6 @@ namespace T1Driver.Data
         Task<IList<Order>> GetOrders();
         Task<Order> AcceptOrder(Order order);
         Order GetCacheOrder();
+        Task<Order> FinishOrder(Order order);
     }
 }

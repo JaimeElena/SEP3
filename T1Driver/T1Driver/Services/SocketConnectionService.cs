@@ -140,5 +140,19 @@ namespace T1Driver.Services
             Order apiOrder = JsonSerializer.Deserialize<Order>(backString);
             return apiOrder;
         }
+
+        public async Task<Order> FinishOrder(Order order)
+        {
+            Request request = new Request()
+            {
+                Type = "finishorder",
+                Body = order,
+                RequestEntity = "driver"
+            };
+            string backString = await RequestReply(request);
+            Order apiOrder = JsonSerializer.Deserialize<Order>(backString);
+            return apiOrder;
+        }
+
     }
 }
