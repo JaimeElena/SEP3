@@ -14,4 +14,5 @@ public interface IApiDriverService
     String EditDriver(Driver driver) throws IOException, InterruptedException;
     String Logout(Driver driver) throws IOException, InterruptedException;
     String GetAllPendingRequests() throws IOException, InterruptedException;
+    String AcceptOrder(Order order) throws IOException, InterruptedException;
 }

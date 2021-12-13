@@ -23,7 +23,7 @@ public class App
         IApiDriverService apiDriverService = new ApiDriverService();
         IOrderParsingService orderParsingService = new OrderParsingService();
 
-        Location loc1 = new Location();
+        Location loc1 = new Location(55.7415017, 9.686400700000002);
         Location loc2 = new Location();
         Costumer costumer = new Costumer("Random", "1234");
         Driver driver  = new Driver("Tim", "1234");
@@ -34,7 +34,8 @@ public class App
         //locationService.GetDistance(loc1, loc2);
         //apiService.RequestOrder(order);
         //apiDriverService.GetAllPendingRequests();
-        locationService.GetDistance(null, null);
+        //locationService.GetDistance(null, null);
 
+        locationService.GetStreetNameFromLocation(loc1);
     }
 }

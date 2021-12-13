@@ -9,6 +9,8 @@ public class Order
     private String driver;
     private String status;
 
+    public Order() { }
+
     public Order(String customerStringName, String destinationStringName, String customer, String driver, String status)
     {
         this.customerStreetName = customerStreetName;

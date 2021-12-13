@@ -152,6 +152,13 @@ public class ClientThread extends Thread
                     out.write(apiResponse.getBytes());
                     json = "";
                 }
+                else if(request.getType().equals("acceptOrder"))
+                {
+                    String apiResponse = apiDriverService.GetAllPendingRequests();
+                    System.out.println(apiResponse);
+                    out.write(apiResponse.getBytes());
+                    json = "";
+                }
             }
         }
         catch (Exception e)

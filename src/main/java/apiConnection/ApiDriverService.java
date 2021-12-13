@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
 import models.Driver;
+import models.Order;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -116,11 +117,11 @@ public class ApiDriverService implements IApiDriverService
     @Override
     public String Logout(Driver driver) throws IOException, InterruptedException
     {
-        String costumerJson = gson.toJson(driver);
+        String driverJson = gson.toJson(driver);
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(API_URL+"/Logout"))
-                .POST(HttpRequest.BodyPublishers.ofString(costumerJson))
+                .POST(HttpRequest.BodyPublishers.ofString(driverJson))
                 .header("Content-Type", "application/json")
                 .build();
         HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
@@ -142,6 +143,22 @@ public class ApiDriverService implements IApiDriverService
         JSONArray object = new JSONArray(response.body().toString());
         System.out.println(object.toString());
         return response.body().toString();
+    }
+
+    @Override
+    public String AcceptOrder(Order order) throws IOException, InterruptedException
+    {
+        String orderJson = gson.toJson(order);
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(API_URL+"/Logout"))
+                .POST(HttpRequest.BodyPublishers.ofString(orderJson))
+                .header("Content-Type", "application/json")
+                .build();
+        HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        System.out.println(response.body().toString());
+
+        return String.valueOf(response.body());
     }
 
 }
