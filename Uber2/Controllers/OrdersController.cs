@@ -94,8 +94,8 @@ namespace Uber2.Controllers
         {
             try
             {
-                orderService.EditOrderStatus(order,"Accepted");
-                return Ok(orderService.SearchOrder(order.id)); 
+                Order update = await orderService.EditOrderStatus(order, "Accepted");
+                return Ok(orderService.SearchOrder(update.id)); 
             } catch (Exception e) {
                 Console.WriteLine(e);
                 return StatusCode(500, e.Message);
@@ -107,8 +107,8 @@ namespace Uber2.Controllers
         {
             try
             {
-                orderService.EditOrderStatus(order, "Completed");
-                return Ok(orderService.SearchOrder(order.id));
+                Order update = await orderService.EditOrderStatus(order, "Completed");
+                return Ok(orderService.SearchOrder(update.id));
             }
             catch (Exception e)
             {
@@ -122,8 +122,8 @@ namespace Uber2.Controllers
         {
             try
             {
-                orderService.EditOrderStatus(order,"Denied");
-                return Ok(orderService.SearchOrder(order.id)); 
+                Order update = await orderService.EditOrderStatus(order,"Denied");
+                return Ok(orderService.SearchOrder(update.id)); 
             } catch (Exception e) {
                 Console.WriteLine(e);
                 return StatusCode(500, e.Message);
