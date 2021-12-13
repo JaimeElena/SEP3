@@ -49,6 +49,10 @@
                     <label>@status</label>
                 </div>
                 <div class="form-group">
+                    Driver username:<br/>
+                    <label>@driverusername</label>
+                </div>
+                <div class="form-group">
                     Driver first name:<br/>
                     <label>@driverfirstname</label>
                 </div>
@@ -63,6 +67,10 @@
                 <div class="form-group">
                     Destination:<br/>
                     <label>@destinationstreetname</label>
+                </div>
+                <div class="form-group">
+                    Distance:<br/>
+                    <label>@distance</label>
                 </div>
                 <div class="form-group">
                     Estimate time:<br/>
@@ -94,7 +102,7 @@
     private string driversecondname;
     private string customerstreetname;
     private string estimatetime;
-    private double price;
+    private string price;
     private Location destination = new Location();
     private Order order = new Order();
     private bool showMenu = true;
@@ -104,10 +112,12 @@
     private string message = "";
     private Location customerlocation;
     private Costumer costumer;
+    private string distance;
+    private string driverusername;
 
     public async Task RequestVehicle()
     {
-        order.destinationName = destination.streetname;
+        order.destinationStreetName = destination.streetname;
         order.customerLocation = GetLocation();
         costumer = ((UserAuthenticationStateProvider) AuthenticationStateProvider).GetUser();
         order.costumer = costumer;
@@ -146,7 +156,9 @@
             customerstreetname = order.customerLocation.streetname;
             estimatetime = order.estimateTime;
             price = order.price;
-            destinationstreetname = order.destinationName;
+            destinationstreetname = order.destinationStreetName;
+            distance = order.distance;
+            driverusername = order.driver.username;
             message = "Order accepted!";
             showCheck = false;
             showOrder = true;
@@ -172,7 +184,9 @@
         customerstreetname = order.customerLocation.streetname;
         estimatetime = order.estimateTime;
         price = order.price;
-        destinationstreetname = order.destinationName;
+        destinationstreetname = order.destinationStreetName;
+        distance = order.distance;
+        driverusername = order.driver.username;
         showMenu = false;
         showOrder = true;
     }

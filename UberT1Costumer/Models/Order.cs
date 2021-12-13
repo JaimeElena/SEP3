@@ -8,7 +8,8 @@
         public Driver driver { get; set; }
         public Costumer costumer { get; set; }
         public Location customerLocation { get; set; }
-        public string destinationName { get; set; }
-        public double price { get; set; }
+        public string destinationStreetName { get; set; }
+        public string distance { get; set; }
+        public string price { get; set; }
     }
 }
