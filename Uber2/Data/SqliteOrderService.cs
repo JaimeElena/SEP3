@@ -102,12 +102,11 @@ namespace Uber2.Data
             }
         }
 
-        public async Task<Order> EditOrderDriver(Order order,string drivername)
+        public async Task<Order> EditOrderDriver(Order order)
         {
             try
             {
                 Order orderUpdate = await uberContext.Orders.FirstOrDefaultAsync(o => o.id == order.id);
-                orderUpdate.driver = drivername;
                 uberContext.Update(orderUpdate);
                 await uberContext.SaveChangesAsync();
                 return orderUpdate; 
@@ -116,6 +115,18 @@ namespace Uber2.Data
             { 
                 throw new Exception($"Did not find order with id{order.id}"); 
             };
+        }
+
+        public async Task<string> GetCustomerStreetName(Order order)
+        {
+            Order orderUpdate = await uberContext.Orders.FirstOrDefaultAsync(o => o.id == order.id);
+            return orderUpdate.customerStreetName;
+        }
+
+        public async Task<string> GetDestinationStreetName(Order order)
+        {
+            Order orderUpdate = await uberContext.Orders.FirstOrDefaultAsync(o => o.id == order.id);
+            return orderUpdate.destinationStreetName;
         }
     }
     }

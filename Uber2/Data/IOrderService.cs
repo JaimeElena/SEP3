@@ -18,6 +18,10 @@ namespace Uber2.Data
 
         Task<IList<Order>> GetPendingOrders();
 
-        Task<Order> EditOrderDriver(Order order,string drivername);
+        Task<Order> EditOrderDriver(Order order);
+
+        Task<string> GetCustomerStreetName(Order order);
+
+        Task<string> GetDestinationStreetName(Order order);
     }
 }

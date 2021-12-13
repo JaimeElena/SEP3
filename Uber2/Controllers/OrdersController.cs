@@ -90,14 +90,28 @@ namespace Uber2.Controllers
 
 
         [HttpPatch("AcceptOrder")]
-        public async Task<ActionResult<Order>> AcceptOrder([FromBody] Order order,string drivername) 
+        public async Task<ActionResult<Order>> AcceptOrder([FromBody] Order order) 
         {
             try
             {
-                Order updated = await orderService.EditOrderDriver(order,drivername);
-                orderService.EditOrderStatus(order,"Pending");
-                return Ok(orderService.SearchOrder(updated.id)); 
+                orderService.EditOrderStatus(order,"Accepted");
+                return Ok(orderService.SearchOrder(order.id)); 
             } catch (Exception e) {
+                Console.WriteLine(e);
+                return StatusCode(500, e.Message);
+            }
+        }
+
+        [HttpPatch("CompleteOrder")]
+        public async Task<ActionResult<Order>> CompleteOrder([FromBody] Order order)
+        {
+            try
+            {
+                orderService.EditOrderStatus(order, "Completed");
+                return Ok(orderService.SearchOrder(order.id));
+            }
+            catch (Exception e)
+            {
                 Console.WriteLine(e);
                 return StatusCode(500, e.Message);
             }
