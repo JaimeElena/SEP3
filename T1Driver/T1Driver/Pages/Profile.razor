@@ -87,6 +87,10 @@
                                     <option>Female</option>
                                 </select>
                             </div>
+                            @if (showMessage)
+                            {
+                                <div style="color:red">@message</div>
+                            }
                             <p class="actions">
                                 <button class="btn btn-outline-dark" type="submit">Save</button>
                             </p>
@@ -110,6 +114,7 @@
     private string birthday;
     private string sex;
     private string numberplate;
+    private bool showMessage;
 
     private bool show = true;
     private bool showEdit;
@@ -143,8 +148,14 @@
     {
         try
         {
+            if (CurrentUser.username == "" || CurrentUser.password == "" || CurrentUser.firstname == "" || CurrentUser.secondname == "" || CurrentUser.birthday == "" || CurrentUser.sex == null)
+            {
+                message = "You should fill up all your information!";
+                ShowMessage();
+            }
             CurrentUser = await ((UserAuthenticationStateProvider) AuthenticationStateProvider).EditUser(CurrentUser);
             message = "Change saved!";
+            ShowMessage();
             await Task.Delay(1000);
             Initialize();
             await Task.Delay(1000);
@@ -175,5 +186,10 @@
     private void CancelEdit()
     {
         showEdit = false;
+    }
+
+    private void ShowMessage()
+    {
+        showMessage = true;
     }
 }

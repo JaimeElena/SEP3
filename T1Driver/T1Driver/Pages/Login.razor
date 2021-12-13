@@ -136,7 +136,7 @@
 
     public async Task PerformRegister()
     {
-        if (CurrentUser.username == "" || CurrentUser.password == "" || CurrentUser.firstname == "" || CurrentUser.secondname == "" || CurrentUser.birthday == "" || CurrentUser.sex == "")
+        if (CurrentUser.username == "" || CurrentUser.password == "" || CurrentUser.firstname == "" || CurrentUser.secondname == "" || CurrentUser.birthday == "" || CurrentUser.sex == null)
         {
             message = "You should fill up all your information!";
             ShowMessage();
