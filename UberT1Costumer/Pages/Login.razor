@@ -45,18 +45,24 @@
         message = "";
         try
         {
-            await ((UserAuthenticationStateProvider)AuthenticationStateProvider).ValidateLogin(username, password);
-            message = "Login succeed!";
-            ShowMessage();
-            await Task.Delay(3000);
-            NavigationManager.NavigateTo("/profile");
-
+            if (username == "" || password == "")
+            {
+                message = "Username or password is incorrect!";
+                ShowMessage();
+            }
+            else
+            {
+                await ((UserAuthenticationStateProvider)AuthenticationStateProvider).ValidateLogin(username, password);
+                message = "Login succeed!";
+                ShowMessage();
+                await Task.Delay(3000);
+                NavigationManager.NavigateTo("/profile");
+            }
         }
         catch (Exception e)
         {
             message = "Username or password is incorrect!";
             ShowMessage();
-            await Task.Delay(3000);
             Console.WriteLine(e);
         }
     }

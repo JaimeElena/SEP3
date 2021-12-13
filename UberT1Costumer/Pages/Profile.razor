@@ -78,6 +78,9 @@
                                     <option>Female</option>
                                 </select>
                             </div>
+                            <div>
+                                <label>@message</label>
+                            </div>
                             <p class="actions">
                                 <button class="btn btn-outline-dark" type="submit">Save</button>
                             </p>
@@ -100,6 +103,7 @@
     private string secondName;
     private string birthday;
     private string sex;
+    private bool showMessage;
 
     private bool show = true;
     private bool showEdit;
@@ -114,6 +118,11 @@
         secondName = CurrentUser.secondname;
         birthday = CurrentUser.birthday;
         sex = CurrentUser.sex;
+        if (username == "" || password == "" || firstName == "" || secondName == "" || birthday == "" || sex == "")
+        {
+            message = "You should fill up all your information!";
+            ShowMessage();
+        }
         return null;
     }
     
@@ -132,10 +141,18 @@
     {
         try
         {
-            CurrentUser = await ((UserAuthenticationStateProvider) AuthenticationStateProvider).EditUser(CurrentUser);
-            message = "Change saved!";
-            await Task.WhenAll(Initialize(), CancelEdit());
-            Show();
+            if (username == "" || password == "" || firstName == "" || secondName == "" || birthday == "" || sex == "")
+            {
+                message = "You should fill up all your information!";
+                ShowMessage();
+            }
+            else
+            {
+                CurrentUser = await ((UserAuthenticationStateProvider) AuthenticationStateProvider).EditUser(CurrentUser);
+                message = "Change saved!";
+                await Task.WhenAll(Initialize(), CancelEdit());
+                Show();
+            }
         }
         catch (Exception e)
         {
@@ -161,6 +178,12 @@
     private Task CancelEdit()
     {
         showEdit = false;
+        Initialize();
         return null;
+    }
+
+    private void ShowMessage()
+    {
+        showMessage = true;
     }
 }
