@@ -42,6 +42,10 @@
                             Gender:<br/>
                             <label>@sex</label>
                         </div>
+                        @if (showMessage)
+                        {
+                            <div style="color:red">@message</div>
+                        }
                         <button class="btn btn-outline-dark" @onclick="@(() => {Hidden();ShowEdit();})">Edit</button>
                     }
                 }
@@ -119,7 +123,7 @@
         secondName = CurrentUser.secondname;
         birthday = CurrentUser.birthday;
         sex = CurrentUser.sex;
-        if (username == "" || password == "" || firstName == "" || secondName == "" || birthday == "" || sex == "")
+        if (username == "" || password == "" || firstName == "" || secondName == "" || birthday == "" || sex == null)
         {
             message = "You should fill up all your information!";
             ShowMessage();
@@ -142,7 +146,7 @@
     {
         try
         {
-            if (username == "" || password == "" || firstName == "" || secondName == "" || birthday == "" || sex == "")
+            if (username == "" || password == "" || firstName == "" || secondName == "" || birthday == "" || sex == null)
             {
                 message = "You should fill up all your information!";
                 ShowMessage();
