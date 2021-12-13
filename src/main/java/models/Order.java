@@ -11,7 +11,7 @@ public class Order
 
     public Order() { }
 
-    public Order(String customerStringName, String destinationStringName, String customer, String driver, String status)
+    public Order(String customerStreetName, String destinationStreetName, String customer, String driver, String status)
     {
         this.customerStreetName = customerStreetName;
         this.destinationStreetName = destinationStreetName;

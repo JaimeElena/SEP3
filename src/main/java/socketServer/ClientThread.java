@@ -138,8 +138,7 @@ public class ClientThread extends Thread
                 else if (request.getType().equals("requestvehicle"))
                 {
                     CustomerOrder customerOrder = gson.fromJson(request.getBody().toString(), CustomerOrder.class);
-                    System.out.println(customerOrder.getCustomerLocation().toString());
-                    System.out.println(customerOrder.getCustomer().toString());
+                    System.out.println(customerOrder.getStatus());
                     Order order = parsingService.ParseCustomerOrder(customerOrder, locationService);
                     String apiResponse = apiCustomerService.RequestOrder(order);
                     out.write(apiResponse.getBytes());
@@ -154,7 +153,9 @@ public class ClientThread extends Thread
                 }
                 else if(request.getType().equals("acceptOrder"))
                 {
-                    String apiResponse = apiDriverService.GetAllPendingRequests();
+                    System.out.println("Accept order request processing...");
+                    Order order = gson.fromJson(request.getBody().toString(), Order.class);
+                    String apiResponse = apiDriverService.AcceptOrder(order);
                     System.out.println(apiResponse);
                     out.write(apiResponse.getBytes());
                     json = "";

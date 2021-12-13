@@ -9,4 +9,5 @@ import java.io.IOException;
 public interface IOrderParsingService
 {
     Order ParseCustomerOrder(CustomerOrder customerOrder, ILocationService locationService) throws IOException, InterruptedException;
+    CustomerOrder ParseDriverOrder(Order order);
 }

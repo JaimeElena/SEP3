@@ -151,14 +151,14 @@ public class ApiDriverService implements IApiDriverService
         String orderJson = gson.toJson(order);
 
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(API_URL+"/Logout"))
-                .POST(HttpRequest.BodyPublishers.ofString(orderJson))
+                .uri(URI.create(API_URL_ORDERS+"/AcceptOrder"))
+                .method("PATCH", HttpRequest.BodyPublishers.ofString(orderJson))
                 .header("Content-Type", "application/json")
                 .build();
         HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
         System.out.println(response.body().toString());
+        JSONObject object = new JSONObject(response.body().toString());
 
-        return String.valueOf(response.body());
+        return String.valueOf(object.getJSONObject("result"));
     }
-
 }
