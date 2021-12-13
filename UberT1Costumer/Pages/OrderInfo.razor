@@ -128,12 +128,16 @@
             showCheck = false;
             showMenu = true;
         }
+        else
+        {
+            message = "Can't cancel this order";
+        }
     }
 
     public async Task CheckAccept()
     {
-        message = await OrderingService.CheckProcess(order);
-        if (message == "Accept!")
+        string process = await OrderingService.CheckProcess(order);
+        if (process == "accepted")
         {
             order = await ((UserAuthenticationStateProvider) AuthenticationStateProvider).GetOrder();
             status = order.status;
@@ -143,6 +147,7 @@
             estimatetime = order.estimateTime;
             price = order.price;
             destinationstreetname = order.destinationName;
+            message = "Order accepted!";
             showCheck = false;
             showOrder = true;
         }
@@ -150,9 +155,10 @@
 
     public async Task CheckFinished()
     {
-        message = await OrderingService.CheckProcess(order);
-        if (message == "Accept!")
+        string process = await OrderingService.CheckProcess(order);
+        if (process == "finished")
         {
+            message = "Order finished!";
             showOrder = false;
         }
     }
