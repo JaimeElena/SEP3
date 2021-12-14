@@ -7,6 +7,8 @@ namespace UberT1Costumer.Data
     {
         Task<Order> RequestVehicle(Order order);
         Task<string> CancelRequest(Order order);
-        Task<string> CheckProcess(Order order);
+        Task<Order> CheckProcess(Order order);
+        public Order GetOrder();
+
     }
 }

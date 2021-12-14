@@ -35,10 +35,6 @@ namespace UberT1Costumer.Data
         {
             return await ClientController.getInstance().EditCostumer(costumer);
         }
-
-        public async Task<Order> GetOrder(Costumer costumer)
-        {
-            return await ClientController.getInstance().GetOrder(costumer);
-        }
+        
     }
 }

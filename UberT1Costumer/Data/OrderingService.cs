@@ -6,6 +6,7 @@ namespace UberT1Costumer.Data
 {
     public class OrderingService:IOrderingService
     {
+        private Order cacheOrder;
         public async Task<Order> RequestVehicle(Order order)
         {
             return await ClientController.getInstance().RequestVehicle(order);
@@ -16,9 +17,15 @@ namespace UberT1Costumer.Data
             return await ClientController.getInstance().CancelRequest(order);
         }
 
-        public async Task<string> CheckProcess(Order order)
+        public async Task<Order> CheckProcess(Order order)
         {
-            return await ClientController.getInstance().CheckProcess(order);
+            cacheOrder = await ClientController.getInstance().CheckProcess(order);
+            return cacheOrder;
+        }
+
+        public Order GetOrder()
+        {
+            return cacheOrder;
         }
     }
 }

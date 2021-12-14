@@ -12,6 +12,5 @@ namespace UberT1Costumer.Data
         Task Logout(Costumer costumer);
         Task<Costumer> GetCostumer(string username);
         Task<Costumer> EditCostumer(Costumer costumer);
-        Task<Order> GetOrder(Costumer costumer);
     }
 }

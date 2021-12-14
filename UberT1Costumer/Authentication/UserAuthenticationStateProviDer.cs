@@ -89,11 +89,7 @@ namespace UberT1Costumer.Authentication
             await jsRuntime.InvokeVoidAsync("sessionStorage.setItem", "currentUser", "");
             NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(costumer)));
         }
-
-        public async Task<Order> GetOrder()
-        {
-            return await client.GetOrder(cachedUser);
-        }
+        
             
         private ClaimsIdentity SetupClaimsForUser(Costumer user) {
             List<Claim> claims = new List<Claim>();

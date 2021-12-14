@@ -64,12 +64,6 @@ namespace UberT1Costumer.Services
             
         }
 
-        public async Task<Order> GetOrder(Costumer costumer)
-        {
-            return await WebInstance.GetOrder(costumer);
-            
-        }
-
         public async Task<Order> RequestVehicle(Order order)
         {
             return await WebInstance.RequestVehicle(order);
@@ -80,7 +74,7 @@ namespace UberT1Costumer.Services
             return await WebInstance.CancelRequest(order);
         }
 
-        public async Task<string> CheckProcess(Order order)
+        public async Task<Order> CheckProcess(Order order)
         {
             return await WebInstance.CheckProcess(order);
         }

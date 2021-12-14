@@ -15,10 +15,9 @@ namespace UberT1Costumer.Services
         Task Logout(Costumer costumer);
         Task<Costumer> GetCostumer(string username);
         Task<Costumer> EditCostumer(Costumer costumer);
-        Task<Order> GetOrder(Costumer costumer);
         Task<Order> RequestVehicle(Order order);
         Task<string> CancelRequest(Order order);
-        Task<string> CheckProcess(Order order);
+        Task<Order> CheckProcess(Order order);
 
     }
 }

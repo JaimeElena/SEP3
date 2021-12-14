@@ -146,10 +146,9 @@
 
     public async Task CheckAccept()
     {
-        string process = await OrderingService.CheckProcess(order);
-        if (process == "accepted")
+        order = await OrderingService.CheckProcess(order);
+        if (order.status == "accepted")
         {
-            order = await ((UserAuthenticationStateProvider) AuthenticationStateProvider).GetOrder();
             status = order.status;
             driverfirstname = order.driver.firstname;
             driversecondname = order.driver.lastname;
@@ -167,8 +166,8 @@
 
     public async Task CheckFinished()
     {
-        string process = await OrderingService.CheckProcess(order);
-        if (process == "finished")
+        order = await OrderingService.CheckProcess(order);
+        if (order.status == "finished")
         {
             message = "Order finished!";
             showOrder = false;
@@ -177,18 +176,21 @@
 
     public async Task ShowOrder()
     {
-        order = await ((UserAuthenticationStateProvider) AuthenticationStateProvider).GetOrder();
-        status = order.status;
-        driverfirstname = order.driver.firstname;
-        driversecondname = order.driver.lastname;
-        customerstreetname = order.customerLocation.streetname;
-        estimatetime = order.estimateTime;
-        price = order.price;
-        destinationstreetname = order.destinationStreetName;
-        distance = order.distance;
-        driverusername = order.driver.username;
-        showMenu = false;
-        showOrder = true;
+        order = OrderingService.GetOrder();
+        if (order.status != null)
+        {
+            status = order.status;
+            driverfirstname = order.driver.firstname;
+            driversecondname = order.driver.lastname;
+            customerstreetname = order.customerLocation.streetname;
+            estimatetime = order.estimateTime;
+            price = order.price;
+            destinationstreetname = order.destinationStreetName;
+            distance = order.distance;
+            driverusername = order.driver.username;
+            showMenu = false;
+            showOrder = true;
+        }
     }
 
     public void Back()

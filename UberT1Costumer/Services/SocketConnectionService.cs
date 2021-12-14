@@ -112,19 +112,6 @@ namespace UberT1Costumer.Services
             return apiCostumer;
         }
 
-        public async Task<Order> GetOrder(Costumer costumer)
-        {
-            Request request = new Request()
-            {
-                Type = "getorder",
-                Body = costumer,
-                RequestEntity = "costumer"
-            };
-            string backString = await RequestReply(request);
-            Order order = JsonSerializer.Deserialize<Order>(backString);
-            return order;
-        }
-
         public async Task<Order> RequestVehicle(Order order)
         {
             Request request = new Request()
@@ -150,7 +137,7 @@ namespace UberT1Costumer.Services
             return backString;
         }
 
-        public async Task<string> CheckProcess(Order order)
+        public async Task<Order> CheckProcess(Order order)
         {
             Request request = new Request()
             {
@@ -159,7 +146,8 @@ namespace UberT1Costumer.Services
                 RequestEntity = "costumer"
             };
             string backString = await RequestReply(request);
-            return backString;
+            Order apiorder = JsonSerializer.Deserialize<Order>(backString);
+            return apiorder;
         }
     }
 }
