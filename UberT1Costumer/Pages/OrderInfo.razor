@@ -20,7 +20,7 @@
                 <ValidationSummary/>
                 <div>
                     Destination:<br/>
-                    <InputTextArea @bind-Value="destination.streetname"/>
+                    <InputTextArea @bind-Value="destinationstreetname"/>
                 </div>
                 <button type="submit">Request vehicle</button>
             </EditForm>
@@ -30,7 +30,7 @@
         @if (showCheck)
         {
             <div class="form-group">
-                <label>@message</label>
+                <label style="color:red">@message</label>
             </div>
             <button @onclick="@CheckAccept">Check</button>
             <button @onclick="@CancelRequest">Cancel</button>
@@ -61,10 +61,6 @@
                     <label>@driversecondname</label>
                 </div>
                 <div class="form-group">
-                    Your Location:<br/>
-                    <label>@customerstreetname</label>
-                </div>
-                <div class="form-group">
                     Destination:<br/>
                     <label>@destinationstreetname</label>
                 </div>
@@ -74,14 +70,14 @@
                 </div>
                 <div class="form-group">
                     Estimate time:<br/>
-                    <label>@estimatetime</label>
+                    <label>@estimatedtime</label>
                 </div>
                 <div class="form-group">
                     Price:<br/>
                     <label>@price</label>
                 </div>
                 <div class="form-group">
-                    <label>@message</label>
+                    <label style="color:red">@message</label>
                 </div>
                 <button @onclick="@CheckFinished">Check</button>
             }
@@ -100,10 +96,8 @@
     private string status;
     private string driverfirstname;
     private string driversecondname;
-    private string customerstreetname;
-    private string estimatetime;
+    private string estimatedtime;
     private string price;
-    private Location destination = new Location();
     private Order order = new Order();
     private bool showMenu = true;
     private bool showCheck;
@@ -117,10 +111,10 @@
 
     public async Task RequestVehicle()
     {
-        order.destinationStreetName = destination.streetname;
+        order.destinationStreetName = destinationstreetname;
         order.customerLocation = GetLocation();
         costumer = ((UserAuthenticationStateProvider) AuthenticationStateProvider).GetUser();
-        order.costumer = costumer;
+        order.customer = costumer;
         if (order.customerLocation != null)
         {
             order = await OrderingService.RequestVehicle(order);
@@ -148,13 +142,12 @@
     public async Task CheckAccept()
     {
         order = await OrderingService.CheckProcess(order);
-        if (order.status == "accepted")
+        if (order.status == "Accepted")
         {
             status = order.status;
             driverfirstname = order.driver.firstname;
             driversecondname = order.driver.lastname;
-            customerstreetname = order.customerLocation.streetname;
-            estimatetime = order.estimateTime;
+            estimatedtime = order.estimatedTime;
             price = order.price;
             destinationstreetname = order.destinationStreetName;
             distance = order.distance;
@@ -163,15 +156,23 @@
             showCheck = false;
             showOrder = true;
         }
+        else
+        {
+            message = "Order are pending";
+        }
     }
 
     public async Task CheckFinished()
     {
         order = await OrderingService.CheckProcess(order);
-        if (order.status == "completed")
+        if (order.status == "Completed")
         {
             message = "Order completed!";
             showOrder = false;
+        }
+        else
+        {
+            message = "You are on the way";
         }
     }
 
@@ -183,8 +184,7 @@
             status = order.status;
             driverfirstname = order.driver.firstname;
             driversecondname = order.driver.lastname;
-            customerstreetname = order.customerLocation.streetname;
-            estimatetime = order.estimateTime;
+            estimatedtime = order.estimatedTime;
             price = order.price;
             destinationstreetname = order.destinationStreetName;
             distance = order.distance;
