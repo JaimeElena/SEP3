@@ -40,7 +40,6 @@ namespace Uber2.Controllers
         }
 
         [HttpGet("SearchOrderByID")]
-
         [Route("{id:int}")]
         public async Task<ActionResult<Order>> GetOrderById([FromQuery] int? id)
         {
@@ -140,6 +139,19 @@ namespace Uber2.Controllers
             }
         }
 
+        [HttpPatch("CancelOrder")]
+        public async Task<ActionResult<Order>> CancelOrder([FromBody] Order order) 
+        {
+            try
+            {
+                Order update = await orderService.EditOrderStatus(order,"Canceled");
+                return Ok(orderService.SearchOrder(update.id)); 
+            } catch (Exception e) {
+                Console.WriteLine(e);
+                return StatusCode(500, e.Message);
+            }
+        }
+        
         [HttpDelete]
         [Route("{id:int}")]
         public async Task<ActionResult> DeleteOrder([FromRoute]int id)
