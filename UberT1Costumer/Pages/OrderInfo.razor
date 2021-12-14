@@ -124,6 +124,7 @@
         if (order.customerLocation != null)
         {
             order = await OrderingService.RequestVehicle(order);
+            status = order.status;
             showMenu = false;
             showCheck = true;
         }
@@ -167,9 +168,9 @@
     public async Task CheckFinished()
     {
         order = await OrderingService.CheckProcess(order);
-        if (order.status == "finished")
+        if (order.status == "completed")
         {
-            message = "Order finished!";
+            message = "Order completed!";
             showOrder = false;
         }
     }
