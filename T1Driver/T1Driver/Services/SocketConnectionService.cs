@@ -119,7 +119,6 @@ namespace T1Driver.Services
                 RequestEntity = "driver"
             };
             string backString = await RequestReply(request);
-            Console.WriteLine(request.Body.ToString());
             IList<Order> orders = JsonSerializer.Deserialize<IList<Order>>(backString);
             return orders;
         }
