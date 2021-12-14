@@ -147,15 +147,16 @@ public class ApiCustomerService implements IApiCustomerService
     @Override
     public String GetOrder(Order order) throws IOException, InterruptedException
     {
+        System.out.println(order);
         HttpRequest request = HttpRequest.newBuilder()
                 .GET()
                 .header("accept", "application/json")
-                .uri(URI.create(String.format(API_URL_ORDERS + "/SearchOrderById/%s", order.getId())))
+                .uri(URI.create(String.format(API_URL_ORDERS + "/SearchOrderByID?id=%s", order.getId())))
                 .build();
         HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        System.out.println(response.body().toString());
+        System.out.println("API result: " + response.body().toString());
         JSONObject object = new JSONObject(response.body().toString());
-        Costumer costumer = gson.fromJson(object.getJSONObject("result").toString(), Costumer.class);
-        return null;
+
+        return object.toString();
     }
 }

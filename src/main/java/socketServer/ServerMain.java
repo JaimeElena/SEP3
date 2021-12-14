@@ -23,15 +23,15 @@ public class ServerMain
 
     public static void main(String[] args)
     {
-        Socket socket;
+        Socket socket = new Socket();
         try
         {
 
             while(true)
             {
                 socket = serverSocket.accept();
-                ClientThread clientThread = new ClientThread(socket);
-                clientThread.StartThread();
+                new ClientThread(socket).start();
+                System.out.println("New thread created...");
             }
         }
         catch (Exception e)

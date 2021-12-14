@@ -169,13 +169,17 @@ public class ClientThread extends Thread
                     CustomerOrder customerOrder = gson.fromJson(request.getBody().toString(), CustomerOrder.class);
                     System.out.println(customerOrder.toString());
                     Order order = parsingService.ParseCustomerOrder(customerOrder, locationService);
-                    String apiResponse = apiDriverService.AcceptOrder(order);
+                    String apiResponse = apiCustomerService.GetOrder(order);
                     Order apiCallback = gson.fromJson(apiResponse, Order.class);
                     CustomerOrder orderResponse = parsingService.ParseDriverOrder(apiCallback, apiDriverService, locationService, apiCustomerService);
                     String orderResponseJson = gson.toJson(orderResponse);
                     System.out.println(orderResponseJson);
                     out.write(orderResponseJson.getBytes());
                     json = "";
+                }
+                else if(request.getType().equals("cancelOrder"))
+                {
+
                 }
 
             }
@@ -184,5 +188,10 @@ public class ClientThread extends Thread
         {
             e.printStackTrace();
         }
+    }
+
+    public void run()
+    {
+        StartThread();
     }
 }
