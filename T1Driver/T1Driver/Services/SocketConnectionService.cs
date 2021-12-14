@@ -14,7 +14,6 @@ namespace T1Driver.Services
     public class SocketConnectionService : ISocketConnectionService
     {
         Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-        private string pendingfile = "file.json";
 
         public void Connect()
         {
@@ -68,8 +67,6 @@ namespace T1Driver.Services
 
             string backString = await RequestReply(request);
             Console.WriteLine(username + password);
-            File.WriteAllText(pendingfile, backString);
-
 
             return backString;
         }
@@ -122,8 +119,7 @@ namespace T1Driver.Services
                 RequestEntity = "driver"
             };
             string backString = await RequestReply(request);
-            File.WriteAllText(pendingfile, backString);
-            //Console.WriteLine(request.Body.ToString());
+            Console.WriteLine(request.Body.ToString());
             IList<Order> orders = JsonSerializer.Deserialize<IList<Order>>(backString);
             return orders;
         }
@@ -153,6 +149,5 @@ namespace T1Driver.Services
             Order apiOrder = JsonSerializer.Deserialize<Order>(backString);
             return apiOrder;
         }
-
     }
 }
