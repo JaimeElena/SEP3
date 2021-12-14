@@ -31,22 +31,17 @@ namespace Uber2
             Driver driver1 = new Driver();
             Order order1 = new Order();
 
-            customer1.id = 1;
-            customer1.username = "Buger King";
-            customer1.password = "asdasda232323";
-            customer1.firstname = "Siyu";
-            customer1.secondname = "Xia";
-            customer1.birthday = "2001.04.02";
-            customer1.sex = "M";
-
-            driver1.id = 1;
-            driver1.username = "Tim";
-            driver1.password = "ADDrtrt2324";
-            driver1.isFree = false;
+            order1.customer = "Tim";
+            order1.driver = "ABC";
+            order1.id = 1;
+            order1.status = "Pending";
+            order1.customerStreetName = "asdsd";
+            order1.destinationStreetName = "fggfgfg";
 
             uberContext = new UberDBContext();
-            uberContext.Add(customer1);
-            uberContext.Add(driver1);
+            //uberContext.Add(customer1);
+            //uberContext.Add(driver1);
+            uberContext.Add(order1);
 
             uberContext.SaveChanges();
         }

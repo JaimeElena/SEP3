@@ -88,7 +88,7 @@ namespace Uber2.Data
                 IList<Order> list = new List<Order>();
                 foreach (var order in all)
                 {
-                    if (order.status == "Pending")
+                    if (order.status.Equals("Pending"))
                     {
                         list.Add(order);
                     }
@@ -97,8 +97,7 @@ namespace Uber2.Data
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
-                throw;
+                throw new Exception($"Can't get All Pending Orders."); 
             }
         }
 

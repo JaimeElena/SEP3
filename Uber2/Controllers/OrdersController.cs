@@ -21,14 +21,14 @@ namespace Uber2.Controllers
         }
         
         [HttpGet]
-        public async Task<ActionResult<IList<Order>>> GetCustomerOrders([FromQuery] string? username) 
+        public async Task<ActionResult<IList<Order>>> GetCustomerOrders([FromQuery] int? id) 
         {
             try
             {
                 IList<Order> orders = await orderService.GetOrdersAsync();
-                if (username != null)
+                if (id != null)
                 {
-                    orders = orders.Where(order => order.customer == username).ToList();
+                    orders = orders.Where(order => order.id == id).ToList();
                 }
                 return Ok(orders);
             }
@@ -38,7 +38,15 @@ namespace Uber2.Controllers
                 return StatusCode(500, e.Message);
             }
         }
-        
+
+        [HttpGet("SearchOrderByID")]
+        public async Task<ActionResult<Order>> GetCustomerById(int id)
+        {
+            Order order = await orderService.SearchOrder(id);
+            return Ok(order);
+            
+        }
+
         [HttpPost]
         public async Task<ActionResult<Order>> AddOrder([FromBody] Order order) 
         {
