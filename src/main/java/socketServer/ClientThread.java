@@ -138,10 +138,13 @@ public class ClientThread extends Thread
                 else if (request.getType().equals("requestvehicle"))
                 {
                     CustomerOrder customerOrder = gson.fromJson(request.getBody().toString(), CustomerOrder.class);
-                    System.out.println(customerOrder.getStatus());
+                    System.out.println(customerOrder.toString());
                     Order order = parsingService.ParseCustomerOrder(customerOrder, locationService);
                     String apiResponse = apiCustomerService.RequestOrder(order);
-                    out.write(apiResponse.getBytes());
+                    Order apiCallback = gson.fromJson(apiResponse, Order.class);
+                    CustomerOrder orderResponse = parsingService.ParseDriverOrder(apiCallback, apiDriverService, locationService, apiCustomerService);
+                    String orderResponseJson = gson.toJson(orderResponse);
+                    out.write(orderResponseJson.getBytes());
                     json = "";
                 }
                 else if(request.getType().equals("getPendingOrders"))
@@ -160,6 +163,21 @@ public class ClientThread extends Thread
                     out.write(apiResponse.getBytes());
                     json = "";
                 }
+                else if(request.getType().equals("check"))
+                {
+                    System.out.println("Check order request processing...");
+                    CustomerOrder customerOrder = gson.fromJson(request.getBody().toString(), CustomerOrder.class);
+                    System.out.println(customerOrder.toString());
+                    Order order = parsingService.ParseCustomerOrder(customerOrder, locationService);
+                    String apiResponse = apiDriverService.AcceptOrder(order);
+                    Order apiCallback = gson.fromJson(apiResponse, Order.class);
+                    CustomerOrder orderResponse = parsingService.ParseDriverOrder(apiCallback, apiDriverService, locationService, apiCustomerService);
+                    String orderResponseJson = gson.toJson(orderResponse);
+                    System.out.println(orderResponseJson);
+                    out.write(orderResponseJson.getBytes());
+                    json = "";
+                }
+
             }
         }
         catch (Exception e)

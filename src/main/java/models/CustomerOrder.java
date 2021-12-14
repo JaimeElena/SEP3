@@ -2,26 +2,42 @@ package models;
 
 public class CustomerOrder
 {
-    private String destinationName;
+    private int id;
+    private String destinationStreetName;
     private Location customerLocation;
     private Costumer customer;
     private Driver driver;
     private String status;
     private String estimatedTime;
+    private String distance;
+    private String price;
 
-    public CustomerOrder(String destinationName, Location customerLocation, Costumer customer, Driver driver, String status, String estimatedTime)
+    public CustomerOrder() {};
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public CustomerOrder(int id, String destinationStreetName, Location customerLocation, Costumer customer, Driver driver, String status, String estimatedTime, String distance, String price)
     {
-        this.destinationName = destinationName;
+        this.id = id;
+        this.destinationStreetName = destinationStreetName;
         this.customerLocation = customerLocation;
         this.customer = customer;
         this.driver = driver;
         this.status = status;
         this.estimatedTime = estimatedTime;
+        this.distance = distance;
+        this.price = price;
     }
 
     public String getDestinationName()
     {
-        return destinationName;
+        return destinationStreetName;
     }
 
     public Location getCustomerLocation()
@@ -51,7 +67,7 @@ public class CustomerOrder
 
     public void setDestinationName(String destinationName)
     {
-        this.destinationName = destinationName;
+        this.destinationStreetName = destinationName;
     }
 
     public void setCustomerLocation(Location customerLocation)
@@ -77,5 +93,10 @@ public class CustomerOrder
     public void setEstimatedTime(String estimatedTime)
     {
         this.estimatedTime = estimatedTime;
+    }
+
+    public String toString()
+    {
+        return "Results: " + status + estimatedTime + customer.toString();
     }
 }

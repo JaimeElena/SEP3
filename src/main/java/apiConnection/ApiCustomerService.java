@@ -133,7 +133,7 @@ public class ApiCustomerService implements IApiCustomerService
     public String RequestOrder(Order order) throws IOException, InterruptedException
     {
         String orderJson = gson.toJson(order);
-
+        System.out.println("Sending to server: " + orderJson);
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(API_URL_ORDERS))
                 .POST(HttpRequest.BodyPublishers.ofString(orderJson))
@@ -142,5 +142,20 @@ public class ApiCustomerService implements IApiCustomerService
         HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
         System.out.println(response.body().toString());
         return response.body().toString();
+    }
+
+    @Override
+    public String GetOrder(Order order) throws IOException, InterruptedException
+    {
+        HttpRequest request = HttpRequest.newBuilder()
+                .GET()
+                .header("accept", "application/json")
+                .uri(URI.create(String.format(API_URL_ORDERS + "/SearchOrderById/%s", order.getId())))
+                .build();
+        HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        System.out.println(response.body().toString());
+        JSONObject object = new JSONObject(response.body().toString());
+        Costumer costumer = gson.fromJson(object.getJSONObject("result").toString(), Costumer.class);
+        return null;
     }
 }

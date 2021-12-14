@@ -36,6 +36,7 @@ public class App
         //apiDriverService.GetAllPendingRequests();
         //locationService.GetDistance(null, null);
 
-        locationService.GetStreetNameFromLocation(loc1);
+        locationService.GetDistance("Fussingsvej8,8700Horsens", "Langmarksvej53,8700Horsens");
+       // locationService.GetLocationFromStreetName("Langmarksvej53,8700Horsens");
     }
 }
