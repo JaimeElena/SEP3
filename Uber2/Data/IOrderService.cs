@@ -23,5 +23,7 @@ namespace Uber2.Data
         Task<string> GetCustomerStreetName(Order order);
 
         Task<string> GetDestinationStreetName(Order order);
+
+        Task DeleteOrder(int id);
     }
 }

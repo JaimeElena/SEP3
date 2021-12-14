@@ -127,5 +127,15 @@ namespace Uber2.Data
             Order orderUpdate = await uberContext.Orders.FirstOrDefaultAsync(o => o.id == order.id);
             return orderUpdate.destinationStreetName;
         }
+        
+        public async Task DeleteOrder(int id)
+        {
+            Order orderRemove = await uberContext.Orders.FirstAsync(o => o.id == id);
+            if (orderRemove != null)
+            {
+                uberContext.Remove(orderRemove);
+                await uberContext.SaveChangesAsync();
+            }
+        }
     }
     }

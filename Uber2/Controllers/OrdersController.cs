@@ -21,14 +21,14 @@ namespace Uber2.Controllers
         }
         
         [HttpGet]
-        public async Task<ActionResult<IList<Order>>> GetCustomerOrders([FromQuery] int? id) 
+        public async Task<ActionResult<IList<Order>>> GetCustomerOrders([FromQuery] string? username) 
         {
             try
             {
                 IList<Order> orders = await orderService.GetOrdersAsync();
-                if (id != null)
+                if (username != null)
                 {
-                    orders = orders.Where(order => order.id == id).ToList();
+                    orders = orders.Where(order => order.customer == username).ToList();
                 }
                 return Ok(orders);
             }
@@ -40,11 +40,13 @@ namespace Uber2.Controllers
         }
 
         [HttpGet("SearchOrderByID")]
-        public async Task<ActionResult<Order>> GetCustomerById(int id)
+
+        [Route("{id:int}")]
+        public async Task<ActionResult<Order>> GetOrderById([FromQuery] int? id)
         {
-            Order order = await orderService.SearchOrder(id);
+            int idcopy = id.Value;
+            Order order = await orderService.SearchOrder(idcopy);
             return Ok(order);
-            
         }
 
         [HttpPost]
@@ -137,7 +139,20 @@ namespace Uber2.Controllers
                 return StatusCode(500, e.Message);
             }
         }
+
+        [HttpDelete]
+        [Route("{id:int}")]
+        public async Task<ActionResult> DeleteOrder([FromRoute]int id)
+        {
+            try 
+            {
+                    await orderService.DeleteOrder(id);
+                    return Ok();
+                    
+            } catch (Exception e) {
+                    Console.WriteLine(e);
+                    return StatusCode(500, e.Message);
+            }
+        }
+        }
     }
-    
-    
-}
