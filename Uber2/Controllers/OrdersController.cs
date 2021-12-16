@@ -105,6 +105,7 @@ namespace Uber2.Controllers
             try
             {
                 Order update = await orderService.EditOrderStatus(order, "Accepted");
+                update = await orderService.EditOrderDriver(order);
                 return Ok(orderService.SearchOrder(update.id)); 
             } catch (Exception e) {
                 Console.WriteLine(e);
@@ -145,7 +146,7 @@ namespace Uber2.Controllers
         {
             try
             {
-                Order update = await orderService.EditOrderStatus(order,"Canceled");
+                Order update = await orderService.EditOrderStatus(order,"Cancelled");
                 return Ok(orderService.SearchOrder(update.id)); 
             } catch (Exception e) {
                 Console.WriteLine(e);

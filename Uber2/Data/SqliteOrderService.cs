@@ -106,6 +106,7 @@ namespace Uber2.Data
             try
             {
                 Order orderUpdate = await uberContext.Orders.FirstOrDefaultAsync(o => o.id == order.id);
+                orderUpdate.driver = order.driver;
                 uberContext.Update(orderUpdate);
                 await uberContext.SaveChangesAsync();
                 return orderUpdate; 
