@@ -119,7 +119,7 @@ using System.Threading;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 101 "C:\Users\Lokkaze\Desktop\uni\SEP3\code\Tier1\T1Driver\T1Driver\Pages\Profile.razor"
+#line 105 "C:\Users\Lokkaze\Desktop\uni\SEP3\code\Tier1\T1Driver\T1Driver\Pages\Profile.razor"
        
     private Driver CurrentUser;
 
@@ -132,6 +132,7 @@ using System.Threading;
     private string birthday;
     private string sex;
     private string numberplate;
+    private bool showMessage;
 
     private bool show = true;
     private bool showEdit;
@@ -165,8 +166,14 @@ using System.Threading;
     {
         try
         {
+            if (CurrentUser.username == "" || CurrentUser.password == "" || CurrentUser.firstname == "" || CurrentUser.secondname == "" || CurrentUser.birthday == "" || CurrentUser.sex == null)
+            {
+                message = "You should fill up all your information!";
+                ShowMessage();
+            }
             CurrentUser = await ((UserAuthenticationStateProvider) AuthenticationStateProvider).EditUser(CurrentUser);
             message = "Change saved!";
+            ShowMessage();
             await Task.Delay(1000);
             Initialize();
             await Task.Delay(1000);
@@ -197,6 +204,11 @@ using System.Threading;
     private void CancelEdit()
     {
         showEdit = false;
+    }
+
+    private void ShowMessage()
+    {
+        showMessage = true;
     }
 
 #line default

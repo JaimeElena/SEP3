@@ -119,7 +119,7 @@ using T1Driver.Authentication;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 74 "C:\Users\Lokkaze\Desktop\uni\SEP3\code\Tier1\T1Driver\T1Driver\Pages\Login.razor"
+#line 81 "C:\Users\Lokkaze\Desktop\uni\SEP3\code\Tier1\T1Driver\T1Driver\Pages\Login.razor"
        
     private Driver CurrentUser = new Driver();
 
@@ -128,6 +128,7 @@ using T1Driver.Authentication;
     private string password;
     private bool showLogin = true;
     private bool showRegister;
+    private bool showMessage;
     
     IUserServices client = new UserServices();
 
@@ -136,14 +137,21 @@ using T1Driver.Authentication;
         message = "";
         try
         {
+            if (username == "" || password == "")
+            {
+                message = "Username or password is incorrect!";
+                ShowMessage();
+            }
             await ((UserAuthenticationStateProvider)AuthenticationStateProvider).ValidateLogin(username, password);
             message = "Login succeed!";
+            ShowMessage();
             await Task.Delay(1000);
             NavigationManager.NavigateTo("/profile");
         }
         catch (Exception e)
         {
             message = "Username or password is incorrect!";
+            ShowMessage();
             Console.WriteLine(e);
         }
     }
@@ -158,6 +166,7 @@ using T1Driver.Authentication;
         {
             await ((UserAuthenticationStateProvider) AuthenticationStateProvider).Logout();
             message = "Logout succeed!";
+            ShowMessage();
             await Task.Delay(1000);
             NavigationManager.NavigateTo("/");
         }
@@ -169,9 +178,10 @@ using T1Driver.Authentication;
 
     public async Task PerformRegister()
     {
-        if (username == ""|| password == "")
+        if (CurrentUser.username == "" || CurrentUser.password == "" || CurrentUser.firstname == "" || CurrentUser.secondname == "" || CurrentUser.birthday == "" || CurrentUser.sex == null)
         {
-            message = "You should fill up username and password!";
+            message = "You should fill up all your information!";
+            ShowMessage();
         }
         else
         {
@@ -181,6 +191,8 @@ using T1Driver.Authentication;
                 Console.WriteLine("Register was successful");
             }
             HideRegister();
+            message = "Register was successful";
+            ShowMessage();
         }
     }
 
@@ -204,7 +216,11 @@ using T1Driver.Authentication;
             CurrentUser.sex = args.Value.ToString();
         }
         catch (Exception e){}
-        
+    }
+
+    private void ShowMessage()
+    {
+        showMessage = true;
     }
 
 #line default

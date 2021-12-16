@@ -127,7 +127,7 @@ namespace T1Driver.Services
         {
             Request request = new Request()
             {
-                Type = "acceptorder",
+                Type = "acceptOrder",
                 Body = order,
                 RequestEntity = "driver"
             };
@@ -140,7 +140,7 @@ namespace T1Driver.Services
         {
             Request request = new Request()
             {
-                Type = "finishorder",
+                Type = "finishOrder",
                 Body = order,
                 RequestEntity = "driver"
             };

@@ -1,6 +1,7 @@
 ﻿@page "/requests"
 @using System.Collections
 @using System.Threading
+@using T1Driver.Authentication
 @using T1Driver.Data
 @using T1Driver.Models
 
@@ -35,7 +36,6 @@
                     <table class="table">
                             <thead>
                             <tr>
-                                <td>Driver</td>
                                 <td>Customer</td>
                                 <td>Customer Location</td>
                                 <td>Destination</td>
@@ -45,7 +45,6 @@
                             @foreach (var item in orders)
                             {
                                 <tr>
-                                    <td>@item.driver</td>
                                     <td>@item.customer</td>
                                     <td>@item.customerStreetName</td>
                                     <td>@item.destinationStreetName</td>
@@ -100,6 +99,7 @@
     public async Task AcceptOrder()
     {
         Order orderToAccept = orders.First(t => t.id == selectOrder);
+        orderToAccept.driver = ((UserAuthenticationStateProvider) AuthenticationStateProvider).GetUser().username;
         await OrdersData.AcceptOrder(orderToAccept);
         NavigationManager.NavigateTo("/OrderInfo");
     }

@@ -116,3 +116,4 @@ C:\Users\Lokkaze\Desktop\uni\SEP3\code\Tier1\T1Driver\T1Driver\obj\Debug\net5.0\
 C:\Users\Lokkaze\Desktop\uni\SEP3\code\Tier1\T1Driver\T1Driver\obj\Debug\net5.0\RazorDeclaration\Pages\Requests.razor.g.cs
 C:\Users\Lokkaze\Desktop\uni\SEP3\code\Tier1\T1Driver\T1Driver\obj\Debug\net5.0\Razor\Pages\OrderInfo.razor.g.cs
 C:\Users\Lokkaze\Desktop\uni\SEP3\code\Tier1\T1Driver\T1Driver\obj\Debug\net5.0\Razor\Pages\Requests.razor.g.cs
+C:\Users\Lokkaze\Desktop\uni\SEP3\code\Tier1\T1Driver\T1Driver\bin\Debug\net5.0\file.json
