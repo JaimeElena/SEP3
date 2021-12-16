@@ -66,7 +66,7 @@ namespace Uber2.Data
                 IList<Order> list = new List<Order>();
                 foreach (var order in all)
                 {
-                    if (order.status == "Completed"||order.status == "Canceled" && order.customer == customer)
+                    if (order.status == "Completed"||order.status == "Cancelled" && order.customer == customer)
                     {
                         list.Add(order);
                     }
