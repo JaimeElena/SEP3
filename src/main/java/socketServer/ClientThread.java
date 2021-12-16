@@ -19,6 +19,7 @@ public class ClientThread extends Thread
     private IApiDriverService apiDriverService;
     private ILocationService locationService;
     private IOrderParsingService parsingService;
+    private IApiOrderService apiOrderService;
 
     public ClientThread(Socket socket)
     {
@@ -28,6 +29,7 @@ public class ClientThread extends Thread
         apiDriverService = new ApiDriverService();
         locationService = new LocationService();
         parsingService = new OrderParsingService();
+        apiOrderService = new ApiOrderService();
         System.out.println("Connection started");
     }
 
@@ -140,7 +142,7 @@ public class ClientThread extends Thread
                     CustomerOrder customerOrder = gson.fromJson(request.getBody().toString(), CustomerOrder.class);
                     System.out.println(customerOrder.toString());
                     Order order = parsingService.ParseCustomerOrder(customerOrder, locationService);
-                    String apiResponse = apiCustomerService.RequestOrder(order);
+                    String apiResponse = apiOrderService.RequestOrder(order);
                     Order apiCallback = gson.fromJson(apiResponse, Order.class);
                     CustomerOrder orderResponse = parsingService.ParseDriverOrder(apiCallback, apiDriverService, locationService, apiCustomerService);
                     String orderResponseJson = gson.toJson(orderResponse);
@@ -149,7 +151,7 @@ public class ClientThread extends Thread
                 }
                 else if(request.getType().equals("getPendingOrders"))
                 {
-                    String apiResponse = apiDriverService.GetAllPendingRequests();
+                    String apiResponse = apiOrderService.GetAllPendingRequests();
                     System.out.println(apiResponse);
                     out.write(apiResponse.getBytes());
                     json = "";
@@ -158,7 +160,7 @@ public class ClientThread extends Thread
                 {
                     System.out.println("Accept order request processing...");
                     Order order = gson.fromJson(request.getBody().toString(), Order.class);
-                    String apiResponse = apiDriverService.AcceptOrder(order);
+                    String apiResponse = apiOrderService.AcceptOrder(order);
                     System.out.println(apiResponse);
                     out.write(apiResponse.getBytes());
                     json = "";
@@ -167,7 +169,7 @@ public class ClientThread extends Thread
                 {
                     System.out.println("Check order request processing...");
                     CustomerOrder customerOrder = gson.fromJson(request.getBody().toString(), CustomerOrder.class);
-                    String apiResponse = apiCustomerService.GetOrder(customerOrder.getId());
+                    String apiResponse = apiOrderService.GetOrder(customerOrder.getId());
                     Order apiCallback = gson.fromJson(apiResponse, Order.class);
                     CustomerOrder orderResponse = parsingService.ParseDriverOrder(apiCallback, apiDriverService, locationService, apiCustomerService);
                     String orderResponseJson = gson.toJson(orderResponse);
@@ -180,7 +182,7 @@ public class ClientThread extends Thread
                     System.out.println("Cancel order processing...");
                     CustomerOrder customerOrder = gson.fromJson(request.getBody().toString(), CustomerOrder.class);
                     Order order = parsingService.ParseCustomerOrder(customerOrder, locationService);
-                    String apiResponse = apiCustomerService.CancelOrder(order);
+                    String apiResponse = apiOrderService.CancelOrder(order);
                     System.out.println(apiResponse);
                     Order orderResponse = gson.fromJson(apiResponse, Order.class);
                     System.out.println(orderResponse.getStatus());
@@ -192,7 +194,7 @@ public class ClientThread extends Thread
                 {
                     System.out.println("Complete order request processing...");
                     Order order = gson.fromJson(request.getBody().toString(), Order.class);
-                    String apiResponse = apiDriverService.CompleteOrder(order);
+                    String apiResponse = apiOrderService.CompleteOrder(order);
                     System.out.println(apiResponse);
                     out.write(apiResponse.getBytes());
                     json = "";
@@ -203,7 +205,7 @@ public class ClientThread extends Thread
                     System.out.println(request.getBody().toString());
                     Costumer customer =  gson.fromJson(request.getBody().toString(), Costumer.class);
                     System.out.println(customer.getUsername());
-                    String apiResponse = apiCustomerService.GetOrderHistory(customer.getUsername());
+                    String apiResponse = apiOrderService.GetOrderHistory(customer.getUsername());
                     System.out.println(apiResponse);
                     out.write(apiResponse.getBytes());
                     json = "";
