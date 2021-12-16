@@ -129,7 +129,7 @@ namespace UberT1Costumer.Services
         {
             Request request = new Request()
             {
-                Type = "cancelrequest",
+                Type = "cancelRequest",
                 Body = order,
                 RequestEntity = "costumer"
             };
