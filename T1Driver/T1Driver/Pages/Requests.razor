@@ -103,11 +103,14 @@
 
     public async Task AcceptOrder()
     {
-        Order orderToAccept = orders.First(t => t.id == selectOrder);
-        orderToAccept.driver = ((UserAuthenticationStateProvider) AuthenticationStateProvider).GetUser().username;
-        await OrdersData.AcceptOrder(orderToAccept);
-        haveOrder = OrdersData.getHaveOrder();
-        NavigationManager.NavigateTo("/OrderInfo");
+        if (selectOrder != 0)
+        {
+            Order orderToAccept = orders.First(t => t.id == selectOrder);
+            orderToAccept.driver = ((UserAuthenticationStateProvider) AuthenticationStateProvider).GetUser().username;
+            await OrdersData.AcceptOrder(orderToAccept);
+            haveOrder = OrdersData.getHaveOrder();
+            NavigationManager.NavigateTo("/OrderInfo");
+        }
     }
 
     
