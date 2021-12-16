@@ -33,11 +33,6 @@ namespace UberT1Costumer.Services
 
         public async Task<string> Register(string username, string password)
         {
-            Costumer costumer = new Costumer()
-            {
-                username = username,
-                password = password
-            };
             return await WebInstance.Register(username, password);
         }
 

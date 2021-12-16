@@ -162,24 +162,31 @@
 
     public async Task RequestVehicle()
     {
-        haveOrder = OrderingService.GetHaveOrder();
-        if (!haveOrder)
+        if (destinationstreetname == "")
         {
-            order.destinationStreetName = destinationstreetname;
-            order.customerLocation = GetLocation();
-            costumer = ((UserAuthenticationStateProvider) AuthenticationStateProvider).GetUser();
-            order.customer = costumer;
-            if (order.customerLocation != null)
-            {
-                order = await OrderingService.RequestVehicle(order);
-                status = order.status;
-                showMenu = false;
-                showCheck = true;
-            }
+            message = "Type in your destination!";
         }
         else
         {
-            message = "You can only request one vehicle each time!";
+            haveOrder = OrderingService.GetHaveOrder();
+            if (!haveOrder)
+            {
+                order.destinationStreetName = destinationstreetname;
+                order.customerLocation = GetLocation();
+                costumer = ((UserAuthenticationStateProvider) AuthenticationStateProvider).GetUser();
+                order.customer = costumer;
+                if (order.customerLocation != null)
+                {
+                    order = await OrderingService.RequestVehicle(order);
+                    status = order.status;
+                    showMenu = false;
+                    showCheck = true;
+                }
+            }
+            else
+            {
+                message = "You can only request one vehicle each time!";
+            }
         }
     }
 
@@ -218,7 +225,7 @@
         }
         else
         {
-            message = "Order are pending";
+            message = "Order is pending";
         }
     }
 
@@ -231,6 +238,7 @@
             OrderingService.DontHaveOrder();
             message = "Order completed!";
             showOrder = false;
+            showFinished = true;
         }
         else
         {
