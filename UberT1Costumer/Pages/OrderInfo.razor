@@ -108,19 +108,24 @@
     private Costumer costumer;
     private string distance;
     private string driverusername;
+    private bool haveOrder;
 
     public async Task RequestVehicle()
     {
-        order.destinationStreetName = destinationstreetname;
-        order.customerLocation = GetLocation();
-        costumer = ((UserAuthenticationStateProvider) AuthenticationStateProvider).GetUser();
-        order.customer = costumer;
-        if (order.customerLocation != null)
+        haveOrder = OrderingService.GetHaveOrder();
+        if (!haveOrder)
         {
-            order = await OrderingService.RequestVehicle(order);
-            status = order.status;
-            showMenu = false;
-            showCheck = true;
+            order.destinationStreetName = destinationstreetname;
+            order.customerLocation = GetLocation();
+            costumer = ((UserAuthenticationStateProvider) AuthenticationStateProvider).GetUser();
+            order.customer = costumer;
+            if (order.customerLocation != null)
+            {
+                order = await OrderingService.RequestVehicle(order);
+                status = order.status;
+                showMenu = false;
+                showCheck = true;
+            }
         }
     }
 
@@ -129,6 +134,8 @@
         message = await OrderingService.CancelRequest(order);
         if (message == "Cancelled")
         {
+            haveOrder = false;
+            OrderingService.DontHaveOrder();
             order = new Order();
             showCheck = false;
             showMenu = true;
@@ -167,6 +174,8 @@
         order = await OrderingService.CheckProcess(order);
         if (order.status == "Completed")
         {
+            haveOrder = false;
+            OrderingService.DontHaveOrder();
             message = "Order completed!";
             showOrder = false;
         }

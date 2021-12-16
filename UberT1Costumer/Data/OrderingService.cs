@@ -8,8 +8,10 @@ namespace UberT1Costumer.Data
     public class OrderingService:IOrderingService
     {
         private Order cacheOrder;
+        private bool haveOrder;
         public async Task<Order> RequestVehicle(Order order)
         {
+            haveOrder = true;
             return await ClientController.getInstance().RequestVehicle(order);
         }
 
@@ -32,6 +34,16 @@ namespace UberT1Costumer.Data
         public async Task<IList<Order>> GetHistory(Costumer costumer)
         {
             return await ClientController.getInstance().GetHistory(costumer);
+        }
+
+        public bool GetHaveOrder()
+        {
+            return haveOrder;
+        }
+
+        public void DontHaveOrder()
+        {
+            haveOrder = false;
         }
     }
 }

@@ -11,5 +11,7 @@ namespace UberT1Costumer.Data
         Task<Order> CheckProcess(Order order);
         public Order GetOrder();
         Task<IList<Order>> GetHistory(Costumer costumer);
+        bool GetHaveOrder();
+        void DontHaveOrder();
     }
 }
