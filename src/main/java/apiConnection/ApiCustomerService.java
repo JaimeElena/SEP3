@@ -4,8 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
 import models.Costumer;
-import models.Order;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -128,73 +126,5 @@ public class ApiCustomerService implements IApiCustomerService
         System.out.println(response.body().toString());
 
         return String.valueOf(response.body());
-    }
-
-    @Override
-    public String RequestOrder(Order order) throws IOException, InterruptedException
-    {
-        String orderJson = gson.toJson(order);
-        System.out.println("Sending to server: " + orderJson);
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(API_URL_ORDERS))
-                .POST(HttpRequest.BodyPublishers.ofString(orderJson))
-                .header("Content-Type", "application/json")
-                .build();
-        HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        System.out.println(response.body().toString());
-        return response.body().toString();
-    }
-
-    @Override
-    public String GetOrder(int id) throws IOException, InterruptedException
-    {
-        HttpRequest request = HttpRequest.newBuilder()
-                .GET()
-                .header("accept", "application/json")
-                .uri(URI.create(String.format(API_URL_ORDERS + "/SearchOrderByID?id=%s", id)))
-                .build();
-        HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        System.out.println("API result: " + response.body().toString());
-        JSONObject object = new JSONObject(response.body().toString());
-
-        return object.toString();
-    }
-
-    @Override
-    public String GetOrderById(int id) throws IOException, InterruptedException
-    {
-
-        return null;
-    }
-
-    @Override
-    public String GetOrderHistory(String username) throws IOException, InterruptedException
-    {
-        HttpRequest request = HttpRequest.newBuilder()
-                .GET()
-                .header("accept", "application/json")
-                .uri(URI.create(String.format(API_URL_ORDERS + "/GetHistoryOrders?customer=%s", username)))
-                .build();
-        HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        System.out.println(response.body().toString());
-        JSONArray object = new JSONArray(response.body().toString());
-        System.out.println(object.toString());
-        return response.body().toString();
-    }
-
-    @Override
-    public String CancelOrder(Order order) throws IOException, InterruptedException
-    {
-        String orderJson = gson.toJson(order);
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(API_URL_ORDERS+"/CancelOrder"))
-                .method("PATCH", HttpRequest.BodyPublishers.ofString(orderJson))
-                .header("Content-Type", "application/json")
-                .build();
-        HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-        JSONObject object = new JSONObject(response.body().toString());
-        System.out.println(object.toString());
-        return object.getJSONObject("result").toString();
     }
 }
