@@ -9,6 +9,7 @@ namespace T1Driver.Data
     public class UserServices:IUserServices
     {
         private Order cacheOrder;
+        private bool haveOrder;
         
         public void Connect()
         {
@@ -48,6 +49,7 @@ namespace T1Driver.Data
         public async Task<Order> AcceptOrder(Order order)
         { 
             cacheOrder = await ClientController.getInstance().AcceptOrder(order);
+            haveOrder = true;
             return cacheOrder;
         }
 
@@ -59,8 +61,13 @@ namespace T1Driver.Data
         public async Task<Order> FinishOrder(Order order)
         {
             cacheOrder = await ClientController.getInstance().FinishOrder(order);
+            haveOrder = false;
             return cacheOrder;
         }
 
+        public bool getHaveOrder()
+        {
+            return haveOrder;
+        }
     }
 }

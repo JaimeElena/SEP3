@@ -75,13 +75,18 @@
     private bool list;
     private int selectOrder;
     private int id;
+    private bool haveOrder;
 
     public async Task StartFind()
     {
-        orders = await OrdersData.GetOrders();
-        await Task.Delay(1000);
-        find = false;
-        list = true;
+        haveOrder = OrdersData.getHaveOrder();
+        if (haveOrder == false)
+        {
+            orders = await OrdersData.GetOrders();
+            await Task.Delay(1000);
+            find = false;
+            list = true;
+        }
     }
 
     public void StopFind()
@@ -101,6 +106,7 @@
         Order orderToAccept = orders.First(t => t.id == selectOrder);
         orderToAccept.driver = ((UserAuthenticationStateProvider) AuthenticationStateProvider).GetUser().username;
         await OrdersData.AcceptOrder(orderToAccept);
+        haveOrder = OrdersData.getHaveOrder();
         NavigationManager.NavigateTo("/OrderInfo");
     }
 

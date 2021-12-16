@@ -10,51 +10,39 @@
         <h3>You need to login before access!</h3>
     </NotAuthorized>
     <Authorized>
-        @if (!showOrder)
+        @if (order == null)
         {
-            <button @onclick="@ShowOrder">Load current order</button>
+            <p><em>No requests exist now</em></p>
         }
-        @if (showOrder)
+        else if (order != null)
         {
-            @if (order == null)
-            {
-                <p><em>No requests exist now</em></p>
-            }
-            else if (order != null)
-            {
-                <div class="form-group">
-                    Status:<br/>
-                    <label>@order.status</label>
-                </div>
-                <div class="form-group">
-                    Customer:<br/>
-                    <label>@order.customer</label>
-                </div>
-                <div class="form-group">
-                    Driver:<br/>
-                    <label>@order.driver</label>
-                </div>
-                <div class="form-group">
-                    Customer Location:<br/>
-                    <label>@order.customerStreetName</label>
-                </div>
-                <div class="form-group">
-                    Destination:<br/>
-                    <label>@order.destinationStreetName</label>
-                </div>
-                <button id="finish" @onclick="@FinishOrder">Finish order</button>
-            }
+            ShowOrder();
+            <div class="form-group">
+                Status:<br/>
+                <label>@order.status</label>
+            </div>
+            <div class="form-group">
+                Customer:<br/>
+                <label>@order.customer</label>
+            </div>
+            <div class="form-group">
+                Customer Location:<br/>
+                <label>@order.customerStreetName</label>
+            </div>
+            <div class="form-group">
+                Destination:<br/>
+                <label>@order.destinationStreetName</label>
+            </div>
+            <button id="finish" @onclick="@FinishOrder">Finish order</button>
         }
     </Authorized>
 </AuthorizeView>
 
 @code {
     private Order order;
-    private bool showOrder;
 
     public void ShowOrder()
     {
-        showOrder = true;
         order = OrdersData.GetCacheOrder();
     }
 
