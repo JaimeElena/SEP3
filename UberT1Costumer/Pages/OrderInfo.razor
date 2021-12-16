@@ -25,6 +25,9 @@
                 <button type="submit">Request vehicle</button>
             </EditForm>
             <button @onclick="@ShowOrder">Show order</button>
+            <div class="form-group">
+                <label style="color:red">@message</label>
+            </div>
         }
         
         @if (showCheck)
