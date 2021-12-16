@@ -84,7 +84,8 @@ namespace Uber2.Controllers
         }
 
         [HttpGet("GetCompletedOrders")]
-        public async Task<ActionResult<IList<Order>>> GetCompletedOrders(string customer)
+        [Route("{customer}")]
+        public async Task<ActionResult<IList<Order>>> GetCompletedOrders([FromQuery] string? customer)
         {
             IList<Order> completed = await orderService.GetCompletedOrders(customer);
             return Ok(completed);
@@ -161,7 +162,8 @@ namespace Uber2.Controllers
                     await orderService.DeleteOrder(id);
                     return Ok();
                     
-            } catch (Exception e) {
+            } catch (Exception e) 
+            {
                     Console.WriteLine(e);
                     return StatusCode(500, e.Message);
             }
