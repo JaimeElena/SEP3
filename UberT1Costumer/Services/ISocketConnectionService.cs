@@ -18,6 +18,6 @@ namespace UberT1Costumer.Services
         Task<Order> RequestVehicle(Order order);
         Task<string> CancelRequest(Order order);
         Task<Order> CheckProcess(Order order);
-        Task<IList<Order>> GetHistory(Costumer costumer);
+        Task<IList<HistoryOrder>> GetHistory(Costumer costumer);
     }
 }

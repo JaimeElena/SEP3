@@ -37,7 +37,7 @@ namespace UberT1Costumer.Services
             int byteCount;
             byteCount = socket.Receive(byteReply, byteReply.Length, 0);
             reply = Encoding.UTF8.GetString(byteReply, 0, byteCount);
-            Console.WriteLine(reply);
+            Console.WriteLine("reply: " + reply);
             return reply;
         }
 
@@ -150,7 +150,7 @@ namespace UberT1Costumer.Services
             return apiorder;
         }
 
-        public async Task<IList<Order>> GetHistory(Costumer costumer)
+        public async Task<IList<HistoryOrder>> GetHistory(Costumer costumer)
         {
             Request request = new Request()
             {
@@ -159,7 +159,7 @@ namespace UberT1Costumer.Services
                 RequestEntity = "costumer"
             };
             string backString = await RequestReply(request);
-            IList<Order> orders = JsonSerializer.Deserialize<IList<Order>>(backString);
+            IList<HistoryOrder> orders = JsonSerializer.Deserialize<IList<HistoryOrder>>(backString);
             return orders;
         }
     }

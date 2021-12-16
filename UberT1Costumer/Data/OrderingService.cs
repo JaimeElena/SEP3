@@ -31,7 +31,7 @@ namespace UberT1Costumer.Data
             return cacheOrder;
         }
 
-        public async Task<IList<Order>> GetHistory(Costumer costumer)
+        public async Task<IList<HistoryOrder>> GetHistory(Costumer costumer)
         {
             return await ClientController.getInstance().GetHistory(costumer);
         }

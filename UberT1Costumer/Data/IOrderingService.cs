@@ -10,7 +10,7 @@ namespace UberT1Costumer.Data
         Task<string> CancelRequest(Order order);
         Task<Order> CheckProcess(Order order);
         public Order GetOrder();
-        Task<IList<Order>> GetHistory(Costumer costumer);
+        Task<IList<HistoryOrder>> GetHistory(Costumer costumer);
         bool GetHaveOrder();
         void DontHaveOrder();
     }
