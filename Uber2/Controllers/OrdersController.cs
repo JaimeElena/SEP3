@@ -83,11 +83,11 @@ namespace Uber2.Controllers
             }
         }
 
-        [HttpGet("GetCompletedOrders")]
+        [HttpGet("GetHistoryOrders")]
         [Route("{customer}")]
-        public async Task<ActionResult<IList<Order>>> GetCompletedOrders([FromQuery] string? customer)
+        public async Task<ActionResult<IList<Order>>> GetHistoryOrders([FromQuery] string? customer)
         {
-            IList<Order> completed = await orderService.GetCompletedOrders(customer);
+            IList<Order> completed = await orderService.GetHistoryOrders(customer);
             return Ok(completed);
         }
 

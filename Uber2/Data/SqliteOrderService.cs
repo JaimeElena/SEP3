@@ -58,7 +58,7 @@ namespace Uber2.Data
             }
         }
 
-        public async Task<IList<Order>> GetCompletedOrders(string customer)
+        public async Task<IList<Order>> GetHistoryOrders(string customer)
         {
             try
             {
@@ -66,7 +66,7 @@ namespace Uber2.Data
                 IList<Order> list = new List<Order>();
                 foreach (var order in all)
                 {
-                    if (order.status == "Completed" && order.customer == customer)
+                    if (order.status == "Completed"||order.status == "Canceled" && order.customer == customer)
                     {
                         list.Add(order);
                     }
