@@ -92,6 +92,52 @@
             </div>
             <button @onclick="@Back">Back to menu</button>
         }
+        @if (showCancelled)
+        {
+            @if (order == null)
+            {
+                <p><em>No requests exist now</em></p>
+            }
+            else if (order != null)
+            {
+                <div class="form-group">
+                    Status:<br/>
+                    <label>@status</label>
+                </div>
+                <div class="form-group">
+                    Driver username:<br/>
+                    <label>@driverusername</label>
+                </div>
+                <div class="form-group">
+                    Driver first name:<br/>
+                    <label>@driverfirstname</label>
+                </div>
+                <div class="form-group">
+                    Driver last name:<br/>
+                    <label>@driversecondname</label>
+                </div>
+                <div class="form-group">
+                    Destination:<br/>
+                    <label>@destinationstreetname</label>
+                </div>
+                <div class="form-group">
+                    Distance:<br/>
+                    <label>@distance</label>
+                </div>
+                <div class="form-group">
+                    Estimate time:<br/>
+                    <label>@estimatedtime</label>
+                </div>
+                <div class="form-group">
+                    Price:<br/>
+                    <label>@price</label>
+                </div>
+                <div class="form-group">
+                    <label style="color:red">@message</label>
+                </div>
+                <button @onclick="@Back">Back</button>
+            }
+        }
     </Authorized>
 </AuthorizeView>
 @code {
@@ -112,6 +158,7 @@
     private string distance;
     private string driverusername;
     private bool haveOrder;
+    private bool showCancelled;
 
     public async Task RequestVehicle()
     {
@@ -143,7 +190,6 @@
         {
             haveOrder = false;
             OrderingService.DontHaveOrder();
-            order = new Order();
             showCheck = false;
             showMenu = true;
         }
@@ -194,24 +240,42 @@
 
     public async Task ShowOrder()
     {
-        order = OrderingService.GetOrder();
-        if (order.status != null)
+        if (order == null)
         {
-            status = order.status;
-            driverfirstname = order.driver.firstname;
-            driversecondname = order.driver.secondname;
-            estimatedtime = order.estimatedTime;
-            price = order.price;
-            destinationstreetname = order.destinationStreetName;
-            distance = order.distance;
-            driverusername = order.driver.username;
-            showMenu = false;
-            showOrder = true;
+            order = OrderingService.GetOrder();
+            if (order.status != null)
+            {
+                status = order.status;
+                driverfirstname = order.driver.firstname;
+                driversecondname = order.driver.secondname;
+                estimatedtime = order.estimatedTime;
+                price = order.price;
+                destinationstreetname = order.destinationStreetName;
+                distance = order.distance;
+                driverusername = order.driver.username;
+                showMenu = false;
+                showOrder = true;
+            }
+        }
+        else
+        {
+            if (order.status == "Cancelled")
+            {
+                showMenu = false;
+                showCancelled = true;
+
+            }
+            else
+            {
+                showMenu = false;
+                showOrder = true;
+            }
         }
     }
 
     public void Back()
     {
+        showCancelled = false;
         showOrder = false;
         showMenu = true;
     }
