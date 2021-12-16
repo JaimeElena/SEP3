@@ -78,5 +78,10 @@ namespace UberT1Costumer.Services
         {
             return await WebInstance.CheckProcess(order);
         }
+
+        public async Task<IList<Order>> GetHistory(Costumer costumer)
+        {
+            return await WebInstance.GetHistory(costumer);
+        }
     }
 }

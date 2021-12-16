@@ -149,5 +149,18 @@ namespace UberT1Costumer.Services
             Order apiorder = JsonSerializer.Deserialize<Order>(backString);
             return apiorder;
         }
+
+        public async Task<IList<Order>> GetHistory(Costumer costumer)
+        {
+            Request request = new Request()
+            {
+                Type = "getHistory",
+                Body = costumer,
+                RequestEntity = "costumer"
+            };
+            string backString = await RequestReply(request);
+            IList<Order> orders = JsonSerializer.Deserialize<IList<Order>>(backString);
+            return orders;
+        }
     }
 }

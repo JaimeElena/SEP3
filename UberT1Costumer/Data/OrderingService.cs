@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using UberT1Costumer.Models;
 using UberT1Costumer.Services;
 
@@ -26,6 +27,11 @@ namespace UberT1Costumer.Data
         public Order GetOrder()
         {
             return cacheOrder;
+        }
+
+        public async Task<IList<Order>> GetHistory(Costumer costumer)
+        {
+            return await ClientController.getInstance().GetHistory(costumer);
         }
     }
 }

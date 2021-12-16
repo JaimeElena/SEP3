@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using UberT1Costumer.Models;
 
 namespace UberT1Costumer.Data
@@ -9,6 +10,6 @@ namespace UberT1Costumer.Data
         Task<string> CancelRequest(Order order);
         Task<Order> CheckProcess(Order order);
         public Order GetOrder();
-
+        Task<IList<Order>> GetHistory(Costumer costumer);
     }
 }
