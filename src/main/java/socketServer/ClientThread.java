@@ -167,9 +167,7 @@ public class ClientThread extends Thread
                 {
                     System.out.println("Check order request processing...");
                     CustomerOrder customerOrder = gson.fromJson(request.getBody().toString(), CustomerOrder.class);
-                    System.out.println(customerOrder.toString());
-                    Order order = parsingService.ParseCustomerOrder(customerOrder, locationService);
-                    String apiResponse = apiCustomerService.GetOrder(order);
+                    String apiResponse = apiCustomerService.GetOrder(customerOrder.getId());
                     Order apiCallback = gson.fromJson(apiResponse, Order.class);
                     CustomerOrder orderResponse = parsingService.ParseDriverOrder(apiCallback, apiDriverService, locationService, apiCustomerService);
                     String orderResponseJson = gson.toJson(orderResponse);
@@ -179,9 +177,30 @@ public class ClientThread extends Thread
                 }
                 else if(request.getType().equals("cancelOrder"))
                 {
+                    System.out.println("Cancel order processing...");
 
                 }
+                else if(request.getType().equals("finishOrder"))
+                {
+                    System.out.println("Complete order request processing...");
+                    Order order = gson.fromJson(request.getBody().toString(), Order.class);
+                    String apiResponse = apiDriverService.CompleteOrder(order);
+                    System.out.println(apiResponse);
+                    out.write(apiResponse.getBytes());
+                    json = "";
+                }
+                else if(request.getType().equals("getHistory"))
+                {
+                    System.out.println("Getting history order...");
+                    System.out.println(request.getBody().toString());
+                    Costumer customer =  gson.fromJson(request.getBody().toString(), Costumer.class);
+                    System.out.println(customer.getUsername());
+                    String apiResponse = apiCustomerService.GetOrderHistory(customer.getUsername());
+                    System.out.println(apiResponse);
+                    out.write(apiResponse.getBytes());
+                    json = "";
 
+                }
             }
         }
         catch (Exception e)

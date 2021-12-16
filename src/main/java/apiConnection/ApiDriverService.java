@@ -136,7 +136,7 @@ public class ApiDriverService implements IApiDriverService
         HttpRequest request = HttpRequest.newBuilder()
                 .GET()
                 .header("accept", "application/json")
-                .uri(URI.create(String.format(API_URL_ORDERS + "/GetPendingOrders")))
+                .uri(URI.create(API_URL_ORDERS + "/GetPendingOrders"))
                 .build();
         HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
         System.out.println(response.body().toString());
@@ -152,6 +152,23 @@ public class ApiDriverService implements IApiDriverService
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(API_URL_ORDERS+"/AcceptOrder"))
+                .method("PATCH", HttpRequest.BodyPublishers.ofString(orderJson))
+                .header("Content-Type", "application/json")
+                .build();
+        HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        System.out.println(response.body().toString());
+        JSONObject object = new JSONObject(response.body().toString());
+
+        return String.valueOf(object.getJSONObject("result"));
+    }
+
+    @Override
+    public String CompleteOrder(Order order) throws IOException, InterruptedException
+    {
+        String orderJson = gson.toJson(order);
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(API_URL_ORDERS+"/CompleteOrder"))
                 .method("PATCH", HttpRequest.BodyPublishers.ofString(orderJson))
                 .header("Content-Type", "application/json")
                 .build();
