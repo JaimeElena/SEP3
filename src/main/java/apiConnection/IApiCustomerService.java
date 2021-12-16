@@ -18,4 +18,5 @@ public interface IApiCustomerService
     String GetOrder(int id) throws  IOException, InterruptedException;
     String GetOrderById(int id) throws IOException, InterruptedException;
     String GetOrderHistory(String username) throws  IOException, InterruptedException;
+    String CancelOrder(Order order) throws IOException, InterruptedException;
 }

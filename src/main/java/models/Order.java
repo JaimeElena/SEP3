@@ -6,6 +6,7 @@ public class Order
     private String customerStreetName;
     private String destinationStreetName;
     private String customer;
+
     private String driver;
     private String status;
 

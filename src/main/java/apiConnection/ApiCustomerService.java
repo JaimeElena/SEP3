@@ -181,4 +181,20 @@ public class ApiCustomerService implements IApiCustomerService
         System.out.println(object.toString());
         return response.body().toString();
     }
+
+    @Override
+    public String CancelOrder(Order order) throws IOException, InterruptedException
+    {
+        String orderJson = gson.toJson(order);
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(API_URL_ORDERS+"/CancelOrder"))
+                .method("PATCH", HttpRequest.BodyPublishers.ofString(orderJson))
+                .header("Content-Type", "application/json")
+                .build();
+        HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+        JSONObject object = new JSONObject(response.body().toString());
+        System.out.println(object.toString());
+        return object.getJSONObject("result").toString();
+    }
 }

@@ -175,9 +175,17 @@ public class ClientThread extends Thread
                     out.write(orderResponseJson.getBytes());
                     json = "";
                 }
-                else if(request.getType().equals("cancelOrder"))
+                else if(request.getType().equals("cancelRequest"))
                 {
                     System.out.println("Cancel order processing...");
+                    CustomerOrder customerOrder = gson.fromJson(request.getBody().toString(), CustomerOrder.class);
+                    Order order = parsingService.ParseCustomerOrder(customerOrder, locationService);
+                    String apiResponse = apiCustomerService.CancelOrder(order);
+                    System.out.println(apiResponse);
+                    Order orderResponse = gson.fromJson(apiResponse, Order.class);
+                    System.out.println(orderResponse.getStatus());
+                    out.write(orderResponse.getStatus().getBytes());
+                    json = "";
 
                 }
                 else if(request.getType().equals("finishOrder"))
